@@ -1,1 +1,1 @@
-# Music Manager
+# Music Manager [![CircleCI](https://dl.circleci.com/status-badge/img/gh/bartoszskwara/music-manager/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/bartoszskwara/music-manager/tree/main)
