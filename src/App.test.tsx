@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders app', () => {
     render(<App />);
-    const linkElement = screen.getByText(/Music Manager App/i);
+    const linkElement = screen.getByText(/Music Manager App2/i);
     expect(linkElement).toBeInTheDocument();
 });
