@@ -1,11 +1,6 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
-function App() {
-    return (
-        <div>
-            Music Manager App
-        </div>
-    );
-}
+const App = () => <Box>Music Manager App</Box>;
 
 export default App;
