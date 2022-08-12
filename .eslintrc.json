@@ -4,9 +4,14 @@
         "es2021": true
     },
     "extends": [
+        "react-app",
+        "eslint:recommended",
         "plugin:react/recommended",
-        "airbnb",
-        "airbnb-typescript"
+        "plugin:react-hooks/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:prettier/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -21,11 +26,26 @@
         "react",
         "@typescript-eslint"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
+    },
     "rules": {
-        "indent": ["error", 4],
-        "@typescript-eslint/indent": ["error", 4],
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "prettier/prettier": [
+            "warn",
+            {
+                "tabWidth": 4,
+                "semi": true,
+                "singleQuote": true,
+                "useTabs": false,
+                "bracketSpacing": true,
+                "endOfLine": "auto"
+            }
+        ],
         "import/order": [
             "warn",
             {
