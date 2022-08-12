@@ -12,6 +12,14 @@ declare module '@mui/material/styles' {
     }
 }
 
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        regular: true;
+        medium: true;
+        large: true;
+    }
+}
+
 const makeThemeBasics = (mode: PaletteMode) =>
     createThemeMUI({
         spacing: 10,
@@ -24,8 +32,18 @@ const makeThemeBasics = (mode: PaletteMode) =>
 const makeThemeTypography = (theme: Theme) =>
     createThemeMUI(theme, {
         typography: {
-            fontFamily: 'InterRegular',
-            fontSize: theme.spacing(1.4),
+            regular: {
+                fontFamily: 'InterRegular',
+                fontSize: theme.spacing(1.4),
+            },
+            medium: {
+                fontFamily: 'InterRegular',
+                fontSize: theme.spacing(1.6),
+            },
+            large: {
+                fontFamily: 'InterRegular',
+                fontSize: theme.spacing(2),
+            },
         },
     });
 
