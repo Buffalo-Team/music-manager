@@ -9,15 +9,13 @@ const IconButton = ({ active, children, sx, ...rest }: Props) => (
     <IconButtonMUI
         sx={[
             (theme) => ({
-                ...(active
-                    ? {
-                          background: theme.palette.accent.main,
-                          '&:hover': {
-                              background: theme.palette.accent.main,
-                          },
-                          color: theme.palette.accent.contrastText,
-                      }
-                    : {}),
+                ...(active && {
+                    background: theme.palette.accent.main,
+                    '&:hover': {
+                        background: theme.palette.accent.main,
+                    },
+                    color: theme.palette.accent.contrastText,
+                }),
             }),
             ...(Array.isArray(sx) ? sx : [sx]),
         ]}
