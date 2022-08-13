@@ -1,10 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import Layout from './components/Layout';
 
-const App = () => (
-    <Box>
-        <Typography variant="regular">Music Manager App</Typography>
-    </Box>
-);
+const App = () => <Layout />;
 
 export default App;

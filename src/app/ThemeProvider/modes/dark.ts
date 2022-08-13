@@ -15,6 +15,9 @@ const darkTheme: ThemeType = {
         main: '#418a91',
         contrastText: '#FFFFFF',
     },
+    border: {
+        neutral: '#E8E8E8',
+    },
 };
 
 export default darkTheme;
