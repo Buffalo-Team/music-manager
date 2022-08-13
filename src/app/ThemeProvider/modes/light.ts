@@ -11,6 +11,7 @@ const lightTheme = {
     },
     accent: {
         main: '#3B6064',
+        contrastText: '#FFFFFF',
     },
 };
 

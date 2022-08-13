@@ -13,6 +13,7 @@ const darkTheme: ThemeType = {
     },
     accent: {
         main: '#418a91',
+        contrastText: '#FFFFFF',
     },
 };
 
