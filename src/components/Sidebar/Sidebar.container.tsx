@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { MenuItem } from 'types';
@@ -11,6 +12,19 @@ interface Props {
 
 const SidebarContainer = ({ sx, menuItems }: Props) => {
     const [activePage, setActivePage] = useState<string>(menuItems[0].name);
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        const currentItem = menuItems.find(
+            (i) =>
+                (i.link === '/' && pathname === '/') ||
+                (i.link !== '/' && pathname.startsWith(i.link))
+        );
+        if (currentItem) {
+            setActivePage(currentItem.name);
+        }
+    }, []);
+
     return (
         <SidebarView
             sx={sx}
