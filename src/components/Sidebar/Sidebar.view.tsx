@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Box, SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { MenuItem} from "types";
-import IconButton from '../IconButton';
+import IconButton from 'components/IconButton';
+import { MenuItem } from 'types';
 
 interface Props {
     sx?: SxProps<Theme>;
