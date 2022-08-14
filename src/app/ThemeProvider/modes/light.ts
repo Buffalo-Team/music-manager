@@ -3,7 +3,7 @@ const lightTheme = {
         primary: '#000000',
     },
     background: {
-        primary: '#E8E8E8',
+        primary: '#FFFFFF',
         secondary: '#F9F9F9',
     },
     warning: {
@@ -11,6 +11,10 @@ const lightTheme = {
     },
     accent: {
         main: '#3B6064',
+        contrastText: '#FFFFFF',
+    },
+    border: {
+        neutral: '#E8E8E8',
     },
 };
 
