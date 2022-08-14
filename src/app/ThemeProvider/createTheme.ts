@@ -10,6 +10,9 @@ declare module '@mui/material/styles' {
         primary: string;
         secondary: string;
     }
+    interface TypeText {
+        contrastText: string;
+    }
 }
 
 declare module '@mui/material/Typography' {
