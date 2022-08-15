@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Box, SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import IconButton from 'components/IconButton';
@@ -34,12 +35,14 @@ const SidebarView = ({ sx, activePage, setActivePage, menuItems }: Props) => (
                     key={i.name}
                     sx={{ marginBottom: (theme) => theme.spacing(4) }}
                 >
-                    <IconButton
-                        active={i.name === activePage}
-                        onClick={() => setActivePage(i.name)}
-                    >
-                        {i.IconComponent}
-                    </IconButton>
+                    <NavLink to={i.link}>
+                        <IconButton
+                            active={i.name === activePage}
+                            onClick={() => setActivePage(i.name)}
+                        >
+                            {i.IconComponent}
+                        </IconButton>
+                    </NavLink>
                 </Box>
             ))}
         </Box>

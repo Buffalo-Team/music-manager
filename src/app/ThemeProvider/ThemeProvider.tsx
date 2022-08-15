@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAppSelector } from 'app/store';
 import createTheme from './createTheme';
 
 interface Props {
@@ -10,10 +11,11 @@ interface Props {
 
 const AppThemeProvider = ({ children }: Props) => {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    const themeMode = useAppSelector(({ theme }) => theme.mode);
 
     const theme = useMemo(
-        () => createTheme(prefersDarkMode ? 'dark' : 'light'),
-        [prefersDarkMode]
+        () => createTheme(prefersDarkMode ? 'dark' : themeMode),
+        [themeMode, prefersDarkMode]
     );
 
     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
