@@ -10,6 +10,7 @@ import ProtectedRoute from 'components/ProtectedRoute';
 import Community from 'pages/Community';
 import Devices from 'pages/Devices';
 import Home from 'pages/Home';
+import 'app/translations';
 
 const App = () => (
     <BrowserRouter>

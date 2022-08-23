@@ -6,6 +6,7 @@ import { useLogoutMutation } from 'app/api/apiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
 import { MenuItem } from 'types';
+import { ResponseStatus } from 'types/Response';
 import SidebarView from './Sidebar.view';
 
 interface Props {
@@ -33,7 +34,7 @@ const SidebarContainer = ({ sx, menuItems }: Props) => {
 
     const handleLogout = async () => {
         const response = await logout().unwrap();
-        if (response?.status === 'SUCCESS') {
+        if (response?.status === ResponseStatus.SUCCESS) {
             dispatch(setUser(null));
             navigate('/');
         }

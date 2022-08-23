@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useLoginMutation } from 'app/api/apiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
+import Loader from 'components/Loader';
 
 const Login = () => {
     const dispatch = useAppDispatch();
     const [login, { isLoading }] = useLoginMutation();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const { t } = useTranslation();
 
     const handleLogin = async () => {
         const response = await login({
@@ -46,12 +49,12 @@ const Login = () => {
                     variant="regular"
                     sx={{ marginBottom: (theme) => theme.spacing(2) }}
                 >
-                    Welcome to Music Manager!
+                    {t('LoginWelcome')}
                 </Typography>
                 <TextField
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    label="Email"
+                    label={t('Email')}
                     sx={{
                         marginTop: (theme) => theme.spacing(2),
                         minWidth: (theme) => theme.spacing(25),
@@ -61,7 +64,7 @@ const Login = () => {
                 <TextField
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    label="Password"
+                    label={t('Password')}
                     type="password"
                     autoComplete="current-password"
                     sx={{
@@ -77,7 +80,7 @@ const Login = () => {
                     disabled={isLoading}
                     color="primary"
                 >
-                    {isLoading ? 'Loading....' : 'LOGIN'}
+                    {isLoading ? <Loader /> : t('Login').toUpperCase()}
                 </Button>
             </Paper>
         </Box>
