@@ -3,6 +3,7 @@ import { ThemeType } from './ThemeType';
 const darkTheme: ThemeType = {
     text: {
         primary: '#FFFFFF',
+        secondary: '#e0e0e0',
     },
     background: {
         primary: '#1a1a1a',

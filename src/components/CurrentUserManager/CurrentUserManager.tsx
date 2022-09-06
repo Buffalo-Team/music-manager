@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetCurrentUserDataQuery } from 'app/api/apiSlice';
+import { useGetCurrentUserDataQuery } from 'app/api/usersApiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
 

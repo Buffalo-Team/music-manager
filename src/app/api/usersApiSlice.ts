@@ -3,11 +3,14 @@ import { User, LoginResponse, Response } from 'types';
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-export const apiSlice = createApi({
+export const usersApiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl, credentials: 'include' }),
     endpoints: (builder) => ({
-        getCurrentUserData: builder.query<User, void>({
+        getCurrentUserData: builder.query<
+            { user: User | null } & Response,
+            void
+        >({
             query: () => '/users/me',
         }),
         login: builder.mutation<
@@ -36,4 +39,4 @@ export const {
     useGetCurrentUserDataQuery,
     useLoginMutation,
     useLogoutMutation,
-} = apiSlice;
+} = usersApiSlice;

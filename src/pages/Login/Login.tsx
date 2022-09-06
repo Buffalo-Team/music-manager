@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { useLoginMutation } from 'app/api/apiSlice';
+import { useLoginMutation } from 'app/api/usersApiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
 import Loader from 'components/Loader';
