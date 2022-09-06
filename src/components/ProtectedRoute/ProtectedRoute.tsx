@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetCurrentUserDataQuery } from 'app/api/apiSlice';
+import { useGetCurrentUserDataQuery } from 'app/api/usersApiSlice';
 import { useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
 import Login from 'pages/Login';

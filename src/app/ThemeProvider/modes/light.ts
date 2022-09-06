@@ -1,6 +1,7 @@
 const lightTheme = {
     text: {
         primary: '#000000',
+        disabled: '#e0e0e0',
     },
     background: {
         primary: '#FFFFFF',

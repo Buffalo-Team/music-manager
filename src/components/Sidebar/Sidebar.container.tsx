@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { useLogoutMutation } from 'app/api/apiSlice';
+import { useLogoutMutation } from 'app/api/usersApiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
-import { MenuItem } from 'types';
-import { ResponseStatus } from 'types/Response';
+import { MenuItem, ResponseStatus } from 'types';
 import SidebarView from './Sidebar.view';
 
 interface Props {
