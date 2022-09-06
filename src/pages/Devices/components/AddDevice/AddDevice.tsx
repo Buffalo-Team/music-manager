@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Box } from '@mui/material';
 import { useAddDeviceMutation } from 'app/api/devicesApiSlice';
-import { useAppDispatch } from 'app/store';
-import { addDevice } from 'app/User/userSlice';
 import AddDeviceModal from 'pages/Devices/components/AddDevice/AddDeviceModal';
 import { ResponseStatus } from 'types';
 import Values from './Values';
 
-const AddDevice = () => {
-    const dispatch = useAppDispatch();
+interface Props {
+    onAdd: () => void;
+}
+
+const AddDevice = ({ onAdd }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
     const { t } = useTranslation();
     const [requestAddDevice, { isLoading, isSuccess }] = useAddDeviceMutation();
@@ -20,7 +21,7 @@ const AddDevice = () => {
     const handleSubmit = async (values: Values) => {
         const response = await requestAddDevice(values).unwrap();
         if (response?.status === ResponseStatus.SUCCESS) {
-            dispatch(addDevice(response.device));
+            onAdd();
         }
         //TODO: show error snackbar
     };

@@ -16,17 +16,9 @@ const { actions, reducer } = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
-        addDevice: (state, action) => {
-            if (state.user) {
-                state.user.devices = [
-                    ...(state.user.devices || []),
-                    action.payload,
-                ];
-            }
-        },
     },
 });
 
-export const { setUser, addDevice } = actions;
+export const { setUser } = actions;
 
 export default reducer;
