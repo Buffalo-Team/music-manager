@@ -27,7 +27,13 @@ export const devicesApiSlice = createApi({
         getAllDevices: builder.query<{ devices: Device[] } & Response, void>({
             query: () => '',
         }),
+        deleteDevice: builder.mutation<Response, { id: string }>({
+            query: ({ id }) => ({
+                url: `/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
-export const { useAddDeviceMutation, useGetAllDevicesQuery } = devicesApiSlice;
+export const { useAddDeviceMutation, useGetAllDevicesQuery, useDeleteDeviceMutation } = devicesApiSlice;

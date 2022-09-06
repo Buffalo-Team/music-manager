@@ -1,16 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useGetAllDevicesQuery } from 'app/api/devicesApiSlice';
 import { useAppDispatch, useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
+import ActionPanel from 'pages/Devices/components/ActionPanel';
 import DevicesList from 'pages/Devices/components/DevicesList';
-import { ResponseStatus } from 'types';
+import { Device, ResponseStatus } from 'types';
 import AddDevice from './components/AddDevice';
 import { setDevices } from './store/devicesSlice';
 
 const Devices = () => {
     const dispatch = useAppDispatch();
     const devices = useAppSelector(({ devices }) => devices);
+    const [activeDevice, setActiveDevice] = useState<Device | null>(null);
     const {
         data: devicesResponse,
         isFetching,
@@ -29,8 +31,16 @@ const Devices = () => {
         }
     }, [devicesResponse, isFetching, isSuccess]);
 
-    const handleAdd = () => {
+    const handleRefetch = () => {
         refetch();
+    };
+
+    const handleActionPanelClose = () => {
+        setActiveDevice(null);
+    };
+
+    const handleDeviceClick = (device: Device) => {
+        setActiveDevice(device);
     };
 
     return (
@@ -42,9 +52,21 @@ const Devices = () => {
                 padding: (theme) => theme.spacing(2),
             }}
         >
-            <AddDevice onAdd={handleAdd} />
+            <AddDevice onAdd={handleRefetch} />
             {isLoading && <Loader />}
-            {!!devices.length && <DevicesList devices={devices} />}
+            {!!devices.length && (
+                <DevicesList
+                    devices={devices}
+                    activeDevice={activeDevice}
+                    onDeviceClick={handleDeviceClick}
+                />
+            )}
+            <ActionPanel
+                device={activeDevice}
+                onClose={handleActionPanelClose}
+                onDelete={handleRefetch}
+                onDownload={handleRefetch}
+            />
         </Box>
     );
 };

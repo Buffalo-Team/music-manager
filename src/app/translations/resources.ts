@@ -17,6 +17,8 @@ const resources = {
             SizeMin: 'Size should be greater than 0',
             MB: 'MB',
             NewFilesToDownload: '{{count}} new files to download',
+            DownloadMissingFiles: 'Download missing files',
+            DeleteDevice: 'Delete the device',
         },
     },
     pl: {
@@ -37,6 +39,8 @@ const resources = {
             SizeMin: 'Rozmiar powinien być większy niż 0',
             MB: 'MB',
             NewFilesToDownload: '{{count}} nowych plików do pobrania',
+            DownloadMissingFiles: 'Pobierz brakujące pliki',
+            DeleteDevice: 'Usuń urządzenie',
         },
     },
 };

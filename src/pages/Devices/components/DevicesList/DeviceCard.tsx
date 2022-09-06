@@ -1,22 +1,22 @@
-import { useTranslation } from 'react-i18next';
-import { Box, Paper, Typography } from '@mui/material';
-import deviceIcons from 'pages/Devices/components/DeviceIcons';
-import DeviceCapacity from 'pages/Devices/components/DevicesList/DeviceCapacity';
+import { Box, Paper } from '@mui/material';
+import DeviceCapacity from 'pages/Devices/components/DeviceCapacity';
+import DeviceHeader from 'pages/Devices/components/DeviceHeader';
+import MissingFilesWarning from 'pages/Devices/components/MissingFilesWarning';
 import { Device } from 'types';
 
 interface Props {
     device: Device;
+    onClick: (device: Device) => void;
+    active: boolean;
 }
 
-const DeviceCard = ({
-    device: { type, name, allocatedMegabytes, capacityMegabytes, missingFiles },
-}: Props) => {
-    const { t } = useTranslation();
-    const IconComponent = deviceIcons[type] || deviceIcons.unknown;
+const DeviceCard = ({ device, onClick, active }: Props) => {
+    const { type, name, allocatedMegabytes, capacityMegabytes, missingFiles } =
+        device;
     return (
         <Paper
             elevation={0}
-            sx={{
+            sx={(theme) => ({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -24,41 +24,21 @@ const DeviceCard = ({
                 paddingX: 2,
                 height: '100%',
                 boxSizing: 'border-box',
-            }}
+                cursor: 'pointer',
+                '&:hover': {
+                    border: `1px solid ${theme.palette.primary.main}`,
+                },
+                ...(active
+                    ? {
+                          border: `1px solid ${theme.palette.primary.main}`,
+                      }
+                    : {}),
+            })}
+            onClick={() => onClick(device)}
         >
             <Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    <IconComponent
-                        sx={{
-                            color: (theme) => theme.palette.text.secondary,
-                            width: (theme) => theme.spacing(4),
-                            height: (theme) => theme.spacing(4),
-                        }}
-                    />
-                    <Typography sx={{ marginLeft: 2 }} variant="large">
-                        {name}
-                    </Typography>
-                </Box>
-                {!!missingFiles?.length && (
-                    <Typography
-                        sx={{
-                            margin: 0,
-                            marginTop: 1,
-                            color: (theme) => theme.palette.warning.main,
-                        }}
-                        variant="regular"
-                        component="p"
-                    >
-                        {t('NewFilesToDownload', {
-                            count: missingFiles.length,
-                        })}
-                    </Typography>
-                )}
+                <DeviceHeader type={type} name={name} />
+                <MissingFilesWarning missingFiles={missingFiles} />
             </Box>
             <DeviceCapacity
                 allocatedMegabytes={allocatedMegabytes}

@@ -4,13 +4,15 @@ import { Device } from 'types';
 
 interface Props {
     devices: Device[];
+    activeDevice: Device | null;
+    onDeviceClick: (device: Device) => void;
 }
 
 const sort = (d1: Device, d2: Device): number =>
     new Date(d2?.updatedAt || 0).getTime() -
     new Date(d1?.updatedAt || 0).getTime();
 
-const DevicesList = ({ devices }: Props) => (
+const DevicesList = ({ devices, activeDevice, onDeviceClick }: Props) => (
     <Box
         component="ul"
         sx={(theme) => ({
@@ -18,6 +20,7 @@ const DevicesList = ({ devices }: Props) => (
             margin: 0,
             marginTop: 2,
             display: 'grid',
+            gridAutoRows: '1fr',
             [theme.breakpoints.down('md')]: {
                 gridTemplateColumns: '1fr',
             },
@@ -32,7 +35,11 @@ const DevicesList = ({ devices }: Props) => (
     >
         {[...devices].sort(sort).map((device) => (
             <Box key={device.id} component="li" sx={{ listStyleType: 'none' }}>
-                <DeviceCard device={device} />
+                <DeviceCard
+                    device={device}
+                    onClick={onDeviceClick}
+                    active={device.id === activeDevice?.id}
+                />
             </Box>
         ))}
     </Box>
