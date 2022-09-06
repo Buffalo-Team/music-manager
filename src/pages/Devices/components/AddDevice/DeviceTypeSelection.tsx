@@ -1,9 +1,6 @@
 import React from 'react';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import LaptopIcon from '@mui/icons-material/Laptop';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import WatchIcon from '@mui/icons-material/Watch';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import deviceIcons from 'pages/Devices/components/DeviceIcons';
 import { DeviceType } from 'types';
 
 interface Props {
@@ -27,18 +24,13 @@ const DeviceTypeSelection = ({ value, onSelect }: Props) => (
             marginBottom: 2,
         }}
     >
-        <ToggleButton value={DeviceType.CAR} aria-label="car">
-            <DirectionsCarIcon />
-        </ToggleButton>
-        <ToggleButton value={DeviceType.MOBILE} aria-label="mobile">
-            <PhoneAndroidIcon />
-        </ToggleButton>
-        <ToggleButton value={DeviceType.PC} aria-label="pc">
-            <LaptopIcon />
-        </ToggleButton>
-        <ToggleButton value={DeviceType.WATCH} aria-label="watch">
-            <WatchIcon />
-        </ToggleButton>
+        {Object.entries(deviceIcons)
+            .filter(([key]) => key !== 'unknown')
+            .map(([key, IconComponent]) => (
+                <ToggleButton key={key} value={key} aria-label={key}>
+                    <IconComponent />
+                </ToggleButton>
+            ))}
     </ToggleButtonGroup>
 );
 

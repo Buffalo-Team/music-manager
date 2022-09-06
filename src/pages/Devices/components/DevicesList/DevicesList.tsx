@@ -1,3 +1,5 @@
+import { Box } from '@mui/material';
+import DeviceCard from 'pages/Devices/components/DevicesList/DeviceCard';
 import { Device } from 'types';
 
 interface Props {
@@ -9,11 +11,31 @@ const sort = (d1: Device, d2: Device): number =>
     new Date(d1?.updatedAt || 0).getTime();
 
 const DevicesList = ({ devices }: Props) => (
-    <ul>
-        {[...devices].sort(sort).map((i) => (
-            <li key={i.id}>{i.name}</li>
+    <Box
+        component="ul"
+        sx={(theme) => ({
+            padding: 0,
+            margin: 0,
+            marginTop: 2,
+            display: 'grid',
+            [theme.breakpoints.down('md')]: {
+                gridTemplateColumns: '1fr',
+            },
+            [theme.breakpoints.up('md')]: {
+                gridTemplateColumns: '1fr 1fr',
+            },
+            [theme.breakpoints.up('lg')]: {
+                gridTemplateColumns: '1fr 1fr 1fr',
+            },
+            gap: 2,
+        })}
+    >
+        {[...devices].sort(sort).map((device) => (
+            <Box key={device.id} component="li" sx={{ listStyleType: 'none' }}>
+                <DeviceCard device={device} />
+            </Box>
         ))}
-    </ul>
+    </Box>
 );
 
 export default DevicesList;

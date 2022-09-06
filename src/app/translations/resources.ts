@@ -16,6 +16,7 @@ const resources = {
             FieldRequired: 'The field is required',
             SizeMin: 'Size should be greater than 0',
             MB: 'MB',
+            NewFilesToDownload: '{{count}} new files to download',
         },
     },
     pl: {
@@ -35,6 +36,7 @@ const resources = {
             FieldRequired: 'Pole jest wymagane',
             SizeMin: 'Rozmiar powinien być większy niż 0',
             MB: 'MB',
+            NewFilesToDownload: '{{count}} nowych plików do pobrania',
         },
     },
 };

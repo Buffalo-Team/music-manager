@@ -91,8 +91,23 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                             color: theme.palette.primary.contrastText,
                             '&:hover': {
                                 background: theme.palette.primary.main,
-                            }
+                            },
                         },
+                    },
+                },
+            },
+            MuiPaper: {
+                styleOverrides: {
+                    elevation0: {
+                        border: `1px solid ${theme.palette.border.neutral}`,
+                    },
+                },
+            },
+            MuiLinearProgress: {
+                styleOverrides: {
+                    root: {
+                        height: '14px',
+                        borderRadius: '5px',
                     },
                 },
             },
