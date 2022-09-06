@@ -11,7 +11,7 @@ const darkTheme: ThemeType = {
     warning: {
         main: '#E95858',
     },
-    accent: {
+    primary: {
         main: '#418a91',
         contrastText: '#FFFFFF',
     },

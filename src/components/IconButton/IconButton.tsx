@@ -10,11 +10,11 @@ const IconButton = ({ active, children, sx, ...rest }: Props) => (
         sx={[
             (theme) => ({
                 ...(active && {
-                    background: theme.palette.accent.main,
+                    background: theme.palette.primary.main,
                     '&:hover': {
-                        background: theme.palette.accent.main,
+                        background: theme.palette.primary.main,
                     },
-                    color: theme.palette.accent.contrastText,
+                    color: theme.palette.primary.contrastText,
                 }),
             }),
             ...(Array.isArray(sx) ? sx : [sx]),

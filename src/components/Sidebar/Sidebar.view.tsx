@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Box, SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import IconButton from 'components/IconButton';
@@ -10,17 +11,26 @@ interface Props {
     activePage: string;
     setActivePage: Dispatch<SetStateAction<string>>;
     menuItems: MenuItem[];
+    logout: () => void;
 }
 
-const SidebarView = ({ sx, activePage, setActivePage, menuItems }: Props) => (
+const SidebarView = ({
+    sx,
+    activePage,
+    setActivePage,
+    menuItems,
+    logout,
+}: Props) => (
     <Box
         sx={[
             (theme) => ({
                 background: theme.palette.background.primary,
-                paddingTop: theme.spacing(2),
-                paddingLeft: theme.spacing(1.5),
-                paddingRight: theme.spacing(1.5),
+                paddingY: theme.spacing(2),
+                paddingX: theme.spacing(1.5),
                 borderRight: `1px solid ${theme.palette.border.neutral}`,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
             }),
             ...(Array.isArray(sx) ? sx : [sx]),
         ]}
@@ -46,6 +56,9 @@ const SidebarView = ({ sx, activePage, setActivePage, menuItems }: Props) => (
                 </Box>
             ))}
         </Box>
+        <IconButton onClick={logout}>
+            <LogoutIcon />
+        </IconButton>
     </Box>
 );
 

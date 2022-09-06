@@ -9,7 +9,7 @@ const lightTheme = {
     warning: {
         main: '#E95858',
     },
-    accent: {
+    primary: {
         main: '#3B6064',
         contrastText: '#FFFFFF',
     },
