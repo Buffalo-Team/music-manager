@@ -2,11 +2,11 @@ import React from 'react';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, InputAdornment } from '@mui/material';
+import FormInputField from 'components/FormInputField';
 import Loader from 'components/Loader';
 import Modal from 'components/Modal';
 import DeviceTypeSelection from 'pages/Devices/components/AddDevice/DeviceTypeSelection';
 import FormStaticConfig from 'pages/Devices/components/AddDevice/FormStaticConfig';
-import InputField from 'pages/Devices/components/AddDevice/InputField';
 import Values from './Values';
 
 interface Props {
@@ -41,12 +41,12 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                             value={values.type}
                             onSelect={(type) => setFieldValue('type', type)}
                         />
-                        <InputField
+                        <FormInputField
                             name="name"
                             touched={touched.name}
                             placeholder={t('Name')}
                         />
-                        <InputField
+                        <FormInputField
                             name="capacityMegabytes"
                             touched={touched.capacityMegabytes}
                             placeholder={t('MemorySize')}

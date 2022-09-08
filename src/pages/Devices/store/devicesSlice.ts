@@ -7,6 +7,7 @@ const { actions, reducer } = createSlice({
     name: 'devices',
     initialState,
     reducers: {
+        clearDevices: () => initialState,
         setDevices: (state, action) => {
             return action.payload;
         },
@@ -16,6 +17,6 @@ const { actions, reducer } = createSlice({
     },
 });
 
-export const { setDevices, addDevice } = actions;
+export const { clearDevices, setDevices, addDevice } = actions;
 
 export default reducer;

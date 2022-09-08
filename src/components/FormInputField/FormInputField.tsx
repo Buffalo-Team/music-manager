@@ -6,9 +6,9 @@ import {
     FieldProps,
 } from 'formik';
 import { Box, TextField } from '@mui/material';
-import ErrorMessage from 'pages/Devices/components/AddDevice/ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
-const InputField = ({
+const FormInputField = ({
     name,
     touched,
     inputProps,
@@ -34,4 +34,4 @@ const InputField = ({
     </Box>
 );
 
-export default InputField;
+export default FormInputField;

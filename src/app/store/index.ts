@@ -1,6 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { usersApiSlice, devicesApiSlice } from 'app/api';
+import api from 'app/api';
 import themeReducer from 'app/ThemeProvider/themeSlice';
 import userReducer from 'app/User/userSlice';
 import devicesReducer from 'pages/Devices/store/devicesSlice';
@@ -10,13 +10,10 @@ export const store = configureStore({
         theme: themeReducer,
         user: userReducer,
         devices: devicesReducer,
-        [usersApiSlice.reducerPath]: usersApiSlice.reducer,
-        [devicesApiSlice.reducerPath]: devicesApiSlice.reducer,
+        [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware()
-            .concat(usersApiSlice.middleware)
-            .concat(devicesApiSlice.middleware),
+        getDefaultMiddleware().concat(api.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
