@@ -39,7 +39,7 @@ const AddDevice = ({ onAdd }: Props) => {
                 variant="contained"
                 onClick={handleOpenModal}
             >
-                {t('AddDevice')}
+                {t('devices.addDevice')}
             </Button>
             <AddDeviceModal
                 open={open}

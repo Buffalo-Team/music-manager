@@ -32,14 +32,14 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             id="email"
                             name="email"
                             touched={touched.email}
-                            label={t('Email')}
+                            label={t('login.email')}
                             fullWidth
                         />
                         <FormInputField
                             id="password"
                             name="password"
                             touched={touched.password}
-                            label={t('Password')}
+                            label={t('login.password')}
                             type="password"
                         />
                         <Button
@@ -48,7 +48,7 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             variant="contained"
                             disabled={isLoading || !isValid}
                         >
-                            {isLoading ? <Loader /> : t('SignIn').toUpperCase()}
+                            {isLoading ? <Loader /> : t('login.signIn').toUpperCase()}
                         </Button>
                         <Typography
                             variant="small"
@@ -57,7 +57,7 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                                 color: (theme) => theme.palette.text.secondary,
                             }}
                         >
-                            {t('ForgotPassword')}
+                            {t('login.forgotPassword')}
                         </Typography>
                     </Box>
                 )}

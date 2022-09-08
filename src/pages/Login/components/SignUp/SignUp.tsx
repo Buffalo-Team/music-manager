@@ -31,13 +31,13 @@ const SignUp = ({ onSubmit, isLoading }: Props) => {
                         <FormInputField
                             name="name"
                             touched={touched.name}
-                            label={t('UserName')}
+                            label={t('login.name')}
                             fullWidth
                         />
                         <FormInputField
                             name="surname"
                             touched={touched.surname}
-                            label={t('Surname')}
+                            label={t('login.surname')}
                             fullWidth
                         />
                         <FormInputField
@@ -49,13 +49,13 @@ const SignUp = ({ onSubmit, isLoading }: Props) => {
                         <FormInputField
                             name="password"
                             touched={touched.password}
-                            label={t('Password')}
+                            label={t('login.password')}
                             type="password"
                         />
                         <FormInputField
                             name="passwordConfirm"
                             touched={touched.passwordConfirm}
-                            label={t('ConfirmPassword')}
+                            label={t('login.confirmPassword')}
                             type="password"
                         />
                         <Button
@@ -64,7 +64,7 @@ const SignUp = ({ onSubmit, isLoading }: Props) => {
                             variant="contained"
                             disabled={isLoading || !isValid}
                         >
-                            {isLoading ? <Loader /> : t('SignUp').toUpperCase()}
+                            {isLoading ? <Loader /> : t('login.signUp').toUpperCase()}
                         </Button>
                     </Box>
                 )}

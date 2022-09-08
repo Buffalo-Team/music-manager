@@ -19,7 +19,7 @@ const MissingFilesWarning = ({ missingFiles }: Props) => {
                     variant="regular"
                     component="p"
                 >
-                    {t('NewFilesToDownload', {
+                    {t('devices.newFilesToDownload', {
                         count: missingFiles.length,
                     })}
                 </Typography>

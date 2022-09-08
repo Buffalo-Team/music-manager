@@ -19,7 +19,7 @@ interface Props {
 const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
     const { t } = useTranslation();
     return (
-        <Modal open={open} onClose={onClose} title={t('NewDevice')}>
+        <Modal open={open} onClose={onClose} title={t('devices.newDevice')}>
             <Formik<Values> {...FormStaticConfig} onSubmit={onSubmit}>
                 {({
                     values,
@@ -44,12 +44,12 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                         <FormInputField
                             name="name"
                             touched={touched.name}
-                            placeholder={t('Name')}
+                            placeholder={t('devices.name')}
                         />
                         <FormInputField
                             name="capacityMegabytes"
                             touched={touched.capacityMegabytes}
-                            placeholder={t('MemorySize')}
+                            placeholder={t('devices.memorySize')}
                             type="number"
                             min="1"
                             InputProps={{
@@ -67,7 +67,7 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                             disabled={isLoading || !isValid}
                             sx={{ marginTop: 1 }}
                         >
-                            {isLoading ? <Loader /> : t('Add').toUpperCase()}
+                            {isLoading ? <Loader /> : t('devices.add').toUpperCase()}
                         </Button>
                     </Box>
                 )}

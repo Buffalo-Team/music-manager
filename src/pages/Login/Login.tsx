@@ -60,7 +60,7 @@ const Login = () => {
                     variant="regular"
                     sx={{ marginBottom: (theme) => theme.spacing(2) }}
                 >
-                    {t('LoginWelcome')}
+                    {t('login.welcome')}
                 </Typography>
                 {mode === PageMode.SIGN_IN && (
                     <SignIn

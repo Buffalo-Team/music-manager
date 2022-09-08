@@ -22,7 +22,7 @@ const ModesNavigation = ({ mode, onSignInClick, onSignUpClick }: Props) => {
         >
             <Trans
                 t={t}
-                i18nKey={isSignIn ? 'DontHaveAccount' : 'AlreadyHaveAccount'}
+                i18nKey={isSignIn ? 'login.dontHaveAccount' : 'login.alreadyHaveAccount'}
                 components={[
                     <Box
                         component="span"

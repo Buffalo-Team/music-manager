@@ -77,7 +77,7 @@ const ActionPanelContent = ({
                     disabled={!missingFiles.length}
                     fullWidth
                 >
-                    {t('DownloadMissingFiles')}
+                    {t('devices.downloadMissingFiles')}
                 </Button>
             </Box>
             <Button
@@ -87,7 +87,7 @@ const ActionPanelContent = ({
                 fullWidth
                 disabled={isLoading}
             >
-                {isLoading ? <Loader /> : t('DeleteDevice')}
+                {isLoading ? <Loader /> : t('devices.deleteDevice')}
             </Button>
         </Box>
     );
