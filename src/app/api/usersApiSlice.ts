@@ -1,11 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { User, LoginResponse, Response } from 'types';
+import { User, LoginResponse, Response, SignInData, SignUpData } from 'types';
+import { emptySplitApi } from './emptySplitApi';
 
-const baseUrl = process.env.REACT_APP_BASE_API_URL;
-
-export const usersApiSlice = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl, credentials: 'include' }),
+export const usersApiSlice = emptySplitApi.injectEndpoints({
     endpoints: (builder) => ({
         getCurrentUserData: builder.query<
             { user: User | null } & Response,
@@ -13,23 +9,24 @@ export const usersApiSlice = createApi({
         >({
             query: () => '/users/me',
         }),
-        login: builder.mutation<
-            LoginResponse,
-            { email: string; password: string }
-        >({
-            query: ({ email, password }) => ({
+        login: builder.mutation<LoginResponse, SignInData>({
+            query: (body) => ({
                 url: '/users/login',
                 method: 'POST',
-                body: {
-                    email,
-                    password,
-                },
+                body,
             }),
         }),
         logout: builder.mutation<Response, void>({
             query: () => ({
                 url: '/users/logout',
                 method: 'POST',
+            }),
+        }),
+        signUp: builder.mutation<LoginResponse, SignUpData>({
+            query: (body) => ({
+                url: '/users/signup',
+                method: 'POST',
+                body,
             }),
         }),
     }),
@@ -39,4 +36,5 @@ export const {
     useGetCurrentUserDataQuery,
     useLoginMutation,
     useLogoutMutation,
+    useSignUpMutation,
 } = usersApiSlice;

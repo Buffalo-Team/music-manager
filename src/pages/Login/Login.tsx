@@ -1,30 +1,41 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { useLoginMutation } from 'app/api/usersApiSlice';
+import { Box, Paper, Typography } from '@mui/material';
+import { useLoginMutation, useSignUpMutation } from 'app/api/usersApiSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
-import Loader from 'components/Loader';
+import ModesNavigation from 'pages/Login/components/ModesNavigation';
+import SignUp from 'pages/Login/components/SignUp';
+import { ResponseStatus, SignInData, SignUpData } from 'types';
+import SignIn from './components/SignIn';
+import PageMode from './PageMode';
 
 const Login = () => {
     const dispatch = useAppDispatch();
-    const [login, { isLoading }] = useLoginMutation();
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [mode, setMode] = useState<PageMode>(PageMode.SIGN_IN);
+    const [login, { isLoading: isSignInLoading }] = useLoginMutation();
+    const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
     const { t } = useTranslation();
 
-    const handleLogin = async () => {
-        const response = await login({
-            email,
-            password,
-        }).unwrap();
-        dispatch(setUser(response.user));
+    const handleSignIn = async (data: SignInData) => {
+        const response = await login(data).unwrap();
+        if (response.status === ResponseStatus.SUCCESS) {
+            dispatch(setUser(response.user));
+        }
+    };
+
+    const handleSignUp = async (data: SignUpData) => {
+        const response = await signUp(data).unwrap();
+        if (response.status === ResponseStatus.SUCCESS) {
+            dispatch(setUser(response.user));
+        }
     };
 
     return (
         <Box
             sx={{
                 display: 'flex',
+                flexDirection: 'column',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -49,40 +60,26 @@ const Login = () => {
                     variant="regular"
                     sx={{ marginBottom: (theme) => theme.spacing(2) }}
                 >
-                    {t('LoginWelcome')}
+                    {t('login.welcome')}
                 </Typography>
-                <TextField
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    label={t('Email')}
-                    sx={{
-                        marginTop: (theme) => theme.spacing(2),
-                        minWidth: (theme) => theme.spacing(25),
-                    }}
-                    disabled={isLoading}
-                />
-                <TextField
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    label={t('Password')}
-                    type="password"
-                    autoComplete="current-password"
-                    sx={{
-                        marginTop: (theme) => theme.spacing(2),
-                        minWidth: (theme) => theme.spacing(25),
-                    }}
-                    disabled={isLoading}
-                />
-                <Button
-                    variant="contained"
-                    onClick={handleLogin}
-                    sx={{ marginTop: (theme) => theme.spacing(2) }}
-                    disabled={isLoading}
-                    color="primary"
-                >
-                    {isLoading ? <Loader /> : t('Login').toUpperCase()}
-                </Button>
+                {mode === PageMode.SIGN_IN && (
+                    <SignIn
+                        onSubmit={handleSignIn}
+                        isLoading={isSignInLoading}
+                    />
+                )}
+                {mode === PageMode.SIGN_UP && (
+                    <SignUp
+                        onSubmit={handleSignUp}
+                        isLoading={isSignUpLoading}
+                    />
+                )}
             </Paper>
+            <ModesNavigation
+                mode={mode}
+                onSignInClick={() => setMode(PageMode.SIGN_IN)}
+                onSignUpClick={() => setMode(PageMode.SIGN_UP)}
+            />
         </Box>
     );
 };

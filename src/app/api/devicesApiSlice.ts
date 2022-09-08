@@ -1,21 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Response, Device } from 'types';
+import { emptySplitApi } from './emptySplitApi';
 
-const baseUrl = process.env.REACT_APP_BASE_API_URL;
-
-export const devicesApiSlice = createApi({
-    reducerPath: 'devices-api',
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${baseUrl}/devices`,
-        credentials: 'include',
-    }),
+export const devicesApiSlice = emptySplitApi.injectEndpoints({
     endpoints: (builder) => ({
         addDevice: builder.mutation<
             { device: Device } & Response,
             { name: string; type: string; capacityMegabytes: string }
         >({
             query: ({ name, type, capacityMegabytes }) => ({
-                url: '',
+                url: '/devices',
                 method: 'POST',
                 body: {
                     name,
@@ -25,15 +18,19 @@ export const devicesApiSlice = createApi({
             }),
         }),
         getAllDevices: builder.query<{ devices: Device[] } & Response, void>({
-            query: () => '',
+            query: () => '/devices',
         }),
         deleteDevice: builder.mutation<Response, { id: string }>({
             query: ({ id }) => ({
-                url: `/${id}`,
+                url: `/devices/${id}`,
                 method: 'DELETE',
             }),
         }),
     }),
 });
 
-export const { useAddDeviceMutation, useGetAllDevicesQuery, useDeleteDeviceMutation } = devicesApiSlice;
+export const {
+    useAddDeviceMutation,
+    useGetAllDevicesQuery,
+    useDeleteDeviceMutation,
+} = devicesApiSlice;

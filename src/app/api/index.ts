@@ -1,2 +1,1 @@
-export { devicesApiSlice } from './devicesApiSlice';
-export { usersApiSlice } from './usersApiSlice';
+export { emptySplitApi as default } from './emptySplitApi';
