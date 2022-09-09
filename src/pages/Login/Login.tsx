@@ -90,7 +90,7 @@ const Login = () => {
                     paddingX: (theme) => theme.spacing(5),
                     borderRadius: '5px',
                     border: (theme) =>
-                        `1px solid ${theme.palette.border.neutral}`,
+                        `1px solid ${theme.palette.border?.neutral}`,
                 }}
             >
                 <Typography

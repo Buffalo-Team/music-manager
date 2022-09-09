@@ -27,7 +27,7 @@ const SidebarView = ({
                 background: theme.palette.background.primary,
                 paddingY: theme.spacing(2),
                 paddingX: theme.spacing(1.5),
-                borderRight: `1px solid ${theme.palette.border.neutral}`,
+                borderRight: `1px solid ${theme.palette.border?.neutral}`,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
