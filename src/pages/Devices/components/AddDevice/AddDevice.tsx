@@ -8,9 +8,10 @@ import Values from './Values';
 
 interface Props {
     onAdd: () => void;
+    onError: () => void;
 }
 
-const AddDevice = ({ onAdd }: Props) => {
+const AddDevice = ({ onAdd, onError }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
     const { t } = useTranslation();
     const [requestAddDevice, { isLoading, isSuccess }] = useAddDeviceMutation();
@@ -19,11 +20,16 @@ const AddDevice = ({ onAdd }: Props) => {
     const handleCloseModal = () => setOpen(false);
 
     const handleSubmit = async (values: Values) => {
-        const response = await requestAddDevice(values).unwrap();
-        if (response?.status === ResponseStatus.SUCCESS) {
-            onAdd();
+        try {
+            const response = await requestAddDevice(values).unwrap();
+            if (response?.status === ResponseStatus.SUCCESS) {
+                onAdd();
+            } else {
+                onError();
+            }
+        } catch (error) {
+            onError();
         }
-        //TODO: show error snackbar
     };
 
     useEffect(() => {

@@ -8,7 +8,7 @@ interface Props {
 const ErrorMessage = ({ children }: Props) => (
     <Typography
         sx={{
-            color: (theme) => theme.palette.warning.main,
+            color: (theme) => theme.palette.error.main,
             marginBottom: (theme) => theme.spacing(0.5),
         }}
         variant="small"

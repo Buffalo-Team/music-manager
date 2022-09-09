@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Box, Paper, Typography } from '@mui/material';
 import { useLoginMutation, useSignUpMutation } from 'app/api/usersApiSlice';
+import { openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
 import ModesNavigation from 'pages/Login/components/ModesNavigation';
@@ -17,17 +19,52 @@ const Login = () => {
     const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
     const { t } = useTranslation();
 
-    const handleSignIn = async (data: SignInData) => {
-        const response = await login(data).unwrap();
-        if (response.status === ResponseStatus.SUCCESS) {
-            dispatch(setUser(response.user));
+    const onSignInError = () => {
+        dispatch(
+            openSnackbar({
+                content: t('login.signInFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
+    const onSignUpError = () => {
+        dispatch(
+            openSnackbar({
+                content: t('login.signUpFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
+    const handleSignIn = async (
+        data: SignInData,
+        { resetForm }: FormikHelpers<SignInData>
+    ) => {
+        try {
+            const response = await login(data).unwrap();
+            if (response.status === ResponseStatus.SUCCESS) {
+                dispatch(setUser(response.user));
+            } else {
+                onSignInError();
+            }
+        } catch (error) {
+            onSignInError();
+        } finally {
+            resetForm();
         }
     };
 
     const handleSignUp = async (data: SignUpData) => {
-        const response = await signUp(data).unwrap();
-        if (response.status === ResponseStatus.SUCCESS) {
-            dispatch(setUser(response.user));
+        try {
+            const response = await signUp(data).unwrap();
+            if (response.status === ResponseStatus.SUCCESS) {
+                dispatch(setUser(response.user));
+            } else {
+                onSignUpError();
+            }
+        } catch (error) {
+            onSignUpError();
         }
     };
 

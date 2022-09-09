@@ -67,7 +67,11 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                             disabled={isLoading || !isValid}
                             sx={{ marginTop: 1 }}
                         >
-                            {isLoading ? <Loader /> : t('devices.add').toUpperCase()}
+                            {isLoading ? (
+                                <Loader />
+                            ) : (
+                                t('devices.add').toUpperCase()
+                            )}
                         </Button>
                     </Box>
                 )}

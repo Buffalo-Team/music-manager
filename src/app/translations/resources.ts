@@ -13,6 +13,9 @@ const resources = {
                 forgotPassword: 'Forgot password?',
                 dontHaveAccount: "Don't have an account? <0>Sign up!</0>",
                 alreadyHaveAccount: 'Already have an account? <0>Sign in!</0>',
+                logoutFailed: 'Logout failed',
+                signInFailed: 'Sign in failed',
+                signUpFailed: 'Sign up failed',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -37,6 +40,9 @@ const resources = {
                 newFilesToDownload: '{{count}} new files to download',
                 downloadMissingFiles: 'Download missing files',
                 deleteDevice: 'Delete the device',
+                newDeviceAdded: 'New device has been added',
+                deviceDeleted: 'Device has been deleted',
+                addingDeviceFailed: 'Adding new device failed',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -64,6 +70,9 @@ const resources = {
                 forgotPassword: 'Zapomniałeś hasła?',
                 dontHaveAccount: 'Nie masz konta? <0>Zarejestruj się!</0>',
                 alreadyHaveAccount: 'Masz juz konto? <0>Zaloguj się!</0>',
+                logoutFailed: 'Wylogowanie nie powiodło się',
+                signInFailed: 'Logowanie nie powiodło się',
+                signUpFailed: 'Rejestracja nie powiodła się',
                 validation: {
                     nameMinLength:
                         'Imię powinno mieć co najmniej {{length}} znaki',
@@ -88,6 +97,10 @@ const resources = {
                 newFilesToDownload: '{{count}} nowych plików do pobrania',
                 downloadMissingFiles: 'Pobierz brakujące pliki',
                 deleteDevice: 'Usuń urządzenie',
+                newDeviceAdded: 'Dodano nowe urządzenie',
+                deviceDeleted: 'Urządzenie usunięte',
+                addingDeviceFailed:
+                    'Dodawanie nowego urządzenia nie powiodło się',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',

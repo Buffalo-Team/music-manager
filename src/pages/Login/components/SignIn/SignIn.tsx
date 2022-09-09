@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, Typography } from '@mui/material';
 import FormInputField from 'components/FormInputField';
@@ -8,7 +8,7 @@ import { SignInData } from 'types';
 import FormStaticConfig from './FormStaticConfig';
 
 interface Props {
-    onSubmit: (values: SignInData) => void;
+    onSubmit: (values: SignInData, helpers: FormikHelpers<SignInData>) => void;
     isLoading: boolean;
 }
 
@@ -48,7 +48,11 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             variant="contained"
                             disabled={isLoading || !isValid}
                         >
-                            {isLoading ? <Loader /> : t('login.signIn').toUpperCase()}
+                            {isLoading ? (
+                                <Loader />
+                            ) : (
+                                t('login.signIn').toUpperCase()
+                            )}
                         </Button>
                         <Typography
                             variant="small"

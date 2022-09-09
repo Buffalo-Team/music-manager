@@ -14,7 +14,7 @@ const MissingFilesWarning = ({ missingFiles }: Props) => {
                     sx={{
                         margin: 0,
                         marginTop: 1,
-                        color: (theme) => theme.palette.warning.main,
+                        color: (theme) => theme.palette.error.main,
                     }}
                     variant="regular"
                     component="p"

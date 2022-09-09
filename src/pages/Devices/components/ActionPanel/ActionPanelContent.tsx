@@ -81,7 +81,7 @@ const ActionPanelContent = ({
                 </Button>
             </Box>
             <Button
-                color="warning"
+                color="error"
                 variant="contained"
                 onClick={handleDeleteDevice}
                 fullWidth
