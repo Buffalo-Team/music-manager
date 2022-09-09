@@ -64,7 +64,11 @@ const SignUp = ({ onSubmit, isLoading }: Props) => {
                             variant="contained"
                             disabled={isLoading || !isValid}
                         >
-                            {isLoading ? <Loader /> : t('login.signUp').toUpperCase()}
+                            {isLoading ? (
+                                <Loader />
+                            ) : (
+                                t('login.signUp').toUpperCase()
+                            )}
                         </Button>
                     </Box>
                 )}

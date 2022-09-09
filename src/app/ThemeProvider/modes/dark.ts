@@ -10,8 +10,17 @@ const darkTheme: ThemeType = {
         primary: '#1a1a1a',
         secondary: '#3b3b3b',
     },
+    success: {
+        main: '#59b371',
+    },
     warning: {
+        main: '#e98b58',
+    },
+    error: {
         main: '#E95858',
+    },
+    info: {
+        main: '#5d88c9',
     },
     primary: {
         main: '#418a91',

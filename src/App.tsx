@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from 'app/store';
 import ThemeProvider from 'app/ThemeProvider';
 import CurrentUserManager from 'components/CurrentUserManager';
+import Snackbar from 'components/Snackbar';
 import Routes from 'pages/Routes';
 import 'app/translations';
 
@@ -12,6 +13,7 @@ const App = () => (
         <Provider store={store}>
             <ThemeProvider>
                 <CurrentUserManager />
+                <Snackbar />
                 <Routes />
             </ThemeProvider>
         </Provider>

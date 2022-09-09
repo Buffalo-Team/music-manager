@@ -120,6 +120,17 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                     },
                 },
             },
+            MuiAlert: {
+                styleOverrides: {
+                    root: {
+                        background: theme.palette.background.primary,
+                        minWidth: theme.spacing(20),
+                    },
+                    action: {
+                        paddingTop: '2px',
+                    },
+                },
+            },
         },
     });
 };

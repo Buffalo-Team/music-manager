@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import { useGetAllDevicesQuery } from 'app/api/devicesApiSlice';
+import { openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
 import ActionPanel from 'pages/Devices/components/ActionPanel';
@@ -11,6 +13,7 @@ import { setDevices } from './store/devicesSlice';
 
 const Devices = () => {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
     const devices = useAppSelector(({ devices }) => devices);
     const [activeDevice, setActiveDevice] = useState<Device | null>(null);
     const {
@@ -30,6 +33,25 @@ const Devices = () => {
             dispatch(setDevices(devicesResponse?.devices || []));
         }
     }, [devicesResponse, isFetching, isSuccess]);
+
+    const handleAdd = () => {
+        dispatch(openSnackbar({ content: t('devices.newDeviceAdded') }));
+        refetch();
+    };
+
+    const handleAddError = () => {
+        dispatch(
+            openSnackbar({
+                content: t('devices.addingDeviceFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
+    const handleDelete = () => {
+        dispatch(openSnackbar({ content: t('devices.deviceDeleted') }));
+        refetch();
+    };
 
     const handleRefetch = () => {
         refetch();
@@ -52,7 +74,7 @@ const Devices = () => {
                 padding: (theme) => theme.spacing(2),
             }}
         >
-            <AddDevice onAdd={handleRefetch} />
+            <AddDevice onAdd={handleAdd} onError={handleAddError} />
             {isLoading && <Loader />}
             {!!devices.length && (
                 <DevicesList
@@ -64,7 +86,7 @@ const Devices = () => {
             <ActionPanel
                 device={activeDevice}
                 onClose={handleActionPanelClose}
-                onDelete={handleRefetch}
+                onDelete={handleDelete}
                 onDownload={handleRefetch}
             />
         </Box>

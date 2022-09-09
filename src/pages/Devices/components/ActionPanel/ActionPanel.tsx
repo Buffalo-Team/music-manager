@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ActionPanel = ({ device, onClose, onDelete, onDownload }: Props) => (
-    <Drawer anchor="right" open={!!device} onClose={onClose} >
+    <Drawer anchor="right" open={!!device} onClose={onClose}>
         <Box
             sx={(theme) => ({
                 [theme.breakpoints.down('sm')]: {
