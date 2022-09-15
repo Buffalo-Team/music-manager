@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Box } from '@mui/material';
 import { useAddDeviceMutation } from 'app/api/devicesApiSlice';
 import AddDeviceModal from 'pages/Devices/components/AddDevice/AddDeviceModal';
-import { ResponseStatus } from 'types';
-import Values from './Values';
+import { ResponseStatus, AddDeviceRequestData } from 'types';
 
 interface Props {
     onAdd: () => void;
@@ -19,7 +18,7 @@ const AddDevice = ({ onAdd, onError }: Props) => {
     const handleOpenModal = () => setOpen(true);
     const handleCloseModal = () => setOpen(false);
 
-    const handleSubmit = async (values: Values) => {
+    const handleSubmit = async (values: AddDeviceRequestData) => {
         try {
             const response = await requestAddDevice(values).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {

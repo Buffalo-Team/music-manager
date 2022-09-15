@@ -51,6 +51,29 @@ const resources = {
                     sizeMin: 'Size should be greater than 0',
                 },
             },
+            files: {
+                upload: 'Upload',
+                filesUploaded: 'Files have been uploaded',
+                uploadFiles: 'Upload files',
+                uploadingFilesFailed: 'Uploading file(s) failed',
+                dropFilesHere: 'Drop the files here...',
+                dropFilesHereOrClickToUpload:
+                    'Drop files here or click to upload',
+                dropMoreFilesHereOrClickToUpload:
+                    'Drop more files here or click to upload',
+                numberOfRejectedFiles: 'Number of rejected files: {{count}}',
+                directory: 'Directory: {{name}}',
+                rootDirectory: 'Root directory',
+                showMore: 'Show the remaining {{count}} files',
+                showLess: 'Show less',
+                directoryIsEmpty: 'The directory is empty',
+                validation: {
+                    nameMinLength:
+                        'Name should be at least {{length}} characters long',
+                    nameMaxLength:
+                        'Name should not be longer than {{length}} characters',
+                },
+            },
             loading: 'Loading...',
             fieldRequired: 'The field is required',
             MB: 'MB',
@@ -70,9 +93,9 @@ const resources = {
                 forgotPassword: 'Zapomniałeś hasła?',
                 dontHaveAccount: 'Nie masz konta? <0>Zarejestruj się!</0>',
                 alreadyHaveAccount: 'Masz juz konto? <0>Zaloguj się!</0>',
-                logoutFailed: 'Wylogowanie nie powiodło się',
-                signInFailed: 'Logowanie nie powiodło się',
-                signUpFailed: 'Rejestracja nie powiodła się',
+                logoutFailed: 'Wylogowanie zakończone niepowodzeniem',
+                signInFailed: 'Logowanie zakończona niepowodzeniem',
+                signUpFailed: 'Rejestracja zakończona niepowodzeniem',
                 validation: {
                     nameMinLength:
                         'Imię powinno mieć co najmniej {{length}} znaki',
@@ -100,13 +123,37 @@ const resources = {
                 newDeviceAdded: 'Dodano nowe urządzenie',
                 deviceDeleted: 'Urządzenie usunięte',
                 addingDeviceFailed:
-                    'Dodawanie nowego urządzenia nie powiodło się',
+                    'Dodawanie nowego urządzenia zakończone niepowodzeniem',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',
                     nameMaxLength:
                         'Nazwa nie powinna mieć więcej niż {{length}} znaków',
                     sizeMin: 'Rozmiar powinien być większy niż 0',
+                },
+            },
+            files: {
+                upload: 'Upload',
+                filesUploaded: 'Przesłano pliki',
+                uploadFiles: 'Prześlij pliki',
+                uploadingFilesFailed:
+                    'Przesyłanie plików zakończone niepowodzeniem',
+                dropFilesHere: 'Upuść pliki tutaj...',
+                dropFilesHereOrClickToUpload:
+                    'Upuść pliki tutaj lub kliknij, aby przesłać',
+                dropMoreFilesHereOrClickToUpload:
+                    'Upuść więcej plików tutaj lub kliknij, aby przesłać',
+                numberOfRejectedFiles: 'Liczba odrzuconych plików: {{count}}',
+                directory: 'Katalog: {{name}}',
+                rootDirectory: 'Główny katalog',
+                showMore: 'Pokaż pozostałe {{count}} plików',
+                showLess: 'Pokaż mniej',
+                directoryIsEmpty: 'Katalog jest pusty',
+                validation: {
+                    nameMinLength:
+                        'Nazwa powinna mieć co najmniej {{length}} znaki',
+                    nameMaxLength:
+                        'Nazwa nie powinna mieć więcej niż {{length}} znaków',
                 },
             },
             loading: 'Ładowanie...',

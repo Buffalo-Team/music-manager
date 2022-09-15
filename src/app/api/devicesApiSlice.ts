@@ -1,20 +1,16 @@
-import { Response, Device } from 'types';
+import { Response, Device, AddDeviceRequestData } from 'types';
 import { emptySplitApi } from './emptySplitApi';
 
 export const devicesApiSlice = emptySplitApi.injectEndpoints({
     endpoints: (builder) => ({
         addDevice: builder.mutation<
             { device: Device } & Response,
-            { name: string; type: string; capacityMegabytes: string }
+            AddDeviceRequestData
         >({
-            query: ({ name, type, capacityMegabytes }) => ({
+            query: (body) => ({
                 url: '/devices',
                 method: 'POST',
-                body: {
-                    name,
-                    type,
-                    capacityMegabytes,
-                },
+                body,
             }),
         }),
         getAllDevices: builder.query<{ devices: Device[] } & Response, void>({

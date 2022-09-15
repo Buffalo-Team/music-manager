@@ -18,7 +18,7 @@ const DeviceHeader = ({ type, name }: Props) => {
         >
             <IconComponent
                 sx={{
-                    color: (theme) => theme.palette.text.disabled,
+                    color: (theme) => theme.palette.grey[50],
                     width: (theme) => theme.spacing(4.5),
                     height: (theme) => theme.spacing(4.5),
                 }}

@@ -16,7 +16,7 @@ const ModesNavigation = ({ mode, onSignInClick, onSignUpClick }: Props) => {
         <Typography
             variant="small"
             sx={{
-                color: (theme) => theme.palette.text.secondary,
+                color: (theme) => theme.palette.grey[100],
                 marginTop: 1,
             }}
         >

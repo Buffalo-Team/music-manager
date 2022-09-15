@@ -58,7 +58,7 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             variant="small"
                             sx={{
                                 textAlign: 'right',
-                                color: (theme) => theme.palette.text.secondary,
+                                color: (theme) => theme.palette.grey[100],
                             }}
                         >
                             {t('login.forgotPassword')}

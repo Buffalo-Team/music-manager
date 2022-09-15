@@ -35,11 +35,23 @@ const Modal = ({
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                minWidth: theme.spacing(40),
                 background: theme.palette.background.primary,
                 padding: theme.spacing(3),
-                alignItems: 'center',
                 borderRadius: '5px',
+                display: 'flex',
+                flexDirection: 'column',
+                [theme.breakpoints.down('md')]: {
+                    minWidth: '70vw',
+                    maxHeight: '90vh',
+                },
+                [theme.breakpoints.up('md')]: {
+                    minWidth: '50vw',
+                    maxHeight: '50vh',
+                },
+                [theme.breakpoints.up('lg')]: {
+                    minWidth: '35vw',
+                    maxHeight: '60vh',
+                },
             })}
         >
             <IconButton
@@ -65,7 +77,7 @@ const Modal = ({
                     {title}
                 </Typography>
             )}
-            <Box sx={{ display: 'flex', flex: 1 }}>{children}</Box>
+            {children}
         </Box>
     </MUIModal>
 );

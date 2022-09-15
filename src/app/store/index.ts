@@ -5,6 +5,7 @@ import snackbarReducer from 'app/Snackbar/snackbarSlice';
 import themeReducer from 'app/ThemeProvider/themeSlice';
 import userReducer from 'app/User/userSlice';
 import devicesReducer from 'pages/Devices/store/devicesSlice';
+import filesReducer from 'pages/Home/store/filesSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         snackbar: snackbarReducer,
         user: userReducer,
         devices: devicesReducer,
+        files: filesReducer,
         [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

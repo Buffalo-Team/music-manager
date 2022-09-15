@@ -9,6 +9,7 @@ declare module '@mui/material/styles' {
     interface TypeBackground {
         primary: string;
         secondary: string;
+        accent: string;
     }
     interface TypeText {
         contrastText: string;
@@ -128,6 +129,27 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                     },
                     action: {
                         paddingTop: '2px',
+                    },
+                },
+            },
+            MuiListItemIcon: {
+                styleOverrides: {
+                    root: {
+                        minWidth: theme.spacing(3.5),
+                    },
+                },
+            },
+            MuiListItemButton: {
+                styleOverrides: {
+                    root: {
+                        paddingLeft: 0,
+                    },
+                },
+            },
+            MuiListItem: {
+                styleOverrides: {
+                    root: {
+                        paddingLeft: 0,
                     },
                 },
             },
