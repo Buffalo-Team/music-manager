@@ -9,6 +9,7 @@ import { closeSnackbar, openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import { clearUser } from 'app/User/userSlice';
 import { clearDevices } from 'pages/Devices/store/devicesSlice';
+import { clearFiles } from 'pages/Home/store/filesSlice';
 import { MenuItem, ResponseStatus } from 'types';
 import SidebarView from './Sidebar.view';
 
@@ -51,6 +52,7 @@ const SidebarContainer = ({ sx, menuItems }: Props) => {
             if (response?.status === ResponseStatus.SUCCESS) {
                 dispatch(clearUser());
                 dispatch(clearDevices());
+                dispatch(clearFiles());
                 dispatch(closeSnackbar());
                 navigate('/');
                 dispatch(api.util.resetApiState());

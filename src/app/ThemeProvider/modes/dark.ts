@@ -3,12 +3,11 @@ import { ThemeType } from './ThemeType';
 const darkTheme: ThemeType = {
     text: {
         primary: '#FFFFFF',
-        secondary: '#adadad',
-        disabled: '#e0e0e0',
     },
     background: {
         primary: '#1a1a1a',
         secondary: '#3b3b3b',
+        accent: 'rgba(59, 96, 100, 0.2)',
     },
     success: {
         main: '#59b371',
@@ -28,6 +27,11 @@ const darkTheme: ThemeType = {
     },
     border: {
         neutral: '#E8E8E8',
+    },
+    grey: {
+        50: '#e0e0e0',
+        100: '#adadad',
+        200: '#828282',
     },
 };
 

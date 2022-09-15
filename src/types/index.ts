@@ -6,3 +6,7 @@ export { DeviceType } from './DeviceType';
 export type { Device } from './Device';
 export type { SignInData } from './SignInData';
 export type { SignUpData } from './SignUpData';
+export type { AddDeviceRequestData } from './AddDeviceRequestData';
+export type { CreateFolderRequestData } from './CreateFolderRequestData';
+export type { File } from './File';
+export { ItemRowType } from './ItemRowType';
