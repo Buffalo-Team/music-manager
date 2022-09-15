@@ -6,6 +6,7 @@ import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import Loader from 'components/Loader';
+import CreateDirectory from 'pages/Home/components/CreateDirectory/CreateDirectory';
 import FilesList from 'pages/Home/components/FilesList';
 import UploadFiles from 'pages/Home/components/UploadFiles';
 import { setFiles } from 'pages/Home/store/filesSlice';
@@ -49,6 +50,20 @@ const Home = () => {
         );
     };
 
+    const handleCreate = () => {
+        dispatch(openSnackbar({ content: t('files.directoryCreated') }));
+        refetchFiles();
+    };
+
+    const handleCreateError = () => {
+        dispatch(
+            openSnackbar({
+                content: t('files.creatingDirectoryFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
     return (
         <Box
             sx={{
@@ -58,13 +73,25 @@ const Home = () => {
                 padding: (theme) => theme.spacing(2),
             }}
         >
-            <UploadFiles
-                onUploadSuccess={handleUpload}
-                onUploadError={handleUploadError}
-                targetFolder={currentFolder}
-                songs={songs}
-                setSongs={setSongs}
-            />
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: 2,
+                }}
+            >
+                <CreateDirectory
+                    onCreateSuccess={handleCreate}
+                    onCreateError={handleCreateError}
+                    targetFolder={currentFolder}
+                />
+                <UploadFiles
+                    onUploadSuccess={handleUpload}
+                    onUploadError={handleUploadError}
+                    targetFolder={currentFolder}
+                    songs={songs}
+                    setSongs={setSongs}
+                />
+            </Box>
             {isLoading && <Loader />}
             <FilesList
                 onUploadSuccess={handleUpload}
