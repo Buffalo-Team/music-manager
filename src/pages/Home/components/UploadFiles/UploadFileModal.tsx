@@ -63,7 +63,7 @@ const UploadFileModal = ({
                 })}
             >
                 <Typography variant="regular">
-                    {t('files.directory', {
+                    {t('files.parentDirectory', {
                         name: targetFolder
                             ? targetFolder.name
                             : t('files.rootDirectory'),

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FileWithPath } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-import { Button, Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import UploadFileModal from 'pages/Home/components/UploadFiles/UploadFileModal';
 import { File as ItemFile } from 'types';
 import { useDropHandler } from '../Dropzone';

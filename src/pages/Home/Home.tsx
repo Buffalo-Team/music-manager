@@ -6,10 +6,12 @@ import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import Loader from 'components/Loader';
-import FilesList from 'pages/Home/components/FilesList';
-import UploadFiles from 'pages/Home/components/UploadFiles';
-import { setFiles } from 'pages/Home/store/filesSlice';
-import { ResponseStatus, File as ItemFile } from 'types';
+import { File as ItemFile, ResponseStatus } from 'types';
+import CreateDirectory from './components/CreateDirectory/CreateDirectory';
+import FilesList from './components/FilesList';
+import Breadcrumbs from './components/FilesList/Breadcrumbs';
+import UploadFiles from './components/UploadFiles';
+import { setFiles } from './store/filesSlice';
 
 const Home = () => {
     const dispatch = useAppDispatch();
@@ -21,8 +23,10 @@ const Home = () => {
         isSuccess,
         refetch: refetchFiles,
     } = useGetAllFilesQuery();
-    const [currentFolder, setCurrentFolder] = useState<ItemFile>();
     const [songs, setSongs] = useState<FileWithPath[]>([]);
+    const [breadcrumbs, setBreadcrumbs] = useState<(ItemFile | undefined)[]>([
+        undefined,
+    ]);
 
     useEffect(() => {
         if (
@@ -49,6 +53,28 @@ const Home = () => {
         );
     };
 
+    const handleCreate = () => {
+        dispatch(openSnackbar({ content: t('files.directoryCreated') }));
+        refetchFiles();
+    };
+
+    const handleCreateError = () => {
+        dispatch(
+            openSnackbar({
+                content: t('files.creatingDirectoryFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
+    const handleBreadcrumbClick = (index: number) => {
+        setBreadcrumbs((prev) => prev.slice(0, index + 1));
+    };
+
+    const handleFolderSelect = (item: ItemFile) => {
+        setBreadcrumbs((prev) => [...prev, item]);
+    };
+
     return (
         <Box
             sx={{
@@ -58,19 +84,35 @@ const Home = () => {
                 padding: (theme) => theme.spacing(2),
             }}
         >
-            <UploadFiles
-                onUploadSuccess={handleUpload}
-                onUploadError={handleUploadError}
-                targetFolder={currentFolder}
-                songs={songs}
-                setSongs={setSongs}
-            />
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: 2,
+                }}
+            >
+                <CreateDirectory
+                    onCreateSuccess={handleCreate}
+                    onCreateError={handleCreateError}
+                    targetFolder={breadcrumbs[breadcrumbs.length - 1]}
+                />
+                <UploadFiles
+                    onUploadSuccess={handleUpload}
+                    onUploadError={handleUploadError}
+                    targetFolder={breadcrumbs[breadcrumbs.length - 1]}
+                    songs={songs}
+                    setSongs={setSongs}
+                />
+            </Box>
             {isLoading && <Loader />}
+            <Breadcrumbs
+                breadcrumbs={breadcrumbs}
+                onItemClick={handleBreadcrumbClick}
+            />
             <FilesList
                 onUploadSuccess={handleUpload}
                 onUploadError={handleUploadError}
-                currentFolder={currentFolder}
-                setCurrentFolder={setCurrentFolder}
+                onFolderSelect={handleFolderSelect}
+                breadcrumbs={breadcrumbs}
             />
         </Box>
     );

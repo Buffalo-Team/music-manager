@@ -60,6 +60,13 @@ const createTheme = (mode: PaletteMode = 'dark') => {
     const theme = makeThemeTypography(makeThemeBasics(mode));
     return createThemeMUI(theme, {
         components: {
+            MuiTypography: {
+                styleOverrides: {
+                    regular: {
+                        lineHeight: theme.spacing(1.4),
+                    },
+                },
+            },
             MuiButton: {
                 styleOverrides: {
                     root: {
@@ -132,6 +139,13 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                     },
                 },
             },
+            MuiList: {
+                styleOverrides: {
+                    root: {
+                        padding: 0,
+                    },
+                },
+            },
             MuiListItemIcon: {
                 styleOverrides: {
                     root: {
@@ -150,6 +164,13 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                 styleOverrides: {
                     root: {
                         paddingLeft: 0,
+                    },
+                },
+            },
+            MuiBreadcrumbs: {
+                styleOverrides: {
+                    li: {
+                        color: theme.palette.grey[200],
                     },
                 },
             },

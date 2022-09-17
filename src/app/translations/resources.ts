@@ -62,11 +62,17 @@ const resources = {
                 dropMoreFilesHereOrClickToUpload:
                     'Drop more files here or click to upload',
                 numberOfRejectedFiles: 'Number of rejected files: {{count}}',
-                directory: 'Directory: {{name}}',
+                parentDirectory: 'Parent directory: {{name}}',
                 rootDirectory: 'Root directory',
                 showMore: 'Show the remaining {{count}} files',
                 showLess: 'Show less',
                 directoryIsEmpty: 'The directory is empty',
+                createDirectory: 'Create directory',
+                directoryCreated: 'Directory has been created',
+                creatingDirectoryFailed: 'Creating directory failed',
+                create: 'Create',
+                name: 'Name',
+                newFolder: 'New Folder',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -144,11 +150,18 @@ const resources = {
                 dropMoreFilesHereOrClickToUpload:
                     'Upuść więcej plików tutaj lub kliknij, aby przesłać',
                 numberOfRejectedFiles: 'Liczba odrzuconych plików: {{count}}',
-                directory: 'Katalog: {{name}}',
+                parentDirectory: 'Katalog nadrzędny: {{name}}',
                 rootDirectory: 'Główny katalog',
                 showMore: 'Pokaż pozostałe {{count}} plików',
                 showLess: 'Pokaż mniej',
                 directoryIsEmpty: 'Katalog jest pusty',
+                createDirectory: 'Stwórz katalog',
+                directoryCreated: 'Katalog został stworzony',
+                creatingDirectoryFailed:
+                    'Tworzenie katalogu zakończone niepowodzeniem',
+                create: 'Stwórz',
+                name: 'Nazwa',
+                newFolder: 'Nowy Folder',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',

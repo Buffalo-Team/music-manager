@@ -22,9 +22,12 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'DELETE',
             }),
         }),
-        createFolder: builder.mutation<Response, CreateFolderRequestData>({
-            query: ({ parentFolderId = '', ...body }) => ({
-                url: `/files/folder/${parentFolderId}`,
+        createFolder: builder.mutation<
+            Response,
+            CreateFolderRequestData & { targetId?: string }
+        >({
+            query: ({ targetId = '', ...body }) => ({
+                url: `/files/folder/${targetId}`,
                 method: 'POST',
                 body,
             }),
