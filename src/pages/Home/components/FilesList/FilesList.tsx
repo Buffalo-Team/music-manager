@@ -1,54 +1,53 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileRejection } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
-import { Box, List, Typography } from '@mui/material';
+import { Box, List } from '@mui/material';
 import { useAppSelector } from 'app/store';
-import GoUpRow from 'pages/Home/components/FilesList/GoUpRow';
-import ItemRow from 'pages/Home/components/FilesList/ItemRow';
+import Loader from 'components/Loader';
+import EmptyDirectory from 'pages/Home/components/FilesList/EmptyDirectory';
 import { File as ItemFile, ItemRowType } from 'types';
 import Dropzone, { useDropHandler } from '../Dropzone';
 import CurrentLevel from './CurrentLevel';
 import filterFilesByParentId from './filterFilesByParentId';
+import ItemRow from './ItemRow';
 
 interface Props {
     onUploadSuccess: () => void;
     onUploadError: () => void;
-    currentFolder?: ItemFile;
-    setCurrentFolder: Dispatch<SetStateAction<ItemFile | undefined>>;
+    onFolderSelect: (item: ItemFile) => void;
+    breadcrumbs: (ItemFile | undefined)[];
 }
 
 const FilesList = ({
     onUploadSuccess,
     onUploadError,
-    currentFolder,
-    setCurrentFolder,
+    onFolderSelect,
+    breadcrumbs,
 }: Props) => {
-    const { t } = useTranslation();
     const files = useAppSelector(({ files }) => files);
-    const [previousFolder, setPreviousFolder] = useState<ItemFile>();
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
-    const { handleUpload, handleRejection } = useDropHandler({
+    const {
+        handleUpload,
+        handleRejection,
+        requestState: { isLoading },
+    } = useDropHandler({
         onUploadSuccess,
         onUploadError,
     });
 
     useEffect(() => {
-        setCurrentLevelFiles(filterFilesByParentId(files, currentFolder?.id));
-    }, [files]);
+        setCurrentLevelFiles(
+            filterFilesByParentId(
+                files,
+                breadcrumbs[breadcrumbs.length - 1]?.id
+            )
+        );
+    }, [files, breadcrumbs]);
 
     const handleFolderSelect = (item: ItemFile) => {
         setCurrentLevelFiles(filterFilesByParentId(files, item.id));
-        setCurrentFolder((prevFolder) => {
-            setPreviousFolder(prevFolder);
-            return item;
-        });
-    };
-
-    const handleGoUp = () => {
-        setCurrentLevelFiles(filterFilesByParentId(files, previousFolder?.id));
-        setCurrentFolder(previousFolder);
+        onFolderSelect(item);
     };
 
     const handleDrop =
@@ -61,29 +60,16 @@ const FilesList = ({
             handleRejection(fileRejections);
         };
 
+    const isDirectoryEmpty =
+        !currentLevelFiles.folders?.length && !currentLevelFiles.files?.length;
+
     return (
-        <Box sx={{ marginTop: 2, flex: 1, display: 'flex' }}>
+        <Box sx={{ flex: 1, display: 'flex' }}>
+            {isLoading && <Loader overlap />}
             <List
                 dense
                 sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}
             >
-                <GoUpRow
-                    onGoUp={handleGoUp}
-                    previousFolderId={previousFolder?.id}
-                    currentFolderId={currentFolder?.id}
-                />
-                {!currentLevelFiles.folders?.length &&
-                    !currentLevelFiles.files?.length && (
-                        <Typography
-                            variant="regular"
-                            sx={{
-                                color: (theme) => theme.palette.grey[100],
-                                marginY: 2,
-                            }}
-                        >
-                            {t('files.directoryIsEmpty')}
-                        </Typography>
-                    )}
                 {currentLevelFiles.folders?.map((item) => (
                     <Dropzone key={item.id} onDrop={handleDrop(item)}>
                         <ItemRow
@@ -94,13 +80,14 @@ const FilesList = ({
                     </Dropzone>
                 ))}
                 <Dropzone
-                    onDrop={handleDrop(currentFolder)}
+                    onDrop={handleDrop(breadcrumbs[breadcrumbs.length - 1])}
                     sxProvider={() => ({
                         display: 'flex',
                         flexDirection: 'column',
                         flex: 1,
                     })}
                 >
+                    {isDirectoryEmpty && <EmptyDirectory />}
                     {currentLevelFiles.files?.map((item) => (
                         <ItemRow
                             key={item.id}
