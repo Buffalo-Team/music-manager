@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
-import { InputAdornment, Theme, Typography } from '@mui/material';
-import FormInputField from 'components/FormInputField';
+import { InputAdornment, Typography } from '@mui/material';
+import Styled from './ItemRow.styled';
 
 interface Props {
     touched?: boolean;
@@ -8,19 +8,11 @@ interface Props {
 }
 
 const FilenameEditor = ({ touched, extension }: Props) => (
-    <FormInputField
+    <Styled.FilenameEditorField
         name="name"
         touched={touched}
         onClick={(e: MouseEvent<HTMLDivElement>) => {
             e.stopPropagation();
-        }}
-        sx={{
-            '& .MuiInputBase-input': {
-                paddingY: 0.4,
-                paddingX: 0,
-                fontSize: (theme: Theme) => theme.spacing(1.4),
-            },
-            minWidth: '60%',
         }}
         variant="standard"
         InputProps={{

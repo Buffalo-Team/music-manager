@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button } from '@mui/material';
-import { useCreateFolderMutation } from 'app/api/filesApiSlice';
-import CreateDirectoryModal from 'pages/Home/components/CreateDirectory/CreateDirectoryModal';
+import { Button } from '@mui/material';
+import {
+    useCreateFolderMutation,
+    useGetAllFilesQuery,
+} from 'app/api/filesApiSlice';
 import {
     CreateFolderRequestData,
     File as ItemFile,
     ResponseStatus,
 } from 'types';
+import CreateDirectoryModal from './CreateDirectoryModal';
+import useSnackbarMessages from './useSnackbarMessages';
 
 interface Props {
-    onCreateSuccess: () => void;
-    onCreateError: () => void;
     targetFolder?: ItemFile;
 }
 
-const CreateDirectory = ({
-    onCreateSuccess,
-    onCreateError,
-    targetFolder,
-}: Props) => {
+const CreateDirectory = ({ targetFolder }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
     const { t } = useTranslation();
     const [createFolder, { isLoading, isSuccess }] = useCreateFolderMutation();
+    const { refetch: refetchFiles } = useGetAllFilesQuery();
+    const {
+        showDirectoryCreationSuccessMessage,
+        showDirectoryCreationErrorMessage,
+    } = useSnackbarMessages();
 
     const handleOpenModal = () => setOpen(true);
     const handleCloseModal = () => setOpen(false);
@@ -44,17 +47,18 @@ const CreateDirectory = ({
                 isPrivate,
             }).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
-                onCreateSuccess?.();
+                showDirectoryCreationSuccessMessage();
+                refetchFiles();
             } else {
-                onCreateError?.();
+                showDirectoryCreationErrorMessage();
             }
         } catch (error) {
-            onCreateError?.();
+            showDirectoryCreationErrorMessage();
         }
     };
 
     return (
-        <Box>
+        <>
             <Button
                 color="primary"
                 variant="contained"
@@ -63,13 +67,14 @@ const CreateDirectory = ({
                 {t('files.createDirectory')}
             </Button>
             <CreateDirectoryModal
+                title={t('files.createDirectory')}
                 open={open}
                 onClose={handleCloseModal}
                 onCreate={handleCreate}
                 isLoading={isLoading}
                 targetFolder={targetFolder}
             />
-        </Box>
+        </>
     );
 };
 

@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Formik } from 'formik';
 import FolderIcon from '@mui/icons-material/Folder';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import { Box, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import useHover from 'hooks/useHover';
 import FormStaticConfig from 'pages/Home/components/FilesList/ItemRow/FormStaticConfig';
 import ItemActions from 'pages/Home/components/FilesList/ItemRow/ItemActions';
 import splitFilename from 'pages/Home/components/FilesList/ItemRow/splitFilename';
 import { File, ItemRowType, UpdateFileRequestData } from 'types';
 import FilenameEditor from './FilenameEditor';
+import Styled from './ItemRow.styled';
 
 interface Props {
     item: File;
@@ -59,22 +60,8 @@ const ItemRow = ({
                 onSubmit={handleSubmit}
             >
                 {({ touched, handleSubmit, isValid }) => (
-                    <Box
-                        onSubmit={handleSubmit}
-                        component="form"
-                        sx={{
-                            display: 'flex',
-                            flex: 1,
-                            justifyContent: 'space-between',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                flex: 2,
-                            }}
-                        >
+                    <Styled.FormContent onSubmit={handleSubmit}>
+                        <Styled.RowContentWrapper>
                             <ListItemIcon>
                                 <IconComponent />
                             </ListItemIcon>
@@ -91,7 +78,7 @@ const ItemRow = ({
                                     }}
                                 />
                             )}
-                        </Box>
+                        </Styled.RowContentWrapper>
                         <ItemActions
                             isEditMode={editMode}
                             isValid={isValid}
@@ -101,7 +88,7 @@ const ItemRow = ({
                             onDelete={onDelete}
                             onEdit={() => setEditMode(true)}
                         />
-                    </Box>
+                    </Styled.FormContent>
                 )}
             </Formik>
         </ListItemButton>

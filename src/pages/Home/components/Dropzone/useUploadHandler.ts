@@ -10,7 +10,7 @@ interface Props {
     onUploadError?: () => void;
 }
 
-const useDropHandler = ({ onUploadSuccess, onUploadError }: Props = {}) => {
+const useUploadHandler = ({ onUploadSuccess, onUploadError }: Props = {}) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const [uploadFiles, requestState] = useUploadFilesMutation();
@@ -57,4 +57,4 @@ const useDropHandler = ({ onUploadSuccess, onUploadError }: Props = {}) => {
     return { handleUpload, handleRejection, requestState };
 };
 
-export default useDropHandler;
+export default useUploadHandler;

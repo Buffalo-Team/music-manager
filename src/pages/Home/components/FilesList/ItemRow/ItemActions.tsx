@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
 import CancelButton from './buttons/CancelButton';
 import DeleteButton from './buttons/DeleteButton';
 import EditButton from './buttons/EditButton';
 import SaveButton from './buttons/SaveButton';
+import Styled from './ItemRow.styled';
 
 interface Props {
     isEditMode: boolean;
@@ -14,7 +14,7 @@ interface Props {
     onEdit: () => void;
 }
 
-const ItemRow = ({
+const ItemActions = ({
     isEditMode,
     isValid,
     isHovering,
@@ -22,53 +22,46 @@ const ItemRow = ({
     onCancel,
     onDelete,
     onEdit,
-}: Props) => {
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
-            {isEditMode && (
-                <>
-                    <SaveButton
-                        isLoading={isLoading}
-                        isValid={isValid}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                    />
-                    <CancelButton
-                        isLoading={isLoading}
-                        isValid={isValid}
-                        onClick={(e) => {
-                            onCancel();
-                            e.stopPropagation();
-                        }}
-                    />
-                </>
-            )}
-            {!isEditMode && (
-                <EditButton
-                    isHovering={isHovering}
-                    isEditMode={isEditMode}
+}: Props) => (
+    <Styled.ItemActionsContainer>
+        {isEditMode && (
+            <>
+                <SaveButton
+                    isLoading={isLoading}
+                    isValid={isValid}
                     onClick={(e) => {
-                        onEdit();
                         e.stopPropagation();
                     }}
                 />
-            )}
-            <DeleteButton
+                <CancelButton
+                    isLoading={isLoading}
+                    isValid={isValid}
+                    onClick={(e) => {
+                        onCancel();
+                        e.stopPropagation();
+                    }}
+                />
+            </>
+        )}
+        {!isEditMode && (
+            <EditButton
                 isHovering={isHovering}
                 isEditMode={isEditMode}
                 onClick={(e) => {
-                    onDelete();
+                    onEdit();
                     e.stopPropagation();
                 }}
             />
-        </Box>
-    );
-};
+        )}
+        <DeleteButton
+            isHovering={isHovering}
+            isEditMode={isEditMode}
+            onClick={(e) => {
+                onDelete();
+                e.stopPropagation();
+            }}
+        />
+    </Styled.ItemActionsContainer>
+);
 
-export default ItemRow;
+export default ItemActions;

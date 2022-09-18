@@ -1,39 +1,45 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { FileWithPath } from 'react-dropzone';
+import { useEffect, useState } from 'react';
+import { FileRejection, FileWithPath } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
+import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import UploadFileModal from 'pages/Home/components/UploadFiles/UploadFileModal';
 import { File as ItemFile } from 'types';
-import { useDropHandler } from '../Dropzone';
+import { useUploadHandler } from '../Dropzone';
+import useSnackbarMessages from '../FilesList/useSnackbarMessages';
 
 interface Props {
-    onUploadSuccess: () => void;
-    onUploadError: () => void;
     targetFolder?: ItemFile;
-    songs: FileWithPath[];
-    setSongs: Dispatch<SetStateAction<FileWithPath[]>>;
 }
 
-const UploadFiles = ({
-    onUploadSuccess,
-    onUploadError,
-    targetFolder,
-    songs,
-    setSongs,
-}: Props) => {
+const UploadFiles = ({ targetFolder }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
+    const [songs, setSongs] = useState<FileWithPath[]>([]);
     const { t } = useTranslation();
+    const { refetch: refetchFiles } = useGetAllFilesQuery();
+    const { showUploadSuccessMessage, showUploadErrorMessage } =
+        useSnackbarMessages();
+
+    const onUploadSuccess = () => {
+        showUploadSuccessMessage();
+        refetchFiles();
+        setSongs([]);
+    };
+
     const {
         handleUpload,
         handleRejection,
         requestState: { isLoading, isSuccess },
-    } = useDropHandler({
+    } = useUploadHandler({
         onUploadSuccess,
-        onUploadError,
+        onUploadError: showUploadErrorMessage,
     });
 
     const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => setOpen(false);
+    const handleCloseModal = () => {
+        setOpen(false);
+        setSongs([]);
+    };
 
     useEffect(() => {
         if (isSuccess) {
@@ -47,8 +53,28 @@ const UploadFiles = ({
             songs,
         });
 
+    const handleDelete = (song: FileWithPath) => {
+        setSongs((prevSongs) => prevSongs.filter((i) => i.path !== song.path));
+    };
+
+    const handleDrop = (
+        acceptedFiles: File[],
+        fileRejections: FileRejection[]
+    ) => {
+        setSongs((prev) => {
+            const filesToAdd = acceptedFiles.filter(
+                (file) =>
+                    !prev.some(
+                        (i) => i.name === file.name && i.type === file.type
+                    )
+            );
+            return [...prev, ...filesToAdd];
+        });
+        handleRejection(fileRejections);
+    };
+
     return (
-        <Box>
+        <>
             <Button
                 color="primary"
                 variant="contained"
@@ -60,13 +86,13 @@ const UploadFiles = ({
                 open={open}
                 onClose={handleCloseModal}
                 onUpload={handleSubmit}
-                onReject={handleRejection}
+                onDelete={handleDelete}
+                onDrop={handleDrop}
                 isLoading={isLoading}
                 targetFolder={targetFolder}
                 songs={songs}
-                setSongs={setSongs}
             />
-        </Box>
+        </>
     );
 };
 
