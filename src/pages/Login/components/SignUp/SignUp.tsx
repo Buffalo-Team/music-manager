@@ -33,30 +33,35 @@ const SignUp = ({ onSubmit, isLoading }: Props) => {
                             touched={touched.name}
                             label={t('login.name')}
                             fullWidth
+                            sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
                             name="surname"
                             touched={touched.surname}
                             label={t('login.surname')}
                             fullWidth
+                            sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
                             name="email"
                             touched={touched.email}
                             label={t('Email')}
                             fullWidth
+                            sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
                             name="password"
                             touched={touched.password}
                             label={t('login.password')}
                             type="password"
+                            sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
                             name="passwordConfirm"
                             touched={touched.passwordConfirm}
                             label={t('login.confirmPassword')}
                             type="password"
+                            sx={{ marginBottom: 1 }}
                         />
                         <Button
                             type="submit"

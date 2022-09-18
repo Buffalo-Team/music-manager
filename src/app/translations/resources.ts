@@ -73,6 +73,14 @@ const resources = {
                 create: 'Create',
                 name: 'Name',
                 newFolder: 'New Folder',
+                directoryDeleted: 'The directory has been deleted',
+                fileDeleted: 'The file has been deleted',
+                deletingDirectoryFailed: 'Deleting the directory failed',
+                deletingFileFailed: 'Deleting the file failed',
+                directoryUpdated: 'The directory has been updated',
+                fileUpdated: 'The file has been updated',
+                updatingDirectoryFailed: 'Updating the directory failed',
+                updatingFileFailed: 'Updating the file failed',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -162,6 +170,17 @@ const resources = {
                 create: 'Stwórz',
                 name: 'Nazwa',
                 newFolder: 'Nowy Folder',
+                directoryDeleted: 'Katalog został usunięty',
+                fileDeleted: 'Plik został usunięty',
+                deletingDirectoryFailed:
+                    'Usuwanie katalogu zakończone niepowodzeniem',
+                deletingFileFailed: 'Usuwanie pliku zakończone niepowodzeniem',
+                directoryUpdated: 'Katalog został zaktualizowany',
+                fileUpdated: 'Plik został zaktualizowany',
+                updatingDirectoryFailed:
+                    'Aktualizowanie katalogu zakończone niepowodzeniem',
+                updatingFileFailed:
+                    'Aktualizowanie pliku zakończone niepowodzeniem',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',

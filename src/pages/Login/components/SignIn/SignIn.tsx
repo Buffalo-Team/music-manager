@@ -34,6 +34,7 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             touched={touched.email}
                             label={t('login.email')}
                             fullWidth
+                            sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
                             id="password"
@@ -41,6 +42,7 @@ const SignIn = ({ onSubmit, isLoading }: Props) => {
                             touched={touched.password}
                             label={t('login.password')}
                             type="password"
+                            sx={{ marginBottom: 1 }}
                         />
                         <Button
                             type="submit"

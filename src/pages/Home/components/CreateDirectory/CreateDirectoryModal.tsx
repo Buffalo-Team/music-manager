@@ -64,6 +64,7 @@ const UploadFileModal = ({
                                 name="name"
                                 touched={touched.name}
                                 placeholder={t('files.name')}
+                                sx={{ marginBottom: 1 }}
                             />
                             <Button
                                 type="submit"

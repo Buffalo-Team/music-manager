@@ -5,16 +5,21 @@ import {
     FieldAttributes,
     FieldProps,
 } from 'formik';
-import { Box, TextField } from '@mui/material';
+import { Box, SxProps, TextField, Theme } from '@mui/material';
 import ErrorMessage from './ErrorMessage';
+
+interface Props {
+    sx: SxProps<Theme>;
+}
 
 const FormInputField = ({
     name,
     touched,
     inputProps,
+    sx,
     ...rest
-}: FieldAttributes<any>) => (
-    <Box sx={{ marginBottom: 1 }}>
+}: FieldAttributes<any> & Props) => (
+    <Box sx={sx}>
         <Field name={name}>
             {({ field, meta }: FieldProps) => (
                 <TextField

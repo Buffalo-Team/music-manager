@@ -8,5 +8,6 @@ export type { SignInData } from './SignInData';
 export type { SignUpData } from './SignUpData';
 export type { AddDeviceRequestData } from './AddDeviceRequestData';
 export type { CreateFolderRequestData } from './CreateFolderRequestData';
+export type { UpdateFileRequestData } from './UpdateFileRequestData';
 export type { File } from './File';
 export { ItemRowType } from './ItemRowType';

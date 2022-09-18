@@ -3,16 +3,22 @@ import { FileRejection } from 'react-dropzone';
 import { Box, List } from '@mui/material';
 import { useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
-import EmptyDirectory from 'pages/Home/components/FilesList/EmptyDirectory';
-import { File as ItemFile, ItemRowType } from 'types';
+import { File as ItemFile, ItemRowType, UpdateFileRequestData } from 'types';
 import Dropzone, { useDropHandler } from '../Dropzone';
 import CurrentLevel from './CurrentLevel';
+import EmptyDirectory from './EmptyDirectory';
 import filterFilesByParentId from './filterFilesByParentId';
 import ItemRow from './ItemRow';
+import useDeleteFile from './useDeleteFile';
+import useUpdateFile from './useUpdateFile';
 
 interface Props {
     onUploadSuccess: () => void;
     onUploadError: () => void;
+    onDeleteSuccess: (item: ItemFile) => void;
+    onDeleteError: (item: ItemFile) => void;
+    onUpdateSuccess: (item: ItemFile) => void;
+    onUpdateError: (item: ItemFile) => void;
     onFolderSelect: (item: ItemFile) => void;
     breadcrumbs: (ItemFile | undefined)[];
 }
@@ -21,6 +27,10 @@ const FilesList = ({
     onUploadSuccess,
     onUploadError,
     onFolderSelect,
+    onDeleteSuccess,
+    onDeleteError,
+    onUpdateSuccess,
+    onUpdateError,
     breadcrumbs,
 }: Props) => {
     const files = useAppSelector(({ files }) => files);
@@ -35,6 +45,16 @@ const FilesList = ({
         onUploadSuccess,
         onUploadError,
     });
+
+    const {
+        handleDelete,
+        requestState: { isLoading: isDeleting },
+    } = useDeleteFile({ onDeleteSuccess, onDeleteError });
+
+    const {
+        handleUpdate,
+        requestState: { isLoading: isUpdating },
+    } = useUpdateFile({ onUpdateSuccess, onUpdateError });
 
     useEffect(() => {
         setCurrentLevelFiles(
@@ -60,12 +80,26 @@ const FilesList = ({
             handleRejection(fileRejections);
         };
 
+    const handleDeleteClick = (item: ItemFile) => {
+        handleDelete(item);
+    };
+
+    const handleEdit = ({
+        item,
+        values,
+    }: {
+        item: ItemFile;
+        values: UpdateFileRequestData;
+    }) => {
+        handleUpdate({ item, values });
+    };
+
     const isDirectoryEmpty =
         !currentLevelFiles.folders?.length && !currentLevelFiles.files?.length;
 
     return (
         <Box sx={{ flex: 1, display: 'flex' }}>
-            {isLoading && <Loader overlap />}
+            {(isLoading || isDeleting || isUpdating) && <Loader overlap />}
             <List
                 dense
                 sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}
@@ -76,6 +110,9 @@ const FilesList = ({
                             type={ItemRowType.FOLDER}
                             item={item}
                             onClick={() => handleFolderSelect(item)}
+                            onDelete={() => handleDeleteClick(item)}
+                            onEdit={(values) => handleEdit({ item, values })}
+                            isLoading={isUpdating}
                         />
                     </Dropzone>
                 ))}
@@ -93,6 +130,9 @@ const FilesList = ({
                             key={item.id}
                             type={ItemRowType.FILE}
                             item={item}
+                            onDelete={() => handleDeleteClick(item)}
+                            onEdit={(values) => handleEdit({ item, values })}
+                            isLoading={isUpdating}
                         />
                     ))}
                 </Dropzone>

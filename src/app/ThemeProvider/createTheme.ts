@@ -174,6 +174,13 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                     },
                 },
             },
+            MuiInputBase: {
+                styleOverrides: {
+                    input: {
+                        fontFamily: 'InterRegular',
+                    },
+                },
+            },
         },
     });
 };

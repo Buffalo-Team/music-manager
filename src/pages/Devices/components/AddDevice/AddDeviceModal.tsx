@@ -49,6 +49,7 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                                 name="name"
                                 touched={touched.name}
                                 placeholder={t('devices.name')}
+                                sx={{ marginBottom: 1 }}
                             />
                             <FormInputField
                                 name="capacityMegabytes"
@@ -63,6 +64,7 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading }: Props) => {
                                         </InputAdornment>
                                     ),
                                 }}
+                                sx={{ marginBottom: 1 }}
                             />
                             <Button
                                 type="submit"

@@ -1,4 +1,5 @@
 import { CreateFolderRequestData, Response } from 'types';
+import { UpdateFileRequestData } from 'types/UpdateFileRequestData';
 import { emptySplitApi } from './emptySplitApi';
 
 export const filesApiSlice = emptySplitApi.injectEndpoints({
@@ -32,6 +33,16 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 body,
             }),
         }),
+        updateFile: builder.mutation<
+            Response,
+            UpdateFileRequestData & { id: string }
+        >({
+            query: ({ id, ...body }) => ({
+                url: `/files/${id}`,
+                method: 'PATCH',
+                body,
+            }),
+        }),
     }),
 });
 
@@ -40,4 +51,5 @@ export const {
     useGetAllFilesQuery,
     useDeleteFileMutation,
     useCreateFolderMutation,
+    useUpdateFileMutation,
 } = filesApiSlice;

@@ -67,6 +67,50 @@ const Home = () => {
         );
     };
 
+    const handleDeleteSuccess = (item: ItemFile) => {
+        dispatch(
+            openSnackbar({
+                content: item.isFolder
+                    ? t('files.directoryDeleted')
+                    : t('files.fileDeleted'),
+            })
+        );
+        refetchFiles();
+    };
+
+    const handleDeleteError = (item: ItemFile) => {
+        dispatch(
+            openSnackbar({
+                content: item.isFolder
+                    ? t('files.deletingDirectoryFailed')
+                    : t('files.deletingFileFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
+    const handleUpdateSuccess = (item: ItemFile) => {
+        dispatch(
+            openSnackbar({
+                content: item.isFolder
+                    ? t('files.directoryUpdated')
+                    : t('files.fileUpdated'),
+            })
+        );
+        refetchFiles();
+    };
+
+    const handleUpdateError = (item: ItemFile) => {
+        dispatch(
+            openSnackbar({
+                content: item.isFolder
+                    ? t('files.updatingDirectoryFailed')
+                    : t('files.updatingFileFailed'),
+                severity: 'error',
+            })
+        );
+    };
+
     const handleBreadcrumbClick = (index: number) => {
         setBreadcrumbs((prev) => prev.slice(0, index + 1));
     };
@@ -104,16 +148,24 @@ const Home = () => {
                 />
             </Box>
             {isLoading && <Loader />}
-            <Breadcrumbs
-                breadcrumbs={breadcrumbs}
-                onItemClick={handleBreadcrumbClick}
-            />
-            <FilesList
-                onUploadSuccess={handleUpload}
-                onUploadError={handleUploadError}
-                onFolderSelect={handleFolderSelect}
-                breadcrumbs={breadcrumbs}
-            />
+            {isSuccess && (
+                <>
+                    <Breadcrumbs
+                        breadcrumbs={breadcrumbs}
+                        onItemClick={handleBreadcrumbClick}
+                    />
+                    <FilesList
+                        onUploadSuccess={handleUpload}
+                        onUploadError={handleUploadError}
+                        onFolderSelect={handleFolderSelect}
+                        onDeleteSuccess={handleDeleteSuccess}
+                        onDeleteError={handleDeleteError}
+                        onUpdateSuccess={handleUpdateSuccess}
+                        onUpdateError={handleUpdateError}
+                        breadcrumbs={breadcrumbs}
+                    />
+                </>
+            )}
         </Box>
     );
 };
