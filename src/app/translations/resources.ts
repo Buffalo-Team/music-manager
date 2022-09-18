@@ -42,6 +42,7 @@ const resources = {
                 deleteDevice: 'Delete the device',
                 newDeviceAdded: 'New device has been added',
                 deviceDeleted: 'Device has been deleted',
+                deviceDeleteFailed: 'Deleting new device failed',
                 addingDeviceFailed: 'Adding new device failed',
                 validation: {
                     nameMinLength:
@@ -136,6 +137,8 @@ const resources = {
                 deleteDevice: 'Usuń urządzenie',
                 newDeviceAdded: 'Dodano nowe urządzenie',
                 deviceDeleted: 'Urządzenie usunięte',
+                deviceDeleteFailed:
+                    'Usuwanie urządzenia zakończone niepowodzeniem',
                 addingDeviceFailed:
                     'Dodawanie nowego urządzenia zakończone niepowodzeniem',
                 validation: {
