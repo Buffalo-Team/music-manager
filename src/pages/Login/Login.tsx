@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { FormikHelpers } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Box, Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useLoginMutation, useSignUpMutation } from 'app/api/usersApiSlice';
-import { openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import { setUser } from 'app/User/userSlice';
 import ModesNavigation from 'pages/Login/components/ModesNavigation';
 import SignUp from 'pages/Login/components/SignUp';
 import { ResponseStatus, SignInData, SignUpData } from 'types';
 import SignIn from './components/SignIn';
+import Styled from './Login.styled';
 import PageMode from './PageMode';
+import useSnackbarMessages from './useSnackbarMessages';
 
 const Login = () => {
     const dispatch = useAppDispatch();
@@ -18,24 +19,8 @@ const Login = () => {
     const [login, { isLoading: isSignInLoading }] = useLoginMutation();
     const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
     const { t } = useTranslation();
-
-    const onSignInError = () => {
-        dispatch(
-            openSnackbar({
-                content: t('login.signInFailed'),
-                severity: 'error',
-            })
-        );
-    };
-
-    const onSignUpError = () => {
-        dispatch(
-            openSnackbar({
-                content: t('login.signUpFailed'),
-                severity: 'error',
-            })
-        );
-    };
+    const { showSignInErrorMessage, showSignUpErrorMessage } =
+        useSnackbarMessages();
 
     const handleSignIn = async (
         data: SignInData,
@@ -46,10 +31,10 @@ const Login = () => {
             if (response.status === ResponseStatus.SUCCESS) {
                 dispatch(setUser(response.user));
             } else {
-                onSignInError();
+                showSignInErrorMessage();
             }
         } catch (error) {
-            onSignInError();
+            showSignInErrorMessage();
         } finally {
             resetForm();
         }
@@ -61,38 +46,16 @@ const Login = () => {
             if (response.status === ResponseStatus.SUCCESS) {
                 dispatch(setUser(response.user));
             } else {
-                onSignUpError();
+                showSignUpErrorMessage();
             }
         } catch (error) {
-            onSignUpError();
+            showSignUpErrorMessage();
         }
     };
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                background: (theme) => theme.palette.background.secondary,
-            }}
-        >
-            <Paper
-                elevation={0}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    paddingY: (theme) => theme.spacing(4),
-                    paddingX: (theme) => theme.spacing(5),
-                    borderRadius: '5px',
-                    border: (theme) =>
-                        `1px solid ${theme.palette.border.neutral}`,
-                }}
-            >
+        <Styled.LoginContainer>
+            <Styled.PaperCard elevation={0}>
                 <Typography
                     variant="regular"
                     sx={{ marginBottom: (theme) => theme.spacing(2) }}
@@ -111,13 +74,13 @@ const Login = () => {
                         isLoading={isSignUpLoading}
                     />
                 )}
-            </Paper>
+            </Styled.PaperCard>
             <ModesNavigation
                 mode={mode}
                 onSignInClick={() => setMode(PageMode.SIGN_IN)}
                 onSignUpClick={() => setMode(PageMode.SIGN_UP)}
             />
-        </Box>
+        </Styled.LoginContainer>
     );
 };
 
