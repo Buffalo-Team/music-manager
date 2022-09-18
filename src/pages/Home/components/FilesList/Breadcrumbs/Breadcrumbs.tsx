@@ -27,7 +27,13 @@ const Breadcrumbs = ({ onItemClick, breadcrumbs }: Props) => (
             const disabled = index === breadcrumbs.length - 1;
             const onClick = disabled ? undefined : () => onItemClick(index);
             if (!item) {
-                return <RootIcon disabled={disabled} onClick={onClick} />;
+                return (
+                    <RootIcon
+                        key="root"
+                        disabled={disabled}
+                        onClick={onClick}
+                    />
+                );
             }
             return (
                 <BreadcrumbItem

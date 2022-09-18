@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button } from '@mui/material';
-import { useDeleteDeviceMutation } from 'app/api/devicesApiSlice';
+import { Button } from '@mui/material';
+import {
+    useDeleteDeviceMutation,
+    useGetAllDevicesQuery,
+} from 'app/api/devicesApiSlice';
 import Loader from 'components/Loader';
 import DeviceCapacity from 'pages/Devices/components/DeviceCapacity';
 import DeviceHeader from 'pages/Devices/components/DeviceHeader';
 import MissingFilesWarning from 'pages/Devices/components/MissingFilesWarning';
-import { Device } from 'types';
+import { Device, ResponseStatus } from 'types';
+import Styled from './ActionPanel.styled';
+import useSnackbarMessages from './useSnackbarMessages';
 
 interface Props {
     device: Device;
     onClose: () => void;
-    onDelete: () => void;
-    onDownload: () => void;
 }
 
 const ActionPanelContent = ({
@@ -25,45 +28,41 @@ const ActionPanelContent = ({
         missingFiles,
     },
     onClose,
-    onDelete,
-    onDownload,
 }: Props) => {
     const { t } = useTranslation();
     const [deleteDevice, { isLoading, isSuccess }] = useDeleteDeviceMutation();
+    const { refetch: refetchDevices } = useGetAllDevicesQuery();
+    const { showDeviceRemovalSuccessMessage, showDeviceRemovalErrorMessage } =
+        useSnackbarMessages();
 
     useEffect(() => {
         if (isSuccess) {
             onClose();
-            onDelete();
         }
     }, [isSuccess]);
 
     const handleDownloadMissingFiles = () => {
         console.log('Downloading files ....');
-        onDownload();
+        refetchDevices();
     };
 
-    const handleDeleteDevice = () => {
-        deleteDevice({ id });
+    const handleDeleteDevice = async () => {
+        try {
+            const response = await deleteDevice({ id }).unwrap();
+            if (response?.status === ResponseStatus.SUCCESS) {
+                showDeviceRemovalSuccessMessage();
+                refetchDevices();
+            } else {
+                showDeviceRemovalErrorMessage();
+            }
+        } catch (error) {
+            showDeviceRemovalErrorMessage();
+        }
     };
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: '100%',
-            }}
-        >
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: 2.5,
-                }}
-            >
+        <Styled.ActionPanelContentContainer>
+            <Styled.ActionPanelContentTopWrapper>
                 <DeviceHeader type={type} name={name} />
                 <DeviceCapacity
                     allocatedMegabytes={allocatedMegabytes}
@@ -79,7 +78,7 @@ const ActionPanelContent = ({
                 >
                     {t('devices.downloadMissingFiles')}
                 </Button>
-            </Box>
+            </Styled.ActionPanelContentTopWrapper>
             <Button
                 color="error"
                 variant="contained"
@@ -89,7 +88,7 @@ const ActionPanelContent = ({
             >
                 {isLoading ? <Loader /> : t('devices.deleteDevice')}
             </Button>
-        </Box>
+        </Styled.ActionPanelContentContainer>
     );
 };
 

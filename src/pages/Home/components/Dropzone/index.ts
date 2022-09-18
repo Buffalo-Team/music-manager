@@ -1,2 +1,2 @@
 export { default } from './Dropzone';
-export { default as useDropHandler } from './useDropHandler';
+export { default as useUploadHandler } from './useUploadHandler';
