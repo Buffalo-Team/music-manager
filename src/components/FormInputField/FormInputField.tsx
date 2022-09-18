@@ -17,9 +17,10 @@ const FormInputField = ({
     touched,
     inputProps,
     sx,
+    className,
     ...rest
 }: FieldAttributes<any> & Props) => (
-    <Box sx={sx}>
+    <Box sx={sx} className={className}>
         <Field name={name}>
             {({ field, meta }: FieldProps) => (
                 <TextField
