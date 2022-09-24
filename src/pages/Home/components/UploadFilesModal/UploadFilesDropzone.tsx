@@ -1,5 +1,5 @@
 import { FileRejection, FileWithPath } from 'react-dropzone';
-import UploadFileDropzoneContent from 'pages/Home/components/UploadFiles/UploadFileDropzoneContent';
+import UploadFilesDropzoneContent from 'pages/Home/components/UploadFilesModal/UploadFilesDropzoneContent';
 import Dropzone from '../Dropzone';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
     onDrop: (acceptedFiles: File[], fileRejections: FileRejection[]) => void;
 }
 
-const UploadFileDropzone = ({ songs, onDrop, onSongDelete }: Props) => (
+const UploadFilesDropzone = ({ songs, onDrop, onSongDelete }: Props) => (
     <Dropzone
         noClick={false}
         onDrop={onDrop}
@@ -30,8 +30,8 @@ const UploadFileDropzone = ({ songs, onDrop, onSongDelete }: Props) => (
             }),
         })}
     >
-        <UploadFileDropzoneContent songs={songs} onSongDelete={onSongDelete} />
+        <UploadFilesDropzoneContent songs={songs} onSongDelete={onSongDelete} />
     </Dropzone>
 );
 
-export default UploadFileDropzone;
+export default UploadFilesDropzone;

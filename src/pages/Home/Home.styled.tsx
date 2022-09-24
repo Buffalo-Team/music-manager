@@ -7,14 +7,8 @@ const Container = styled('div')(({ theme }) => ({
     padding: theme.spacing(2),
 }));
 
-const ActionsContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    gap: theme.spacing(1),
-}));
-
 const Styled = {
     Container,
-    ActionsContainer,
 };
 
 export default Styled;

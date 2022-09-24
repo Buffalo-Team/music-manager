@@ -3,14 +3,14 @@ import { FileWithPath } from 'react-dropzone';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Typography } from '@mui/material';
-import SongsList from 'pages/Home/components/UploadFiles/SongsList';
+import SongsList from 'pages/Home/components/UploadFilesModal/SongsList';
 
 interface Props extends WithTranslation {
     songs: FileWithPath[];
     onSongDelete: (song: FileWithPath) => void;
 }
 
-const UploadFileDropzoneContent = ({ songs, onSongDelete, t }: Props) => (
+const UploadFilesDropzoneContent = ({ songs, onSongDelete, t }: Props) => (
     <>
         {!songs.length && (
             <>
@@ -28,6 +28,7 @@ const UploadFileDropzoneContent = ({ songs, onSongDelete, t }: Props) => (
                     sx={{
                         marginTop: 3,
                         color: (theme) => theme.palette.grey[100],
+                        textAlign: 'center',
                     }}
                 >
                     {t('files.dropMoreFilesHereOrClickToUpload')}
@@ -37,4 +38,4 @@ const UploadFileDropzoneContent = ({ songs, onSongDelete, t }: Props) => (
     </>
 );
 
-export default withTranslation()(UploadFileDropzoneContent);
+export default withTranslation()(UploadFilesDropzoneContent);
