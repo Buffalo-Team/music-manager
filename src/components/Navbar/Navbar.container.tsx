@@ -68,15 +68,10 @@ const NavbarContainer = ({ menuItems }: Props) => {
         setActivePage(name);
     };
 
-    return mobile ? (
-        <NavbarMobile
-            activePage={activePage}
-            onPageSelect={handlePageSelect}
-            menuItems={menuItems}
-            logout={handleLogout}
-        />
-    ) : (
-        <NavbarView
+    const NavbarComponent = mobile ? NavbarMobile : NavbarView;
+
+    return (
+        <NavbarComponent
             activePage={activePage}
             onPageSelect={handlePageSelect}
             menuItems={menuItems}

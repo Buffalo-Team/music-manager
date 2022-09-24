@@ -2,16 +2,8 @@ import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Box } from '@mui/material';
 import IconButton from 'components/IconButton';
-import { MenuItem } from 'types';
 import Styled from './Navbar.styled';
-
-interface Props {
-    activePage: string;
-    onPageSelect: (name: string) => void;
-    menuItems: MenuItem[];
-    logout: () => void;
-    className?: string;
-}
+import NavbarProps from './NavbarProps';
 
 const NavbarView = ({
     activePage,
@@ -19,7 +11,7 @@ const NavbarView = ({
     menuItems,
     logout,
     className,
-}: Props) => (
+}: NavbarProps) => (
     <Styled.Container className={className}>
         <Box
             component="ul"

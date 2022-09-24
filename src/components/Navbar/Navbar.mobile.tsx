@@ -3,21 +3,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Drawer } from '@mui/material';
 import IconButton from 'components/IconButton';
 import Styled from './Navbar.styled';
-import { MenuItem } from 'types';
-
-interface Props {
-    activePage: string;
-    onPageSelect: (name: string) => void;
-    menuItems: MenuItem[];
-    logout: () => void;
-}
+import NavbarProps from './NavbarProps';
 
 const NavbarMobile = ({
     activePage,
     onPageSelect,
     menuItems,
     logout,
-}: Props) => {
+}: NavbarProps) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
