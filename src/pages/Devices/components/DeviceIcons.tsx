@@ -8,7 +8,7 @@ import { DeviceType } from 'types';
 const deviceIcons = {
     [DeviceType.CAR]: DirectionsCarIcon,
     [DeviceType.MOBILE]: PhoneAndroidIcon,
-    [DeviceType.PC]: LaptopIcon,
+    [DeviceType.COMPUTER]: LaptopIcon,
     [DeviceType.WATCH]: WatchIcon,
     unknown: HelpOutlineIcon,
 };
