@@ -16,7 +16,7 @@ import useUpdateFile from './useUpdateFile';
 
 interface Props {
     onFolderSelect: (item: ItemFile) => void;
-    targetFolder: ItemFile | undefined;
+    targetFolder?: ItemFile;
 }
 
 const FilesList = ({ onFolderSelect, targetFolder }: Props) => {

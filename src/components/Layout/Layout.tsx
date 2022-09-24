@@ -1,12 +1,20 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import Sidebar from 'components/Sidebar';
+import Navbar from 'components/Navbar';
 import menuItems from './menuItems';
 
 const Layout = () => (
-    <Box sx={{ display: 'flex', flex: 1 }}>
-        <Sidebar menuItems={menuItems} />
+    <Box
+        sx={(theme) => ({
+            display: 'flex',
+            flex: 1,
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+            },
+        })}
+    >
+        <Navbar menuItems={menuItems} />
         <Box
             sx={{
                 display: 'flex',

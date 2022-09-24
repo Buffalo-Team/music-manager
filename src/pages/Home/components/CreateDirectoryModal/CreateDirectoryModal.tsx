@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'components/Modal';
-import CreateDirectoryForm from 'pages/Home/components/CreateDirectory/CreateDirectoryForm';
 import { CreateFolderRequestData, File as ItemFile } from 'types';
 import ParentDirectory from '../ParentDirectory';
 import Styled from './CreateDirectory.styled';
+import CreateDirectoryForm from './CreateDirectoryForm';
 
 interface Props {
     title: string;

@@ -1,40 +1,26 @@
-import React, { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Box, SxProps } from '@mui/material';
-import { Theme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import IconButton from 'components/IconButton';
 import { MenuItem } from 'types';
+import Styled from './Navbar.styled';
 
 interface Props {
-    sx?: SxProps<Theme>;
     activePage: string;
-    setActivePage: Dispatch<SetStateAction<string>>;
+    onPageSelect: (name: string) => void;
     menuItems: MenuItem[];
     logout: () => void;
+    className?: string;
 }
 
-const SidebarView = ({
-    sx,
+const NavbarView = ({
     activePage,
-    setActivePage,
+    onPageSelect,
     menuItems,
     logout,
+    className,
 }: Props) => (
-    <Box
-        sx={[
-            (theme) => ({
-                background: theme.palette.background.primary,
-                paddingY: theme.spacing(2),
-                paddingX: theme.spacing(1.5),
-                borderRight: `1px solid ${theme.palette.border.neutral}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-            }),
-            ...(Array.isArray(sx) ? sx : [sx]),
-        ]}
-    >
+    <Styled.Container className={className}>
         <Box
             component="ul"
             sx={{ listStyleType: 'none', margin: 0, padding: 0 }}
@@ -48,7 +34,7 @@ const SidebarView = ({
                     <NavLink to={i.link}>
                         <IconButton
                             active={i.name === activePage}
-                            onClick={() => setActivePage(i.name)}
+                            onClick={() => onPageSelect(i.name)}
                         >
                             {i.IconComponent}
                         </IconButton>
@@ -59,7 +45,7 @@ const SidebarView = ({
         <IconButton onClick={logout}>
             <LogoutIcon />
         </IconButton>
-    </Box>
+    </Styled.Container>
 );
 
-export default SidebarView;
+export default NavbarView;

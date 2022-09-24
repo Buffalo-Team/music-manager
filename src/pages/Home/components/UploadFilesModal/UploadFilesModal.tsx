@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import Loader from 'components/Loader';
 import Modal from 'components/Modal';
 import ParentDirectory from 'pages/Home/components/ParentDirectory';
-import UploadFileDropzone from 'pages/Home/components/UploadFiles/UploadFileDropzone';
+import UploadFilesDropzone from 'pages/Home/components/UploadFilesModal/UploadFilesDropzone';
 import { File as ItemFile } from 'types';
 import Styled from './UploadFiles.styled';
 
@@ -19,7 +19,7 @@ interface Props extends WithTranslation {
     songs: FileWithPath[];
 }
 
-const UploadFileModal = ({
+const UploadFilesModal = ({
     open,
     onClose,
     onUpload,
@@ -33,7 +33,7 @@ const UploadFileModal = ({
     <Modal open={open} onClose={onClose} title={t('files.uploadFiles')}>
         <Styled.ModalContentContainer>
             <ParentDirectory targetFolder={targetFolder} />
-            <UploadFileDropzone
+            <UploadFilesDropzone
                 songs={songs}
                 onDrop={onDrop}
                 onSongDelete={onDelete}
@@ -52,4 +52,4 @@ const UploadFileModal = ({
     </Modal>
 );
 
-export default withTranslation()(UploadFileModal);
+export default withTranslation()(UploadFilesModal);

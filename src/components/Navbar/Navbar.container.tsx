@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SxProps } from '@mui/material';
-import { Theme } from '@mui/material/styles';
 import api from 'app/api';
 import { useLogoutMutation } from 'app/api/usersApiSlice';
 import { closeSnackbar, openSnackbar } from 'app/Snackbar/snackbarSlice';
 import { useAppDispatch } from 'app/store';
 import { clearUser } from 'app/User/userSlice';
+import useIsMobile from 'hooks/useIsMobile';
 import { clearDevices } from 'pages/Devices/store/devicesSlice';
 import { clearFiles } from 'pages/Home/store/filesSlice';
 import { MenuItem, ResponseStatus } from 'types';
-import SidebarView from './Sidebar.view';
+import NavbarMobile from './Navbar.mobile';
+import NavbarView from './Navbar.view';
 
 interface Props {
-    sx?: SxProps<Theme>;
     menuItems: MenuItem[];
 }
 
-const SidebarContainer = ({ sx, menuItems }: Props) => {
+const NavbarContainer = ({ menuItems }: Props) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const [activePage, setActivePage] = useState<string>(menuItems[0].name);
+    const mobile = useIsMobile();
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [logout] = useLogoutMutation();
@@ -64,15 +64,25 @@ const SidebarContainer = ({ sx, menuItems }: Props) => {
         }
     };
 
-    return (
-        <SidebarView
-            sx={sx}
+    const handlePageSelect = (name: string) => {
+        setActivePage(name);
+    };
+
+    return mobile ? (
+        <NavbarMobile
             activePage={activePage}
-            setActivePage={setActivePage}
+            onPageSelect={handlePageSelect}
+            menuItems={menuItems}
+            logout={handleLogout}
+        />
+    ) : (
+        <NavbarView
+            activePage={activePage}
+            onPageSelect={handlePageSelect}
             menuItems={menuItems}
             logout={handleLogout}
         />
     );
 };
 
-export default SidebarContainer;
+export default NavbarContainer;

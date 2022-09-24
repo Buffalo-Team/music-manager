@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
 import { FileRejection, FileWithPath } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@mui/material';
 import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
-import UploadFileModal from 'pages/Home/components/UploadFiles/UploadFileModal';
-import { File as ItemFile } from 'types';
-import { useUploadHandler } from '../Dropzone';
+import { useUploadHandler } from 'pages/Home/components/Dropzone';
 import useSnackbarMessages from '../FilesList/useSnackbarMessages';
 
 interface Props {
-    targetFolder?: ItemFile;
+    targetFolderId?: string;
 }
 
-const UploadFiles = ({ targetFolder }: Props) => {
-    const [open, setOpen] = useState<boolean>(false);
+const useUploadFiles = ({ targetFolderId }: Props) => {
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [songs, setSongs] = useState<FileWithPath[]>([]);
-    const { t } = useTranslation();
+
     const { refetch: refetchFiles } = useGetAllFilesQuery();
     const { showUploadSuccessMessage, showUploadErrorMessage } =
         useSnackbarMessages();
@@ -35,21 +31,21 @@ const UploadFiles = ({ targetFolder }: Props) => {
         onUploadError: showUploadErrorMessage,
     });
 
-    const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => {
-        setOpen(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => {
+        setModalOpen(false);
         setSongs([]);
     };
 
     useEffect(() => {
         if (isSuccess) {
-            handleCloseModal();
+            closeModal();
         }
     }, [isSuccess]);
 
     const handleSubmit = (songs: File[]) =>
         handleUpload({
-            targetId: targetFolder?.id,
+            targetId: targetFolderId,
             songs,
         });
 
@@ -73,27 +69,16 @@ const UploadFiles = ({ targetFolder }: Props) => {
         handleRejection(fileRejections);
     };
 
-    return (
-        <>
-            <Button
-                color="primary"
-                variant="contained"
-                onClick={handleOpenModal}
-            >
-                {t('files.upload')}
-            </Button>
-            <UploadFileModal
-                open={open}
-                onClose={handleCloseModal}
-                onUpload={handleSubmit}
-                onDelete={handleDelete}
-                onDrop={handleDrop}
-                isLoading={isLoading}
-                targetFolder={targetFolder}
-                songs={songs}
-            />
-        </>
-    );
+    return {
+        songs,
+        modalOpen,
+        openModal,
+        closeModal,
+        handleSubmit,
+        handleDelete,
+        handleDrop,
+        isLoading,
+    };
 };
 
-export default UploadFiles;
+export default useUploadFiles;

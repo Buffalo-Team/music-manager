@@ -3,10 +3,9 @@ import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { useAppDispatch } from 'app/store';
 import Loader from 'components/Loader';
 import { File as ItemFile, ResponseStatus } from 'types';
-import CreateDirectory from './components/CreateDirectory';
+import Actions from './components/Actions';
 import FilesList from './components/FilesList';
 import Breadcrumbs from './components/FilesList/Breadcrumbs';
-import UploadFiles from './components/UploadFiles';
 import Styled from './Home.styled';
 import { setFiles } from './store/filesSlice';
 
@@ -42,14 +41,7 @@ const Home = () => {
 
     return (
         <Styled.Container>
-            <Styled.ActionsContainer>
-                <CreateDirectory
-                    targetFolder={breadcrumbs[breadcrumbs.length - 1]}
-                />
-                <UploadFiles
-                    targetFolder={breadcrumbs[breadcrumbs.length - 1]}
-                />
-            </Styled.ActionsContainer>
+            <Actions targetFolder={breadcrumbs[breadcrumbs.length - 1]} />
             {isLoading && <Loader />}
             {isSuccess && (
                 <>
