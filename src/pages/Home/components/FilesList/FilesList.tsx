@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FileRejection } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
 import { Box, List } from '@mui/material';
 import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
+import useConfirmationModal from 'hooks/useConfirmationModal';
 import { File as ItemFile, ItemRowType, UpdateFileRequestData } from 'types';
 import Dropzone, { useUploadHandler } from '../Dropzone';
 import CurrentLevel from './CurrentLevel';
@@ -20,6 +22,8 @@ interface Props {
 }
 
 const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
+    const { t } = useTranslation();
+    const { openModal, closeModal } = useConfirmationModal();
     const files = useAppSelector(({ files }) => files);
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
@@ -42,6 +46,7 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
     const onDeleteSuccess = (item: ItemFile) => {
         showItemRemovalSuccessMessage(item);
         refetchFiles();
+        closeModal();
     };
 
     const onUpdateSuccess = (item: ItemFile) => {
@@ -94,7 +99,10 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
         };
 
     const handleDeleteClick = (item: ItemFile) => {
-        handleDelete(item);
+        openModal({
+            message: t('areYouSure'),
+            onConfirm: () => handleDelete(item),
+        });
     };
 
     const handleEdit = ({

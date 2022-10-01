@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import ConfirmationModalProvider from 'app/ConfirmationModalProvider';
 import { store } from 'app/store';
 import ThemeProvider from 'app/ThemeProvider';
 import CurrentUserManager from 'components/CurrentUserManager';
@@ -12,9 +13,11 @@ const App = () => (
     <BrowserRouter>
         <Provider store={store}>
             <ThemeProvider>
-                <CurrentUserManager />
-                <Snackbar />
-                <Routes />
+                <ConfirmationModalProvider>
+                    <CurrentUserManager />
+                    <Snackbar />
+                    <Routes />
+                </ConfirmationModalProvider>
             </ThemeProvider>
         </Provider>
     </BrowserRouter>
