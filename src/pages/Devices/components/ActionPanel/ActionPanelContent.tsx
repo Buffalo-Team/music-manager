@@ -26,6 +26,7 @@ const ActionPanelContent = ({
         allocatedMegabytes,
         capacityMegabytes,
         missingFiles,
+        missingFilesCount,
     },
     onClose,
 }: Props) => {
@@ -68,7 +69,9 @@ const ActionPanelContent = ({
                     allocatedMegabytes={allocatedMegabytes}
                     capacityMegabytes={capacityMegabytes}
                 />
-                <MissingFilesWarning missingFiles={missingFiles} />
+                {!!missingFilesCount && (
+                    <MissingFilesWarning filesCount={missingFilesCount} />
+                )}
                 <Button
                     color="primary"
                     variant="contained"

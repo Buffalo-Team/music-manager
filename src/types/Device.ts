@@ -7,6 +7,7 @@ export type Device = {
     id: string;
     isSynchronizationNeeded: boolean;
     missingFiles: [];
+    missingFilesCount: number;
     name: string;
     owner: string;
     type: DeviceType;
