@@ -6,7 +6,7 @@ import { useAppDispatch } from 'app/store';
 import { ResponseStatus } from 'types';
 
 interface Props {
-    onUploadSuccess?: () => void;
+    onUploadSuccess?: (targetId?: string) => void;
     onUploadError?: () => void;
 }
 

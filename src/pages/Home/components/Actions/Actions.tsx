@@ -12,17 +12,20 @@ import CreateDirectoryModal, {
 
 interface Props {
     targetFolder?: ItemFile;
+    onRefetch: (files: ItemFile[]) => void;
 }
 
-const Actions = ({ targetFolder }: Props) => {
+const Actions = ({ targetFolder, onRefetch }: Props) => {
     const [speedDialOpen, setSpeedDialOpen] = useState<boolean>(false);
     const { t } = useTranslation();
     const isMobile = useIsMobile();
     const createDirectoryActions = useCreateDirectory({
         targetFolderId: targetFolder?.id,
+        onRefetch,
     });
     const uploadFilesActions = useUploadFiles({
         targetFolderId: targetFolder?.id,
+        onRefetch,
     });
 
     const onActionClick =
