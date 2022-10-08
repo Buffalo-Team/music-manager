@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, IconButton, Modal as MUIModal, Typography } from '@mui/material';
 
-interface Props {
+export interface Props {
     open: boolean;
-    onClose: () => void;
+    onClose?: () => void;
     title?: string;
     children: ReactNode;
     closeOnBackdropClick?: boolean;
@@ -21,10 +21,10 @@ const Modal = ({
         open={open}
         onClose={(event, reason) => {
             if (closeOnBackdropClick) {
-                onClose();
+                onClose?.();
                 return;
             } else if (reason !== 'backdropClick') {
-                onClose();
+                onClose?.();
                 return;
             }
         }}

@@ -92,6 +92,9 @@ const resources = {
             loading: 'Loading...',
             fieldRequired: 'The field is required',
             MB: 'MB',
+            cancel: 'Cancel',
+            confirm: 'Confirm',
+            areYouSure: 'Are you sure?',
         },
     },
     pl: {
@@ -194,6 +197,9 @@ const resources = {
             loading: 'Ładowanie...',
             fieldRequired: 'Pole jest wymagane',
             MB: 'MB',
+            cancel: 'Anuluj',
+            confirm: 'Potwierdź',
+            areYouSure: 'Jesteś pewien?',
         },
     },
 };
