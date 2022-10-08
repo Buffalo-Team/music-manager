@@ -75,6 +75,7 @@ const ItemRow = ({
                                     primary={item.name}
                                     primaryTypographyProps={{
                                         variant: 'regular',
+                                        sx: { overflowWrap: 'anywhere' },
                                     }}
                                 />
                             )}
