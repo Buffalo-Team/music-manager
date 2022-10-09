@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
+import { useGetFilesByTargetIdQuery } from 'app/api/filesApiSlice';
 import { useAppDispatch } from 'app/store';
 import Loader from 'components/Loader';
 import { File as ItemFile, ResponseStatus } from 'types';
@@ -16,7 +16,7 @@ const Home = () => {
         isFetching,
         isLoading,
         isSuccess,
-    } = useGetAllFilesQuery();
+    } = useGetFilesByTargetIdQuery({ targetId: undefined });
     const [breadcrumbs, setBreadcrumbs] = useState<(ItemFile | undefined)[]>([
         undefined,
     ]);
@@ -27,9 +27,12 @@ const Home = () => {
             !isFetching &&
             filesResponse?.status === ResponseStatus.SUCCESS
         ) {
-            dispatch(setFiles(filesResponse?.files || []));
+            handleFilesRefetched(filesResponse?.files || []);
         }
     }, [filesResponse, isFetching, isSuccess]);
+
+    const handleFilesRefetched = (files: ItemFile[]) =>
+        dispatch(setFiles(files));
 
     const handleBreadcrumbClick = (index: number) => {
         setBreadcrumbs((prev) => prev.slice(0, index + 1));
@@ -41,7 +44,10 @@ const Home = () => {
 
     return (
         <Styled.Container>
-            <Actions targetFolder={breadcrumbs[breadcrumbs.length - 1]} />
+            <Actions
+                targetFolder={breadcrumbs[breadcrumbs.length - 1]}
+                onRefetch={handleFilesRefetched}
+            />
             {isLoading && <Loader />}
             {isSuccess && (
                 <>
@@ -52,6 +58,7 @@ const Home = () => {
                     <FilesList
                         onFolderSelect={handleFolderSelect}
                         targetFolder={breadcrumbs[breadcrumbs.length - 1]}
+                        onRefetch={handleFilesRefetched}
                     />
                 </>
             )}
