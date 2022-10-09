@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FileRejection } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Box, List } from '@mui/material';
+import { useGetFilesByTargetIdQuery } from 'app/api/filesApiSlice';
 import { useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
 import useConfirmationModal from 'hooks/useConfirmationModal';
@@ -18,15 +19,27 @@ import useUpdateFile from './useUpdateFile';
 interface Props {
     onFolderSelect: (item: ItemFile) => void;
     targetFolder?: ItemFile;
+    onRefetch: (files: ItemFile[]) => void;
 }
 
-const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
+const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
     const { t } = useTranslation();
     const { openModal, closeModal } = useConfirmationModal();
     const files = useAppSelector(({ files }) => files);
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
+    const {
+        data,
+        isFetching: isFolderFetching,
+    } = useGetFilesByTargetIdQuery({
+        targetId: targetFolder?.id,
+    });
+
+    useEffect(() => {
+        onRefetch(data?.files || []);
+    }, [data]);
+
     const {
         showItemUpdateErrorMessage,
         showItemUpdateSuccessMessage,
@@ -52,7 +65,7 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
     const {
         handleUpload,
         handleRejection,
-        requestState: { isLoading },
+        requestState: { isLoading: isUploading },
     } = useUploadHandler({
         onUploadSuccess,
         onUploadError: showUploadErrorMessage,
@@ -111,11 +124,15 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
     };
 
     const isDirectoryEmpty =
-        !currentLevelFiles.folders?.length && !currentLevelFiles.files?.length;
+        !isFolderFetching &&
+        !currentLevelFiles.folders?.length &&
+        !currentLevelFiles.files?.length;
 
     return (
         <Box sx={{ flex: 1, display: 'flex' }}>
-            {(isLoading || isDeleting || isUpdating) && <Loader overlap />}
+            {(isUploading || isDeleting || isUpdating || isFolderFetching) && (
+                <Loader overlap />
+            )}
             <List
                 dense
                 sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}

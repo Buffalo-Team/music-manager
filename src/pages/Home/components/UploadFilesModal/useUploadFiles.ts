@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react';
 import { FileRejection, FileWithPath } from 'react-dropzone';
+import { useGetFilesByTargetIdQuery } from 'app/api/filesApiSlice';
 import { useUploadHandler } from 'pages/Home/components/Dropzone';
+import { File as ItemFile } from 'types';
 import useSnackbarMessages from '../FilesList/useSnackbarMessages';
 
 interface Props {
     targetFolderId?: string;
+    onRefetch: (files: ItemFile[]) => void;
 }
 
-const useUploadFiles = ({ targetFolderId }: Props) => {
+const useUploadFiles = ({ targetFolderId, onRefetch }: Props) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [songs, setSongs] = useState<FileWithPath[]>([]);
+
+    const { data } = useGetFilesByTargetIdQuery({
+        targetId: targetFolderId,
+    });
+
+    useEffect(() => {
+        onRefetch(data?.files || []);
+    }, [data]);
 
     const { showUploadSuccessMessage, showUploadErrorMessage } =
         useSnackbarMessages();

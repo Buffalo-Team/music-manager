@@ -49,6 +49,7 @@ const SongsList = ({ songs, onDelete }: Props) => (
                     primary={song.name}
                     primaryTypographyProps={{
                         variant: 'regular',
+                        sx: { overflowWrap: 'anywhere' },
                     }}
                 />
             </ListItem>

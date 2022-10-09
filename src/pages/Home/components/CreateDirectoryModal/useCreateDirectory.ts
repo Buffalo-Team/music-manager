@@ -1,21 +1,35 @@
 import { useEffect, useState } from 'react';
 import {
     useCreateFolderMutation,
+    useGetFilesByTargetIdQuery,
 } from 'app/api/filesApiSlice';
 import useSnackbarMessages from 'pages/Home/components/CreateDirectoryModal/useSnackbarMessages';
-import { CreateFolderRequestData, ResponseStatus } from 'types';
+import {
+    CreateFolderRequestData,
+    File as ItemFile,
+    ResponseStatus,
+} from 'types';
 
 interface Props {
     targetFolderId?: string;
+    onRefetch: (files: ItemFile[]) => void;
 }
 
-const useCreateDirectory = ({ targetFolderId }: Props) => {
+const useCreateDirectory = ({ targetFolderId, onRefetch }: Props) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
     const [createFolder, { isLoading, isSuccess }] = useCreateFolderMutation();
+    const { data, refetch: refetchFiles } = useGetFilesByTargetIdQuery({
+        targetId: targetFolderId,
+    });
+
+    useEffect(() => {
+        onRefetch(data?.files || []);
+    }, [data]);
+
     const {
         showDirectoryCreationSuccessMessage,
         showDirectoryCreationErrorMessage,

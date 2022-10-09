@@ -1,4 +1,4 @@
-import { CreateFolderRequestData, Response } from 'types';
+import { CreateFolderRequestData, Response, File as ItemFile } from 'types';
 import { UpdateFileRequestData } from 'types/UpdateFileRequestData';
 import { emptySplitApi } from './emptySplitApi';
 
@@ -15,8 +15,11 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
             }),
             invalidatesTags: ['files', 'devices'],
         }),
-        getAllFiles: builder.query<{ files: File[] } & Response, void>({
-            query: () => '/files',
+        getFilesByTargetId: builder.query<
+            { files: ItemFile[] } & Response,
+            { targetId?: string }
+        >({
+            query: ({ targetId = '' }) => `/files/in/${targetId}`,
             providesTags: ['files'],
         }),
         deleteFile: builder.mutation<Response, { id: string }>({
@@ -53,7 +56,7 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
 
 export const {
     useUploadFilesMutation,
-    useGetAllFilesQuery,
+    useGetFilesByTargetIdQuery,
     useDeleteFileMutation,
     useCreateFolderMutation,
     useUpdateFileMutation,
