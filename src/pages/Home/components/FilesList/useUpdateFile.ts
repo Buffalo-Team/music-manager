@@ -19,7 +19,7 @@ const useUpdateFile = ({ onUpdateSuccess, onUpdateError }: Props = {}) => {
     }) => {
         try {
             const response = await updateFile({
-                id: item.id,
+                file: item,
                 ...values,
             }).unwrap();
             if (!response || response.status === ResponseStatus.SUCCESS) {

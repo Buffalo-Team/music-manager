@@ -13,21 +13,31 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: ['files', 'devices'],
+            invalidatesTags: (result, error, { targetId }) => [
+                { type: 'files', id: targetId },
+                'devices',
+            ],
         }),
         getFilesByTargetId: builder.query<
             { files: ItemFile[] } & Response,
             { targetId?: string }
         >({
             query: ({ targetId = '' }) => `/files/in/${targetId}`,
-            providesTags: ['files'],
+            providesTags: (result, error, { targetId }) => {
+                return result
+                    ? [{ type: 'files' as const, id: targetId }, 'files']
+                    : ['files'];
+            },
         }),
-        deleteFile: builder.mutation<Response, { id: string }>({
+        deleteFile: builder.mutation<Response, ItemFile>({
             query: ({ id }) => ({
                 url: `/files/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['files', 'devices'],
+            invalidatesTags: (result, error, { parentFile }) => [
+                { type: 'files', id: parentFile },
+                'devices',
+            ],
         }),
         createFolder: builder.mutation<
             Response,
@@ -38,18 +48,24 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: ['files', 'devices'],
+            invalidatesTags: (result, error, { targetId }) => [
+                { type: 'files', id: targetId },
+                'devices',
+            ],
         }),
         updateFile: builder.mutation<
             Response,
-            UpdateFileRequestData & { id: string }
+            UpdateFileRequestData & { file: ItemFile }
         >({
-            query: ({ id, ...body }) => ({
+            query: ({ file: { id }, ...body }) => ({
                 url: `/files/${id}`,
                 method: 'PATCH',
                 body,
             }),
-            invalidatesTags: ['files', 'devices'],
+            invalidatesTags: (result, error, { file: { parentFile } }) => [
+                { type: 'files', id: parentFile },
+                'devices',
+            ],
         }),
     }),
 });

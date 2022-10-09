@@ -22,7 +22,7 @@ const useCreateDirectory = ({ targetFolderId, onRefetch }: Props) => {
     const closeModal = () => setModalOpen(false);
 
     const [createFolder, { isLoading, isSuccess }] = useCreateFolderMutation();
-    const { data, refetch: refetchFiles } = useGetFilesByTargetIdQuery({
+    const { data } = useGetFilesByTargetIdQuery({
         targetId: targetFolderId,
     });
 

@@ -29,10 +29,7 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
-    const {
-        data,
-        isFetching: isFolderFetching,
-    } = useGetFilesByTargetIdQuery({
+    const { data, isFetching: isFolderFetching } = useGetFilesByTargetIdQuery({
         targetId: targetFolder?.id,
     });
 
