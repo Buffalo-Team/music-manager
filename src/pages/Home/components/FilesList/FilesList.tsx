@@ -29,11 +29,7 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
-    const {
-        data,
-        refetch: refetchFiles,
-        isFetching: isFolderFetching,
-    } = useGetFilesByTargetIdQuery({
+    const { data, isFetching: isFolderFetching } = useGetFilesByTargetIdQuery({
         targetId: targetFolder?.id,
     });
 
@@ -52,18 +48,15 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
 
     const onUploadSuccess = () => {
         showUploadSuccessMessage();
-        refetchFiles();
     };
 
     const onDeleteSuccess = (item: ItemFile) => {
         showItemRemovalSuccessMessage(item);
-        refetchFiles();
         closeModal();
     };
 
     const onUpdateSuccess = (item: ItemFile) => {
         showItemUpdateSuccessMessage(item);
-        refetchFiles();
     };
 
     const {

@@ -12,15 +12,18 @@ export const devicesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+            invalidatesTags: ['devices'],
         }),
         getAllDevices: builder.query<{ devices: Device[] } & Response, void>({
             query: () => '/devices',
+            providesTags: ['devices'],
         }),
         deleteDevice: builder.mutation<Response, { id: string }>({
             query: ({ id }) => ({
                 url: `/devices/${id}`,
                 method: 'DELETE',
             }),
+            invalidatesTags: ['devices'],
         }),
     }),
 });

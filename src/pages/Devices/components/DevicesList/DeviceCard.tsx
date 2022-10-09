@@ -12,8 +12,13 @@ interface Props {
 }
 
 const DeviceCard = ({ device, onClick, active }: Props) => {
-    const { type, name, allocatedMegabytes, capacityMegabytes, missingFiles } =
-        device;
+    const {
+        type,
+        name,
+        allocatedMegabytes,
+        capacityMegabytes,
+        missingFilesCount,
+    } = device;
     return (
         <Styled.PaperCard
             elevation={0}
@@ -22,7 +27,9 @@ const DeviceCard = ({ device, onClick, active }: Props) => {
         >
             <Box>
                 <DeviceHeader type={type} name={name} />
-                <MissingFilesWarning missingFiles={missingFiles} />
+                {!!missingFilesCount && (
+                    <MissingFilesWarning filesCount={missingFilesCount} />
+                )}
             </Box>
             <DeviceCapacity
                 allocatedMegabytes={allocatedMegabytes}

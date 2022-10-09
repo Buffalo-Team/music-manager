@@ -11,7 +11,7 @@ const useDeleteFile = ({ onDeleteSuccess, onDeleteError }: Props = {}) => {
 
     const handleDelete = async (item: ItemFile) => {
         try {
-            const response = await deleteFile({ id: item.id }).unwrap();
+            const response = await deleteFile(item).unwrap();
             if (!response || response.status === ResponseStatus.SUCCESS) {
                 onDeleteSuccess?.(item);
             } else {

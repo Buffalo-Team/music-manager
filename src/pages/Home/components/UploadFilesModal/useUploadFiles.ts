@@ -14,7 +14,7 @@ const useUploadFiles = ({ targetFolderId, onRefetch }: Props) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [songs, setSongs] = useState<FileWithPath[]>([]);
 
-    const { data, refetch: refetchFiles } = useGetFilesByTargetIdQuery({
+    const { data } = useGetFilesByTargetIdQuery({
         targetId: targetFolderId,
     });
 
@@ -27,7 +27,6 @@ const useUploadFiles = ({ targetFolderId, onRefetch }: Props) => {
 
     const onUploadSuccess = () => {
         showUploadSuccessMessage();
-        refetchFiles();
         setSongs([]);
     };
 
