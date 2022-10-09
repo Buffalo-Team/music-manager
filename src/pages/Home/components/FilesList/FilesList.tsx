@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { FileRejection } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Box, List } from '@mui/material';
-import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
 import useConfirmationModal from 'hooks/useConfirmationModal';
@@ -28,7 +27,6 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
-    const { refetch: refetchFiles } = useGetAllFilesQuery();
     const {
         showItemUpdateErrorMessage,
         showItemUpdateSuccessMessage,
@@ -40,18 +38,15 @@ const FilesList = ({ onFolderSelect, targetFolder }: Props) => {
 
     const onUploadSuccess = () => {
         showUploadSuccessMessage();
-        refetchFiles();
     };
 
     const onDeleteSuccess = (item: ItemFile) => {
         showItemRemovalSuccessMessage(item);
-        refetchFiles();
         closeModal();
     };
 
     const onUpdateSuccess = (item: ItemFile) => {
         showItemUpdateSuccessMessage(item);
-        refetchFiles();
     };
 
     const {

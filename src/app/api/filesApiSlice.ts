@@ -13,15 +13,18 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+            invalidatesTags: ['files', 'devices'],
         }),
         getAllFiles: builder.query<{ files: File[] } & Response, void>({
             query: () => '/files',
+            providesTags: ['files'],
         }),
         deleteFile: builder.mutation<Response, { id: string }>({
             query: ({ id }) => ({
                 url: `/files/${id}`,
                 method: 'DELETE',
             }),
+            invalidatesTags: ['files', 'devices'],
         }),
         createFolder: builder.mutation<
             Response,
@@ -32,6 +35,7 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'POST',
                 body,
             }),
+            invalidatesTags: ['files', 'devices'],
         }),
         updateFile: builder.mutation<
             Response,
@@ -42,6 +46,7 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 method: 'PATCH',
                 body,
             }),
+            invalidatesTags: ['files', 'devices'],
         }),
     }),
 });

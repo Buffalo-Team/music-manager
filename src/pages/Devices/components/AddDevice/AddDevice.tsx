@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Box } from '@mui/material';
-import {
-    useAddDeviceMutation,
-    useGetAllDevicesQuery,
-} from 'app/api/devicesApiSlice';
+import { useAddDeviceMutation } from 'app/api/devicesApiSlice';
 import AddDeviceModal from 'pages/Devices/components/AddDevice/AddDeviceModal';
 import { ResponseStatus, AddDeviceRequestData } from 'types';
 import useSnackbarMessages from './useSnackbarMessages';
@@ -13,7 +10,6 @@ const AddDevice = () => {
     const [open, setOpen] = useState<boolean>(false);
     const { t } = useTranslation();
     const [requestAddDevice, { isLoading, isSuccess }] = useAddDeviceMutation();
-    const { refetch: refetchDevices } = useGetAllDevicesQuery();
     const { showAddDeviceSuccessMessage, showAddDeviceErrorMessage } =
         useSnackbarMessages();
 
@@ -25,7 +21,6 @@ const AddDevice = () => {
             const response = await requestAddDevice(values).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
                 showAddDeviceSuccessMessage();
-                refetchDevices();
             } else {
                 showAddDeviceErrorMessage();
             }

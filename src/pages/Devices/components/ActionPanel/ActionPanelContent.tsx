@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
-import {
-    useDeleteDeviceMutation,
-    useGetAllDevicesQuery,
-} from 'app/api/devicesApiSlice';
+import { useDeleteDeviceMutation } from 'app/api/devicesApiSlice';
 import Loader from 'components/Loader';
 import DeviceCapacity from 'pages/Devices/components/DeviceCapacity';
 import DeviceHeader from 'pages/Devices/components/DeviceHeader';
@@ -18,6 +15,9 @@ interface Props {
     onClose: () => void;
 }
 
+const getDownloadLink = (deviceId: string) =>
+    `${process.env.REACT_APP_BASE_API_URL}/devices/${deviceId}/downloadMissingFiles`;
+
 const ActionPanelContent = ({
     device: {
         id,
@@ -25,14 +25,12 @@ const ActionPanelContent = ({
         name,
         allocatedMegabytes,
         capacityMegabytes,
-        missingFiles,
         missingFilesCount,
     },
     onClose,
 }: Props) => {
     const { t } = useTranslation();
     const [deleteDevice, { isLoading, isSuccess }] = useDeleteDeviceMutation();
-    const { refetch: refetchDevices } = useGetAllDevicesQuery();
     const { showDeviceRemovalSuccessMessage, showDeviceRemovalErrorMessage } =
         useSnackbarMessages();
 
@@ -42,17 +40,11 @@ const ActionPanelContent = ({
         }
     }, [isSuccess]);
 
-    const handleDownloadMissingFiles = () => {
-        console.log('Downloading files ....');
-        refetchDevices();
-    };
-
     const handleDeleteDevice = async () => {
         try {
             const response = await deleteDevice({ id }).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
                 showDeviceRemovalSuccessMessage();
-                refetchDevices();
             } else {
                 showDeviceRemovalErrorMessage();
             }
@@ -75,9 +67,10 @@ const ActionPanelContent = ({
                 <Button
                     color="primary"
                     variant="contained"
-                    onClick={handleDownloadMissingFiles}
-                    disabled={!missingFiles.length}
+                    disabled={!missingFilesCount}
                     fullWidth
+                    href={getDownloadLink(id)}
+                    download
                 >
                     {t('devices.downloadMissingFiles')}
                 </Button>

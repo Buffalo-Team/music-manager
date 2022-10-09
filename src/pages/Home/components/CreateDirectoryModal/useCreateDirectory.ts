@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
     useCreateFolderMutation,
-    useGetAllFilesQuery,
 } from 'app/api/filesApiSlice';
 import useSnackbarMessages from 'pages/Home/components/CreateDirectoryModal/useSnackbarMessages';
 import { CreateFolderRequestData, ResponseStatus } from 'types';
@@ -17,7 +16,6 @@ const useCreateDirectory = ({ targetFolderId }: Props) => {
     const closeModal = () => setModalOpen(false);
 
     const [createFolder, { isLoading, isSuccess }] = useCreateFolderMutation();
-    const { refetch: refetchFiles } = useGetAllFilesQuery();
     const {
         showDirectoryCreationSuccessMessage,
         showDirectoryCreationErrorMessage,
@@ -41,7 +39,6 @@ const useCreateDirectory = ({ targetFolderId }: Props) => {
             }).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
                 showDirectoryCreationSuccessMessage();
-                refetchFiles();
             } else {
                 showDirectoryCreationErrorMessage();
             }

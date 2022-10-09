@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { FileRejection, FileWithPath } from 'react-dropzone';
-import { useGetAllFilesQuery } from 'app/api/filesApiSlice';
 import { useUploadHandler } from 'pages/Home/components/Dropzone';
 import useSnackbarMessages from '../FilesList/useSnackbarMessages';
 
@@ -12,13 +11,11 @@ const useUploadFiles = ({ targetFolderId }: Props) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [songs, setSongs] = useState<FileWithPath[]>([]);
 
-    const { refetch: refetchFiles } = useGetAllFilesQuery();
     const { showUploadSuccessMessage, showUploadErrorMessage } =
         useSnackbarMessages();
 
     const onUploadSuccess = () => {
         showUploadSuccessMessage();
-        refetchFiles();
         setSongs([]);
     };
 
