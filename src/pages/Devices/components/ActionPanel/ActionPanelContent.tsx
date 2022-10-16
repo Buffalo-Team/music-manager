@@ -30,6 +30,7 @@ const ActionPanelContent = ({
         allocatedMegabytes,
         capacityMegabytes,
         missingFilesCount,
+        isSynchronizationNeeded,
     },
     onClose,
 }: Props) => {
@@ -46,6 +47,7 @@ const ActionPanelContent = ({
         showDeviceMarkingUpToDateErrorMessage,
     } = useSnackbarMessages();
     const { openModal, closeModal } = useConfirmationModal();
+    const hasMissingFiles = !!missingFilesCount || isSynchronizationNeeded;
 
     useEffect(() => {
         if (isSuccess || isMarkingSuccess) {
@@ -95,13 +97,16 @@ const ActionPanelContent = ({
                     allocatedMegabytes={allocatedMegabytes}
                     capacityMegabytes={capacityMegabytes}
                 />
-                {!!missingFilesCount && (
-                    <MissingFilesWarning filesCount={missingFilesCount} />
+                {hasMissingFiles && (
+                    <MissingFilesWarning
+                        filesCount={missingFilesCount}
+                        fullSyncNeeded={isSynchronizationNeeded}
+                    />
                 )}
                 <Button
                     color="primary"
                     variant="contained"
-                    disabled={!missingFilesCount}
+                    disabled={!hasMissingFiles}
                     fullWidth
                     href={getDownloadLink(id)}
                     download
@@ -114,7 +119,7 @@ const ActionPanelContent = ({
                     variant="contained"
                     onClick={handleMarkDeviceAsUpToDate}
                     fullWidth
-                    disabled={!missingFilesCount || isMarkingUpToDate}
+                    disabled={!hasMissingFiles}
                 >
                     {isMarkingUpToDate ? (
                         <Loader />
