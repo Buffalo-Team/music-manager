@@ -155,7 +155,7 @@ const resources = {
                     'Oznaczanie urządzenia jako aktualne zakończone niepowodzeniem',
                 markAsUpToDate: 'Oznacz jako aktualne',
                 isYourDeviceUpToDate:
-                    'Czy Twoje urządzenie jest aktualne? Możesz oznaczyć je jako aktualne później klikając przycisk na panelu urządzenia.',
+                    'Trwa pobieranie pakietu plików. Pakiet zawiera plik wykonywalny. Powinieneś go użyć do ręcznej aktualizacji urządzenia. Po zakończeniu oznacz swoje urządzenie jako aktualne. Możesz to zrobić teraz, klikając przycisk „Potwierdź”, lub później, klikając przycisk „Oznacz jako aktualne” w panelu urządzenia.',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',
