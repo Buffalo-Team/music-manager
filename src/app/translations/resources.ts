@@ -44,6 +44,12 @@ const resources = {
                 deviceDeleted: 'Device has been deleted',
                 deviceDeleteFailed: 'Deleting new device failed',
                 addingDeviceFailed: 'Adding new device failed',
+                deviceMarkedUpToDate: 'Device has been marked as up to date',
+                deviceMarkingUpToDateFailed:
+                    'Marking the device as up to date failed',
+                markAsUpToDate: 'Mark as up to date',
+                isYourDeviceUpToDate:
+                    'Downloading the files package is in progress. It contains an executable file. You should use it to update your device manually. Once it\'s done, you should mark your device as up to date. You can do it now by clicking the "Confirm" button, or mark it later by clicking the "Mark as up to date" button in the device panel.',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -144,6 +150,12 @@ const resources = {
                     'Usuwanie urządzenia zakończone niepowodzeniem',
                 addingDeviceFailed:
                     'Dodawanie nowego urządzenia zakończone niepowodzeniem',
+                deviceMarkedUpToDate: 'Urządzenie oznaczone jako aktualne',
+                deviceMarkingUpToDateFailed:
+                    'Oznaczanie urządzenia jako aktualne zakończone niepowodzeniem',
+                markAsUpToDate: 'Oznacz jako aktualne',
+                isYourDeviceUpToDate:
+                    'Czy Twoje urządzenie jest aktualne? Możesz oznaczyć je jako aktualne później klikając przycisk na panelu urządzenia.',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',

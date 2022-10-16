@@ -25,6 +25,13 @@ export const devicesApiSlice = emptySplitApi.injectEndpoints({
             }),
             invalidatesTags: ['devices'],
         }),
+        markAsUpToDate: builder.mutation<Response, { id: string }>({
+            query: ({ id }) => ({
+                url: `/devices/${id}/markAsUpToDate`,
+                method: 'PATCH',
+            }),
+            invalidatesTags: ['devices'],
+        }),
     }),
 });
 
@@ -32,4 +39,5 @@ export const {
     useAddDeviceMutation,
     useGetAllDevicesQuery,
     useDeleteDeviceMutation,
+    useMarkAsUpToDateMutation,
 } = devicesApiSlice;

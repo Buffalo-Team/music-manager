@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
-import { useDeleteDeviceMutation } from 'app/api/devicesApiSlice';
+import {
+    useDeleteDeviceMutation,
+    useMarkAsUpToDateMutation,
+} from 'app/api/devicesApiSlice';
 import Loader from 'components/Loader';
+import useConfirmationModal from 'hooks/useConfirmationModal';
 import DeviceCapacity from 'pages/Devices/components/DeviceCapacity';
 import DeviceHeader from 'pages/Devices/components/DeviceHeader';
 import MissingFilesWarning from 'pages/Devices/components/MissingFilesWarning';
@@ -31,14 +35,23 @@ const ActionPanelContent = ({
 }: Props) => {
     const { t } = useTranslation();
     const [deleteDevice, { isLoading, isSuccess }] = useDeleteDeviceMutation();
-    const { showDeviceRemovalSuccessMessage, showDeviceRemovalErrorMessage } =
-        useSnackbarMessages();
+    const [
+        markDeviceAsUpToDate,
+        { isLoading: isMarkingUpToDate, isSuccess: isMarkingSuccess },
+    ] = useMarkAsUpToDateMutation();
+    const {
+        showDeviceRemovalSuccessMessage,
+        showDeviceRemovalErrorMessage,
+        showDeviceMarkingUpToDateSuccessMessage,
+        showDeviceMarkingUpToDateErrorMessage,
+    } = useSnackbarMessages();
+    const { openModal, closeModal } = useConfirmationModal();
 
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccess || isMarkingSuccess) {
             onClose();
         }
-    }, [isSuccess]);
+    }, [isSuccess, isMarkingSuccess]);
 
     const handleDeleteDevice = async () => {
         try {
@@ -51,6 +64,27 @@ const ActionPanelContent = ({
         } catch (error) {
             showDeviceRemovalErrorMessage();
         }
+    };
+
+    const handleMarkDeviceAsUpToDate = async () => {
+        try {
+            const response = await markDeviceAsUpToDate({ id }).unwrap();
+            if (response?.status === ResponseStatus.SUCCESS) {
+                showDeviceMarkingUpToDateSuccessMessage();
+                closeModal();
+            } else {
+                showDeviceMarkingUpToDateErrorMessage();
+            }
+        } catch (error) {
+            showDeviceMarkingUpToDateErrorMessage();
+        }
+    };
+
+    const handleUpToDateConfirmation = () => {
+        openModal({
+            message: t('devices.isYourDeviceUpToDate'),
+            onConfirm: () => handleMarkDeviceAsUpToDate(),
+        });
     };
 
     return (
@@ -71,8 +105,22 @@ const ActionPanelContent = ({
                     fullWidth
                     href={getDownloadLink(id)}
                     download
+                    onClick={handleUpToDateConfirmation}
                 >
                     {t('devices.downloadMissingFiles')}
+                </Button>
+                <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={handleMarkDeviceAsUpToDate}
+                    fullWidth
+                    disabled={!missingFilesCount || isMarkingUpToDate}
+                >
+                    {isMarkingUpToDate ? (
+                        <Loader />
+                    ) : (
+                        t('devices.markAsUpToDate')
+                    )}
                 </Button>
             </Styled.ActionPanelContentTopWrapper>
             <Button
