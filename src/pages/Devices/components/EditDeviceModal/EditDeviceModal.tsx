@@ -53,7 +53,9 @@ const EditDeviceModal = ({ open, device, onClose }: Props) => {
                 initialValues: {
                     name: device?.name || '',
                     type: device?.type || DeviceType.CAR,
-                    capacityMegabytes: String(device?.capacityMegabytes || ''),
+                    capacityGigabytes: String(
+                        (device?.capacityMegabytes || 0) / 1024 || ''
+                    ),
                 },
                 validateOnMount: true,
             }}
