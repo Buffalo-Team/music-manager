@@ -4,14 +4,22 @@ import { Device } from 'types';
 import Styled from './ActionPanel.styled';
 
 interface Props {
-    device: Device | null;
+    open: boolean;
+    device?: Device;
     onClose: () => void;
+    onEdit: () => void;
 }
 
-const ActionPanel = ({ device, onClose }: Props) => (
-    <Drawer anchor="right" open={!!device} onClose={onClose}>
+const ActionPanel = ({ open, device, onClose, onEdit }: Props) => (
+    <Drawer anchor="right" open={open} onClose={onClose}>
         <Styled.ActionPanelContainer>
-            {device && <ActionPanelContent device={device} onClose={onClose} />}
+            {device && (
+                <ActionPanelContent
+                    device={device}
+                    onClose={onClose}
+                    onEdit={onEdit}
+                />
+            )}
         </Styled.ActionPanelContainer>
     </Drawer>
 );

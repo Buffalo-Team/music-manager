@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Box } from '@mui/material';
 import { useAddDeviceMutation } from 'app/api/devicesApiSlice';
-import AddDeviceModal from 'pages/Devices/components/AddDevice/AddDeviceModal';
-import { ResponseStatus, AddDeviceRequestData } from 'types';
+import DeviceModalForm from 'pages/Devices/components/DeviceModalForm';
+import { ResponseStatus, DeviceRequestData } from 'types';
 import useSnackbarMessages from './useSnackbarMessages';
 
 const AddDevice = () => {
@@ -16,7 +16,7 @@ const AddDevice = () => {
     const handleOpenModal = () => setOpen(true);
     const handleCloseModal = () => setOpen(false);
 
-    const handleSubmit = async (values: AddDeviceRequestData) => {
+    const handleSubmit = async (values: DeviceRequestData) => {
         try {
             const response = await requestAddDevice(values).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
@@ -44,7 +44,9 @@ const AddDevice = () => {
             >
                 {t('devices.addDevice')}
             </Button>
-            <AddDeviceModal
+            <DeviceModalForm
+                title={t('devices.newDevice')}
+                submitButtonLabel={t('devices.add')}
                 open={open}
                 onClose={handleCloseModal}
                 onSubmit={handleSubmit}

@@ -1,5 +1,5 @@
-import FormValidationSchema from 'pages/Devices/components/AddDevice/FormValidationSchema';
 import { DeviceType } from 'types';
+import FormValidationSchema from './FormValidationSchema';
 
 const FormStaticConfig = {
     initialValues: {

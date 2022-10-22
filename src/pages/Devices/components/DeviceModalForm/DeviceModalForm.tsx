@@ -1,26 +1,40 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikConfig } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Box, Button, InputAdornment } from '@mui/material';
 import FormInputField from 'components/FormInputField';
 import Loader from 'components/Loader';
 import Modal from 'components/Modal';
-import DeviceTypeSelection from 'pages/Devices/components/AddDevice/DeviceTypeSelection';
-import FormStaticConfig from 'pages/Devices/components/AddDevice/FormStaticConfig';
-import { AddDeviceRequestData } from 'types';
+import { DeviceRequestData } from 'types';
+import DeviceTypeSelection from './DeviceTypeSelection';
+import FormStaticConfig from './FormStaticConfig';
 
 interface Props extends WithTranslation {
+    title: string;
+    submitButtonLabel: string;
+    initialValues?: DeviceRequestData;
     open: boolean;
     onClose: () => void;
-    onSubmit: (values: AddDeviceRequestData) => void;
+    onSubmit: (values: DeviceRequestData) => void;
     isLoading?: boolean;
+    formProps?: Partial<FormikConfig<DeviceRequestData>>;
 }
 
-const AddDeviceModal = ({ open, onClose, onSubmit, isLoading, t }: Props) => (
-    <Modal open={open} onClose={onClose} title={t('devices.newDevice')}>
+const DeviceModalForm = ({
+    title,
+    submitButtonLabel,
+    open,
+    onClose,
+    onSubmit,
+    isLoading,
+    t,
+    formProps,
+}: Props) => (
+    <Modal open={open} onClose={onClose} title={title}>
         <Box sx={{ display: 'flex', flex: 1 }}>
-            <Formik<AddDeviceRequestData>
+            <Formik<DeviceRequestData>
                 {...FormStaticConfig}
+                {...formProps}
                 onSubmit={onSubmit}
             >
                 {({
@@ -71,11 +85,7 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading, t }: Props) => (
                             disabled={isLoading || !isValid}
                             sx={{ marginTop: 1 }}
                         >
-                            {isLoading ? (
-                                <Loader />
-                            ) : (
-                                t('devices.add').toUpperCase()
-                            )}
+                            {isLoading ? <Loader /> : submitButtonLabel}
                         </Button>
                     </Box>
                 )}
@@ -84,4 +94,4 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading, t }: Props) => (
     </Modal>
 );
 
-export default withTranslation()(AddDeviceModal);
+export default withTranslation()(DeviceModalForm);
