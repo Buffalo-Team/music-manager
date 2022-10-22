@@ -17,8 +17,12 @@ const AddDevice = () => {
     const handleCloseModal = () => setOpen(false);
 
     const handleSubmit = async (values: AddDeviceRequestData) => {
+        const data = {
+            ...values,
+            capacityMegabytes: Number(values.capacityGigabytes) * 1024,
+        };
         try {
-            const response = await requestAddDevice(values).unwrap();
+            const response = await requestAddDevice(data).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
                 showAddDeviceSuccessMessage();
             } else {

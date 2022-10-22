@@ -12,7 +12,7 @@ const DeviceCapacity = ({ allocatedMegabytes, capacityMegabytes }: Props) => {
     const [{ current, max, unit }, setValues] = useState<CurrentMax>({
         current: 0,
         max: 1,
-        unit: 'MB',
+        unit: 'GB',
     });
     const percentage = (current * 100) / max;
 

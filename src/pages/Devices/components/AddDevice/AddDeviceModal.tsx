@@ -50,19 +50,22 @@ const AddDeviceModal = ({ open, onClose, onSubmit, isLoading, t }: Props) => (
                             sx={{ marginBottom: 1 }}
                         />
                         <FormInputField
-                            name="capacityMegabytes"
-                            touched={touched.capacityMegabytes}
+                            name="capacityGigabytes"
+                            touched={touched.capacityGigabytes}
                             placeholder={t('devices.memorySize')}
                             type="number"
                             min="1"
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        {t('MB')}
+                                        {t('GB')}
                                     </InputAdornment>
                                 ),
                             }}
                             sx={{ marginBottom: 1 }}
+                            inputProps={{
+                                step: 0.5,
+                            }}
                         />
                         <Button
                             type="submit"
