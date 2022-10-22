@@ -17,6 +17,7 @@ import useSnackbarMessages from './useSnackbarMessages';
 interface Props {
     device: Device;
     onClose: () => void;
+    onEdit: () => void;
 }
 
 const getDownloadLink = (deviceId: string) =>
@@ -33,6 +34,7 @@ const ActionPanelContent = ({
         isSynchronizationNeeded,
     },
     onClose,
+    onEdit,
 }: Props) => {
     const { t } = useTranslation();
     const [deleteDevice, { isLoading, isSuccess }] = useDeleteDeviceMutation();
@@ -128,15 +130,26 @@ const ActionPanelContent = ({
                     )}
                 </Button>
             </Styled.ActionPanelContentTopWrapper>
-            <Button
-                color="error"
-                variant="contained"
-                onClick={handleDeleteDevice}
-                fullWidth
-                disabled={isLoading}
-            >
-                {isLoading ? <Loader /> : t('devices.deleteDevice')}
-            </Button>
+            <Styled.ActionPanelContentBottomActionsWrapper>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={onEdit}
+                    fullWidth
+                    disabled={isLoading}
+                >
+                    {t('devices.editDevice')}
+                </Button>
+                <Button
+                    color="error"
+                    variant="contained"
+                    onClick={handleDeleteDevice}
+                    fullWidth
+                    disabled={isLoading}
+                >
+                    {isLoading ? <Loader /> : t('devices.deleteDevice')}
+                </Button>
+            </Styled.ActionPanelContentBottomActionsWrapper>
         </Styled.ActionPanelContentContainer>
     );
 };

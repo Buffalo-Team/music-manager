@@ -1,6 +1,6 @@
 import { DeviceType } from 'types/DeviceType';
 
-export type AddDeviceRequestData = {
+export type DeviceRequestData = {
     name: string;
     type: DeviceType;
     capacityGigabytes: string;

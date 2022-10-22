@@ -1,15 +1,26 @@
-import { Response, Device, AddDeviceRequestData } from 'types';
+import { Response, Device, DeviceRequestData } from 'types';
 import { emptySplitApi } from './emptySplitApi';
 
 export const devicesApiSlice = emptySplitApi.injectEndpoints({
     endpoints: (builder) => ({
         addDevice: builder.mutation<
             { device: Device } & Response,
-            AddDeviceRequestData
+            DeviceRequestData
         >({
             query: (body) => ({
                 url: '/devices',
                 method: 'POST',
+                body,
+            }),
+            invalidatesTags: ['devices'],
+        }),
+        editDevice: builder.mutation<
+            { device: Device } & Response,
+            { id: string } & DeviceRequestData
+        >({
+            query: ({ id, ...body }) => ({
+                url: `/devices/${id}`,
+                method: 'PATCH',
                 body,
             }),
             invalidatesTags: ['devices'],
@@ -37,6 +48,7 @@ export const devicesApiSlice = emptySplitApi.injectEndpoints({
 
 export const {
     useAddDeviceMutation,
+    useEditDeviceMutation,
     useGetAllDevicesQuery,
     useDeleteDeviceMutation,
     useMarkAsUpToDateMutation,

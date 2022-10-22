@@ -23,6 +23,10 @@ const lightTheme = {
         main: '#3B6064',
         contrastText: '#FFFFFF',
     },
+    secondary: {
+        main: '#828282',
+        contrastText: '#FFFFFF',
+    },
     border: {
         neutral: '#E8E8E8',
     },

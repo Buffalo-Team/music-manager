@@ -4,7 +4,7 @@ import { Device } from 'types';
 
 interface Props {
     devices: Device[];
-    activeDevice: Device | null;
+    activeDevice?: Device;
     onDeviceClick: (device: Device) => void;
 }
 

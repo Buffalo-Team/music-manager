@@ -25,6 +25,10 @@ const darkTheme: ThemeType = {
         main: '#418a91',
         contrastText: '#FFFFFF',
     },
+    secondary: {
+        main: '#828282',
+        contrastText: '#FFFFFF',
+    },
     border: {
         neutral: '#E8E8E8',
     },
