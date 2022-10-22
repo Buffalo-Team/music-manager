@@ -10,8 +10,6 @@ const FormStaticConfig = {
         password: '',
     },
     validationSchema: FormValidationSchema,
-    validateOnBlur: true,
-    validateOnChange: false,
 };
 
 export default FormStaticConfig;
