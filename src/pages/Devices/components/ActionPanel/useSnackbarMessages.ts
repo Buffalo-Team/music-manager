@@ -11,9 +11,19 @@ const useSnackbarMessages = () => {
     const showDeviceRemovalErrorMessage = () => {
         dispatch(openSnackbar({ content: t('devices.deviceDeleteFailed') }));
     };
+    const showDeviceMarkingUpToDateSuccessMessage = () => {
+        dispatch(openSnackbar({ content: t('devices.deviceMarkedUpToDate') }));
+    };
+    const showDeviceMarkingUpToDateErrorMessage = () => {
+        dispatch(
+            openSnackbar({ content: t('devices.deviceMarkingUpToDateFailed') })
+        );
+    };
     return {
         showDeviceRemovalSuccessMessage,
         showDeviceRemovalErrorMessage,
+        showDeviceMarkingUpToDateSuccessMessage,
+        showDeviceMarkingUpToDateErrorMessage,
     };
 };
 

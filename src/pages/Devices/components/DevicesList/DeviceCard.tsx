@@ -18,6 +18,7 @@ const DeviceCard = ({ device, onClick, active }: Props) => {
         allocatedMegabytes,
         capacityMegabytes,
         missingFilesCount,
+        isSynchronizationNeeded,
     } = device;
     return (
         <Styled.PaperCard
@@ -27,8 +28,11 @@ const DeviceCard = ({ device, onClick, active }: Props) => {
         >
             <Box>
                 <DeviceHeader type={type} name={name} />
-                {!!missingFilesCount && (
-                    <MissingFilesWarning filesCount={missingFilesCount} />
+                {(!!missingFilesCount || isSynchronizationNeeded) && (
+                    <MissingFilesWarning
+                        filesCount={missingFilesCount}
+                        fullSyncNeeded={isSynchronizationNeeded}
+                    />
                 )}
             </Box>
             <DeviceCapacity

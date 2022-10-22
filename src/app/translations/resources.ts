@@ -38,12 +38,19 @@ const resources = {
                 newDevice: 'New device',
                 add: 'Add',
                 newFilesToDownload: '{{count}} new files to download',
+                fullSynchronizationNeeded: 'Full synchronization needed',
                 downloadMissingFiles: 'Download missing files',
                 deleteDevice: 'Delete the device',
                 newDeviceAdded: 'New device has been added',
                 deviceDeleted: 'Device has been deleted',
                 deviceDeleteFailed: 'Deleting new device failed',
                 addingDeviceFailed: 'Adding new device failed',
+                deviceMarkedUpToDate: 'Device has been marked as up to date',
+                deviceMarkingUpToDateFailed:
+                    'Marking the device as up to date failed',
+                markAsUpToDate: 'Mark as up to date',
+                isYourDeviceUpToDate:
+                    'Downloading the files package is in progress. It contains an executable file. You should use it to update your device manually. Once it\'s done, you should mark your device as up to date. You can do it now by clicking the "Confirm" button, or mark it later by clicking the "Mark as up to date" button in the device panel.',
                 validation: {
                     nameMinLength:
                         'Name should be at least {{length}} characters long',
@@ -136,6 +143,7 @@ const resources = {
                 newDevice: 'Nowe urządzenie',
                 add: 'Dodaj',
                 newFilesToDownload: '{{count}} nowych plików do pobrania',
+                fullSynchronizationNeeded: 'Wymagana pełna synchronizacja',
                 downloadMissingFiles: 'Pobierz brakujące pliki',
                 deleteDevice: 'Usuń urządzenie',
                 newDeviceAdded: 'Dodano nowe urządzenie',
@@ -144,6 +152,12 @@ const resources = {
                     'Usuwanie urządzenia zakończone niepowodzeniem',
                 addingDeviceFailed:
                     'Dodawanie nowego urządzenia zakończone niepowodzeniem',
+                deviceMarkedUpToDate: 'Urządzenie oznaczone jako aktualne',
+                deviceMarkingUpToDateFailed:
+                    'Oznaczanie urządzenia jako aktualne zakończone niepowodzeniem',
+                markAsUpToDate: 'Oznacz jako aktualne',
+                isYourDeviceUpToDate:
+                    'Trwa pobieranie pakietu plików. Pakiet zawiera plik wykonywalny. Powinieneś go użyć do ręcznej aktualizacji urządzenia. Po zakończeniu oznacz swoje urządzenie jako aktualne. Możesz to zrobić teraz, klikając przycisk „Potwierdź”, lub później, klikając przycisk „Oznacz jako aktualne” w panelu urządzenia.',
                 validation: {
                     nameMinLength:
                         'Nazwa powinna mieć co najmniej {{length}} znaki',

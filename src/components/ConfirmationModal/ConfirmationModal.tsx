@@ -21,7 +21,8 @@ const ConfirmationModal = ({
             <Typography
                 variant="regular"
                 sx={{
-                    marginY: 3,
+                    marginTop: 5,
+                    marginBottom: 3,
                 }}
             >
                 {message}
@@ -30,7 +31,8 @@ const ConfirmationModal = ({
                 sx={{
                     marginTop: 1,
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
+                    gap: 1,
                 }}
             >
                 <Button onClick={handleCancel}>{t('cancel')}</Button>

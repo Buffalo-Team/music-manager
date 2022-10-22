@@ -3,9 +3,10 @@ import { Typography } from '@mui/material';
 
 interface Props extends WithTranslation {
     filesCount: number;
+    fullSyncNeeded: boolean;
 }
 
-const MissingFilesWarning = ({ filesCount, t }: Props) => (
+const MissingFilesWarning = ({ filesCount, fullSyncNeeded, t }: Props) => (
     <Typography
         sx={{
             margin: 0,
@@ -15,9 +16,11 @@ const MissingFilesWarning = ({ filesCount, t }: Props) => (
         variant="regular"
         component="p"
     >
-        {t('devices.newFilesToDownload', {
-            count: filesCount,
-        })}
+        {fullSyncNeeded
+            ? t('devices.fullSynchronizationNeeded')
+            : t('devices.newFilesToDownload', {
+                  count: filesCount,
+              })}
     </Typography>
 );
 
