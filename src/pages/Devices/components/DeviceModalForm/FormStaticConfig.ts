@@ -5,11 +5,11 @@ const FormStaticConfig = {
     initialValues: {
         type: DeviceType.CAR,
         name: '',
-        capacityMegabytes: '',
+        capacityGigabytes: '',
     },
     initialErrors: {
         name: '',
-        capacityMegabytes: '',
+        capacityGigabytes: '',
     },
     validationSchema: FormValidationSchema,
     validateOnBlur: true,

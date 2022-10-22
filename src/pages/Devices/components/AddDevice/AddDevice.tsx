@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useAddDeviceMutation } from 'app/api/devicesApiSlice';
 import DeviceModalForm from 'pages/Devices/components/DeviceModalForm';
-import { ResponseStatus, DeviceRequestData } from 'types';
+import { DeviceRequestData, ResponseStatus } from 'types';
 import useSnackbarMessages from './useSnackbarMessages';
 
 const AddDevice = () => {
@@ -17,8 +17,12 @@ const AddDevice = () => {
     const handleCloseModal = () => setOpen(false);
 
     const handleSubmit = async (values: DeviceRequestData) => {
+        const data = {
+            ...values,
+            capacityMegabytes: Number(values.capacityGigabytes) * 1024,
+        };
         try {
-            const response = await requestAddDevice(values).unwrap();
+            const response = await requestAddDevice(data).unwrap();
             if (response?.status === ResponseStatus.SUCCESS) {
                 showAddDeviceSuccessMessage();
             } else {
