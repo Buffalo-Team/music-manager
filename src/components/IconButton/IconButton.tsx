@@ -2,19 +2,32 @@ import React from 'react';
 import { IconButton as IconButtonMUI, IconButtonProps } from '@mui/material';
 
 interface Props extends IconButtonProps {
+    variant?: 'simple' | 'standard';
     active?: boolean;
 }
 
-const IconButton = ({ active, children, sx, ...rest }: Props) => (
+const IconButton = ({
+    active,
+    variant = 'standard',
+    children,
+    sx,
+    ...rest
+}: Props) => (
     <IconButtonMUI
         sx={[
             (theme) => ({
                 ...(active && {
-                    background: theme.palette.primary.main,
-                    '&:hover': {
-                        background: theme.palette.primary.main,
-                    },
-                    color: theme.palette.primary.contrastText,
+                    ...(variant === 'standard'
+                        ? {
+                              background: theme.palette.primary.main,
+                              '&:hover': {
+                                  background: theme.palette.primary.main,
+                              },
+                              color: theme.palette.primary.contrastText,
+                          }
+                        : {
+                              color: theme.palette.primary.main,
+                          }),
                 }),
             }),
             ...(Array.isArray(sx) ? sx : [sx]),

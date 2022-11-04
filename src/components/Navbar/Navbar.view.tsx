@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Box } from '@mui/material';
 import IconButton from 'components/IconButton';
+import MusicPlayerButton from 'components/Navbar/MusicPlayerButton';
 import Styled from './Navbar.styled';
 import NavbarProps from './NavbarProps';
 
@@ -9,8 +10,13 @@ const NavbarView = ({
     activePage,
     onPageSelect,
     menuItems,
-    logout,
+    onLogout,
     className,
+    onToggleMusicPlayer,
+    playerOpened,
+    hasFile,
+    isPlaying,
+    onPlayerClose,
 }: NavbarProps) => (
     <Styled.Container className={className}>
         <Box
@@ -34,9 +40,25 @@ const NavbarView = ({
                 </Box>
             ))}
         </Box>
-        <IconButton onClick={logout}>
-            <LogoutIcon />
-        </IconButton>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: (theme) => theme.spacing(6),
+            }}
+        >
+            {hasFile && (
+                <MusicPlayerButton
+                    active={playerOpened}
+                    playing={isPlaying}
+                    onToggle={onToggleMusicPlayer}
+                    onClose={onPlayerClose}
+                />
+            )}
+            <IconButton onClick={onLogout}>
+                <LogoutIcon />
+            </IconButton>
+        </Box>
     </Styled.Container>
 );
 

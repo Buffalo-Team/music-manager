@@ -1,4 +1,5 @@
 import groupBy from 'lodash/groupBy';
+import sortFiles from 'pages/Home/components/FilesList/sortFiles';
 import { File as ItemFile } from 'types';
 import CurrentLevel from './CurrentLevel';
 
@@ -8,13 +9,7 @@ const filterFilesByParentId = (
 ): CurrentLevel => {
     const items = files
         .filter((file) => file.parentFile === parentFolderId)
-        .sort((f1, f2) => {
-            const isFolderResult = Number(f1.isFolder) - Number(f2.isFolder);
-            if (isFolderResult !== 0) {
-                return isFolderResult;
-            }
-            return f1.name?.toLowerCase().localeCompare(f2.name?.toLowerCase());
-        });
+        .sort(sortFiles);
     return groupBy(items, (i) => (i.isFolder ? 'folders' : 'files'));
 };
 

@@ -20,8 +20,10 @@ declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         small: true;
         regular: true;
+        regularBold: true;
         medium: true;
         large: true;
+        largeBold: true;
     }
 }
 
@@ -45,12 +47,20 @@ const makeThemeTypography = (theme: Theme) =>
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(1.4),
             },
+            regularBold: {
+                fontFamily: 'InterSemiBold',
+                fontSize: theme.spacing(1.4),
+            },
             medium: {
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(1.6),
             },
             large: {
                 fontFamily: 'InterRegular',
+                fontSize: theme.spacing(2),
+            },
+            largeBold: {
+                fontFamily: 'InterSemiBold',
                 fontSize: theme.spacing(2),
             },
         },

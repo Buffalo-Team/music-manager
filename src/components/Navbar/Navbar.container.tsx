@@ -4,8 +4,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import api from 'app/api';
 import { useLogoutMutation } from 'app/api/usersApiSlice';
 import { closeSnackbar, openSnackbar } from 'app/Snackbar/snackbarSlice';
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'app/store';
 import { clearUser } from 'app/User/userSlice';
+import {
+    togglePlayer,
+    clearFiles as clearPlayerFiles,
+} from 'components/MusicPlayer/store/musicPlayerSlice';
 import useIsMobile from 'hooks/useIsMobile';
 import { clearDevices } from 'pages/Devices/store/devicesSlice';
 import { clearFiles } from 'pages/Home/store/filesSlice';
@@ -19,6 +23,9 @@ interface Props {
 
 const NavbarContainer = ({ menuItems }: Props) => {
     const dispatch = useAppDispatch();
+    const { showPlayer, current, playing } = useAppSelector(
+        ({ musicPlayer }) => musicPlayer
+    );
     const { t } = useTranslation();
     const [activePage, setActivePage] = useState<string>(menuItems[0].name);
     const mobile = useIsMobile();
@@ -68,6 +75,14 @@ const NavbarContainer = ({ menuItems }: Props) => {
         setActivePage(name);
     };
 
+    const handleToggleMusicPlayer = () => {
+        dispatch(togglePlayer());
+    };
+
+    const handleClosePlayer = () => {
+        dispatch(clearPlayerFiles());
+    };
+
     const NavbarComponent = mobile ? NavbarMobile : NavbarView;
 
     return (
@@ -75,7 +90,12 @@ const NavbarContainer = ({ menuItems }: Props) => {
             activePage={activePage}
             onPageSelect={handlePageSelect}
             menuItems={menuItems}
-            logout={handleLogout}
+            onLogout={handleLogout}
+            onToggleMusicPlayer={handleToggleMusicPlayer}
+            playerOpened={showPlayer}
+            hasFile={!!current}
+            isPlaying={playing}
+            onPlayerClose={handleClosePlayer}
         />
     );
 };
