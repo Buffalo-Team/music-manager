@@ -7,6 +7,7 @@ const Container = styled('div', {
         position: 'absolute',
         left: 0,
         right: 0,
+        pointerEvents: 'none',
     }),
     bottom: theme.spacing(3),
     display: open ? 'flex' : 'none',
@@ -27,6 +28,7 @@ const WidgetRoot = styled('div', {
             2
         )} ${theme.spacing(2)}`,
         borderRadius: 5,
+        pointerEvents: 'auto',
     }),
 }));
 

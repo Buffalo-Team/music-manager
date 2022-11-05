@@ -32,6 +32,9 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
     const { t } = useTranslation();
     const { openModal, closeModal } = useConfirmationModal();
     const files = useAppSelector(({ files }) => files);
+    const { playing, current } = useAppSelector(
+        ({ musicPlayer }) => musicPlayer
+    );
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
@@ -101,6 +104,14 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
     const handleFolderSelect = (item: ItemFile) => {
         setCurrentLevelFiles(filterFilesByParentId(files, item.id));
         onFolderSelect(item);
+    };
+
+    const handleFileClick = (item: ItemFile) => {
+        if (playing && current?.id === item.id) {
+            handlePauseClick();
+        } else {
+            handlePlayClick(item);
+        }
     };
 
     const handleDrop =
@@ -189,6 +200,7 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
                             onPause={handlePauseClick}
                             onEdit={(values) => handleEdit({ item, values })}
                             isLoading={isUpdating}
+                            onClick={() => handleFileClick(item)}
                         />
                     ))}
                 </Dropzone>
