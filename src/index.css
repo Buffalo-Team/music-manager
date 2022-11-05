@@ -10,3 +10,8 @@ html, body, #root {
     font-family: 'InterRegular';
     src: local('InterRegular'), url(/src/assets/fonts/Inter-Regular.otf) format('opentype');
 }
+
+@font-face {
+    font-family: 'InterSemiBold';
+    src: local('InterSemiBold'), url(/src/assets/fonts/Inter-SemiBold.ttf) format('truetype');
+}

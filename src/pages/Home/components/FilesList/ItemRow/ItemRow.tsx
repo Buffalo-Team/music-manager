@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import FolderIcon from '@mui/icons-material/Folder';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { useAppSelector } from 'app/store';
 import useHover from 'hooks/useHover';
 import FormStaticConfig from 'pages/Home/components/FilesList/ItemRow/FormStaticConfig';
 import ItemActions from 'pages/Home/components/FilesList/ItemRow/ItemActions';
@@ -15,6 +16,8 @@ interface Props {
     item: File;
     onClick?: () => void;
     onDelete: () => void;
+    onPlay?: () => void;
+    onPause?: () => void;
     onEdit: (values: UpdateFileRequestData) => void;
     type: ItemRowType;
     isLoading: boolean;
@@ -30,12 +33,17 @@ const ItemRow = ({
     type,
     onClick,
     onDelete,
-    isLoading,
+    onPlay,
+    onPause,
     onEdit,
+    isLoading,
 }: Props) => {
     const IconComponent = icons[type];
     const [ref, isHovering] = useHover<HTMLDivElement>();
     const [editMode, setEditMode] = useState(false);
+    const { current, playing } = useAppSelector(
+        ({ musicPlayer }) => musicPlayer
+    );
 
     const { filename, extension } = !item.isFolder
         ? splitFilename(item.name)
@@ -81,13 +89,17 @@ const ItemRow = ({
                             )}
                         </Styled.RowContentWrapper>
                         <ItemActions
+                            isFile={!item.isFolder}
                             isEditMode={editMode}
                             isValid={isValid}
                             isHovering={isHovering}
                             isLoading={isLoading}
+                            isPlaying={current?.id === item.id && playing}
                             onCancel={() => setEditMode(false)}
                             onDelete={onDelete}
                             onEdit={() => setEditMode(true)}
+                            onPlay={onPlay}
+                            onPause={onPause}
                         />
                     </Styled.FormContent>
                 )}

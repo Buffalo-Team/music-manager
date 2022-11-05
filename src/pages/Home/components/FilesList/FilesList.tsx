@@ -3,8 +3,13 @@ import { FileRejection } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Box, List } from '@mui/material';
 import { useGetFilesByTargetIdQuery } from 'app/api/filesApiSlice';
-import { useAppSelector } from 'app/store';
+import { useAppDispatch, useAppSelector } from 'app/store';
 import Loader from 'components/Loader';
+import {
+    pause,
+    play,
+    setFiles,
+} from 'components/MusicPlayer/store/musicPlayerSlice';
 import useConfirmationModal from 'hooks/useConfirmationModal';
 import { File as ItemFile, ItemRowType, UpdateFileRequestData } from 'types';
 import Dropzone, { useUploadHandler } from '../Dropzone';
@@ -23,9 +28,13 @@ interface Props {
 }
 
 const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
+    const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const { openModal, closeModal } = useConfirmationModal();
     const files = useAppSelector(({ files }) => files);
+    const { playing, current } = useAppSelector(
+        ({ musicPlayer }) => musicPlayer
+    );
     const [currentLevelFiles, setCurrentLevelFiles] = useState<CurrentLevel>(
         {}
     );
@@ -88,9 +97,21 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
         setCurrentLevelFiles(filterFilesByParentId(files, targetFolder?.id));
     }, [files, targetFolder]);
 
+    useEffect(() => {
+        dispatch(setFiles({ files: files.filter((f) => !f.isFolder) }));
+    }, [files]);
+
     const handleFolderSelect = (item: ItemFile) => {
         setCurrentLevelFiles(filterFilesByParentId(files, item.id));
         onFolderSelect(item);
+    };
+
+    const handleFileClick = (item: ItemFile) => {
+        if (playing && current?.id === item.id) {
+            handlePauseClick();
+        } else {
+            handlePlayClick(item);
+        }
     };
 
     const handleDrop =
@@ -108,6 +129,20 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
             message: t('areYouSure'),
             onConfirm: () => handleDelete(item),
         });
+    };
+
+    const handlePlayClick = (item: ItemFile) => {
+        dispatch(
+            play({
+                files: currentLevelFiles.files,
+                current: item,
+                showPlayer: true,
+            })
+        );
+    };
+
+    const handlePauseClick = () => {
+        dispatch(pause());
     };
 
     const handleEdit = ({
@@ -161,8 +196,11 @@ const FilesList = ({ onFolderSelect, targetFolder, onRefetch }: Props) => {
                             type={ItemRowType.FILE}
                             item={item}
                             onDelete={() => handleDeleteClick(item)}
+                            onPlay={() => handlePlayClick(item)}
+                            onPause={handlePauseClick}
                             onEdit={(values) => handleEdit({ item, values })}
                             isLoading={isUpdating}
+                            onClick={() => handleFileClick(item)}
                         />
                     ))}
                 </Dropzone>

@@ -4,6 +4,7 @@ import api from 'app/api';
 import snackbarReducer from 'app/Snackbar/snackbarSlice';
 import themeReducer from 'app/ThemeProvider/themeSlice';
 import userReducer from 'app/User/userSlice';
+import musicPlayerReducer from 'components/MusicPlayer/store/musicPlayerSlice';
 import devicesReducer from 'pages/Devices/store/devicesSlice';
 import filesReducer from 'pages/Home/store/filesSlice';
 
@@ -14,6 +15,7 @@ export const store = configureStore({
         user: userReducer,
         devices: devicesReducer,
         files: filesReducer,
+        musicPlayer: musicPlayerReducer,
         [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

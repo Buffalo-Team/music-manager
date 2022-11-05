@@ -9,7 +9,12 @@ const NavbarMobile = ({
     activePage,
     onPageSelect,
     menuItems,
-    logout,
+    onLogout,
+    onToggleMusicPlayer,
+    playerOpened,
+    hasFile,
+    isPlaying,
+    onPlayerClose,
 }: NavbarProps) => {
     const [open, setOpen] = useState(false);
 
@@ -41,7 +46,12 @@ const NavbarMobile = ({
                     activePage={activePage}
                     onPageSelect={handlePageSelect}
                     menuItems={menuItems}
-                    logout={logout}
+                    onLogout={onLogout}
+                    onToggleMusicPlayer={onToggleMusicPlayer}
+                    playerOpened={playerOpened}
+                    hasFile={hasFile}
+                    isPlaying={isPlaying}
+                    onPlayerClose={onPlayerClose}
                 />
             </Drawer>
         </>
