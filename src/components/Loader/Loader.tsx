@@ -1,5 +1,5 @@
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface Props extends WithTranslation {
     overlap?: boolean;
@@ -20,7 +20,7 @@ const Loader = ({ overlap, t }: Props) => (
             }),
         }}
     >
-        {t('loading')}
+        <Typography variant="regular">{t('loading')}</Typography>
     </Box>
 );
 

@@ -18,6 +18,7 @@ const menuItems: MenuItem[] = [
         IconComponent: <PeopleIcon />,
         name: 'community',
         link: '/community',
+        disabled: true,
     },
 ];
 

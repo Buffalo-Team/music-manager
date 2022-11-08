@@ -22,6 +22,16 @@ const DeviceTypeSelection = ({ value, onSelect }: Props) => (
         sx={{
             marginX: 5,
             marginBottom: 2,
+            display: 'flex',
+            justifyContent: 'space-between',
+            '.MuiToggleButtonGroup-grouped': {
+                '&:not(:last-of-type)': {
+                    borderRadius: '50%',
+                },
+                '&:not(:first-of-type)': {
+                    borderRadius: '50%',
+                },
+            },
         }}
     >
         {Object.entries(deviceIcons)

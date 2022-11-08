@@ -1,3 +1,4 @@
+import { NavLink as RouterNavLink } from 'react-router-dom';
 import { styled } from '@mui/material';
 import NavbarView from './Navbar.view';
 
@@ -75,11 +76,16 @@ const MusicBar = styled('span', {
     }),
 }));
 
+const NavLink = styled(RouterNavLink)(() => ({
+    padding: '8px',
+}));
+
 const Styled = {
     Container,
     NavbarViewMobile,
     MusicBarsContainer,
     MusicBar,
+    NavLink,
 };
 
 export default Styled;

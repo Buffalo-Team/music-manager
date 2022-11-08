@@ -14,6 +14,7 @@ const login = {
         signUpFailed: 'Rejestracja zakończona niepowodzeniem',
         surname: 'Nazwisko',
         welcome: 'Witamy w Menedżerze Muzyki!',
+        logOut: 'Wyloguj',
         validation: {
             emailMustBeValid: 'Email musi być prawidłowy',
             nameMaxLength: 'Imię nie powinno mieć więcej niż {{length}} znaków',

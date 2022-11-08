@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box } from '@mui/material';
 import IconButton from 'components/IconButton';
 import MusicPlayerButton from 'components/Navbar/MusicPlayerButton';
@@ -10,7 +10,6 @@ const NavbarView = ({
     activePage,
     onPageSelect,
     menuItems,
-    onLogout,
     className,
     onToggleMusicPlayer,
     playerOpened,
@@ -27,16 +26,35 @@ const NavbarView = ({
                 <Box
                     component="li"
                     key={i.name}
-                    sx={{ marginBottom: (theme) => theme.spacing(4) }}
+                    sx={{
+                        marginBottom: (theme) => theme.spacing(4),
+                        '& a': {
+                            display: 'flex',
+                            '&:visited': {
+                                color: (theme) => theme.palette.grey[100],
+                                ...(i.name === activePage && {
+                                    color: (theme) =>
+                                        theme.palette.primary.contrastText,
+                                }),
+                                ...(i.disabled && {
+                                    color: (theme) => theme.palette.grey[50],
+                                }),
+                            },
+                        },
+                    }}
                 >
-                    <NavLink to={i.link}>
-                        <IconButton
-                            active={i.name === activePage}
-                            onClick={() => onPageSelect(i.name)}
-                        >
+                    <IconButton
+                        active={i.name === activePage}
+                        onClick={() => onPageSelect(i.name)}
+                        disabled={i.disabled}
+                        sx={{
+                            padding: 0,
+                        }}
+                    >
+                        <Styled.NavLink to={i.link}>
                             {i.IconComponent}
-                        </IconButton>
-                    </NavLink>
+                        </Styled.NavLink>
+                    </IconButton>
                 </Box>
             ))}
         </Box>
@@ -44,7 +62,6 @@ const NavbarView = ({
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: (theme) => theme.spacing(6),
             }}
         >
             {hasFile && (
@@ -55,9 +72,14 @@ const NavbarView = ({
                     onClose={onPlayerClose}
                 />
             )}
-            <IconButton onClick={onLogout}>
-                <LogoutIcon />
-            </IconButton>
+            <NavLink to="/user">
+                <IconButton
+                    active={'user' === activePage}
+                    onClick={() => onPageSelect('user')}
+                >
+                    <AccountCircleIcon />
+                </IconButton>
+            </NavLink>
         </Box>
     </Styled.Container>
 );

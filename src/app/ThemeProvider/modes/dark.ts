@@ -30,12 +30,12 @@ const darkTheme: ThemeType = {
         contrastText: '#FFFFFF',
     },
     border: {
-        neutral: '#E8E8E8',
+        neutral: '#474747',
     },
     grey: {
-        50: '#e0e0e0',
+        50: '#404040',
         100: '#adadad',
-        200: '#828282',
+        200: '#e0e0e0',
     },
 };
 

@@ -6,6 +6,7 @@ import ProtectedRoute from 'components/ProtectedRoute';
 import Community from 'pages/Community';
 import Devices from 'pages/Devices';
 import Home from 'pages/Home';
+import User from 'pages/User';
 
 const Routes = () => (
     <ReactRouterRoutes>
@@ -19,6 +20,7 @@ const Routes = () => (
             <Route path="/" element={<Home />} />
             <Route path="devices" element={<Devices />} />
             <Route path="community" element={<Community />} />
+            <Route path="user" element={<User />} />
             <Route path="*" element={<NotFound />} />
         </Route>
     </ReactRouterRoutes>

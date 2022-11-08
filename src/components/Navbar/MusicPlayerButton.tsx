@@ -13,6 +13,7 @@ interface Props {
 const MusicPlayerButton = ({ active, playing, onToggle, onClose }: Props) => (
     <Badge
         sx={{
+            marginBottom: (theme) => theme.spacing(6),
             '& .MuiBadge-badge': {
                 width: 20,
                 height: 20,

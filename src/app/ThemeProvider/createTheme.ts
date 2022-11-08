@@ -42,26 +42,32 @@ const makeThemeTypography = (theme: Theme) =>
             small: {
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(1.2),
+                color: theme.palette.text.primary,
             },
             regular: {
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(1.4),
+                color: theme.palette.text.primary,
             },
             regularBold: {
                 fontFamily: 'InterSemiBold',
                 fontSize: theme.spacing(1.4),
+                color: theme.palette.text.primary,
             },
             medium: {
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(1.6),
+                color: theme.palette.text.primary,
             },
             large: {
                 fontFamily: 'InterRegular',
                 fontSize: theme.spacing(2),
+                color: theme.palette.text.primary,
             },
             largeBold: {
                 fontFamily: 'InterSemiBold',
                 fontSize: theme.spacing(2),
+                color: theme.palette.text.primary,
             },
         },
     });
@@ -81,22 +87,6 @@ const createTheme = (mode: PaletteMode = 'dark') => {
                 styleOverrides: {
                     root: {
                         minWidth: theme.spacing(15),
-                    },
-                },
-            },
-            MuiToggleButtonGroup: {
-                styleOverrides: {
-                    root: {
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                    },
-                    grouped: {
-                        '&:not(:last-of-type)': {
-                            borderRadius: '50%',
-                        },
-                        '&:not(:first-of-type)': {
-                            borderRadius: '50%',
-                        },
                     },
                 },
             },

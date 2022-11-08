@@ -9,5 +9,5 @@ export const emptySplitApi = createApi({
         credentials: 'include',
     }),
     endpoints: () => ({}),
-    tagTypes: ['devices', 'files'],
+    tagTypes: ['devices', 'files', 'user'],
 });

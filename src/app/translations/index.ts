@@ -1,1 +1,1 @@
-export { default } from './i18n';
+export { default, supportedLanguages } from './i18n';
