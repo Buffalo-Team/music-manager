@@ -52,7 +52,7 @@ const MusicBar = styled('span', {
     width: '5px',
     height: '100%',
     backgroundColor: active
-        ? theme.palette.background.primary
+        ? theme.palette.primary.contrastText
         : theme.palette.grey[200],
     borderRadius: '3px',
     transformOrigin: 'bottom',
