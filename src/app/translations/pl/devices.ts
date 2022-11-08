@@ -10,6 +10,8 @@ const devices = {
         deviceMarkedUpToDate: 'Urządzenie oznaczone jako aktualne',
         deviceMarkingUpToDateFailed:
             'Oznaczanie urządzenia jako aktualne zakończone niepowodzeniem',
+        downloadingMissingFilesFailed:
+            'Pobieranie brakujących plików zakończone niepowodzeniem',
         deviceUpdated: 'Zaktualizowano urządzenie',
         downloadMissingFiles: 'Pobierz brakujące pliki',
         edit: 'Edytuj',

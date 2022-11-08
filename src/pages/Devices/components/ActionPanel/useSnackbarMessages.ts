@@ -9,14 +9,30 @@ const useSnackbarMessages = () => {
         dispatch(openSnackbar({ content: t('devices.deviceDeleted') }));
     };
     const showDeviceRemovalErrorMessage = () => {
-        dispatch(openSnackbar({ content: t('devices.deviceDeleteFailed') }));
+        dispatch(
+            openSnackbar({
+                content: t('devices.deviceDeleteFailed'),
+                severity: 'error',
+            })
+        );
     };
     const showDeviceMarkingUpToDateSuccessMessage = () => {
         dispatch(openSnackbar({ content: t('devices.deviceMarkedUpToDate') }));
     };
     const showDeviceMarkingUpToDateErrorMessage = () => {
         dispatch(
-            openSnackbar({ content: t('devices.deviceMarkingUpToDateFailed') })
+            openSnackbar({
+                content: t('devices.deviceMarkingUpToDateFailed'),
+                severity: 'error',
+            })
+        );
+    };
+    const showDownloadErrorMessage = () => {
+        dispatch(
+            openSnackbar({
+                content: t('devices.downloadingMissingFilesFailed'),
+                severity: 'error',
+            })
         );
     };
     return {
@@ -24,6 +40,7 @@ const useSnackbarMessages = () => {
         showDeviceRemovalErrorMessage,
         showDeviceMarkingUpToDateSuccessMessage,
         showDeviceMarkingUpToDateErrorMessage,
+        showDownloadErrorMessage,
     };
 };
 
