@@ -106,8 +106,9 @@ const UserDetails = () => {
                         loading={isLoadingName}
                         onUpdate={updateName}
                     >
-                        {(value) => (
+                        {(name, value) => (
                             <Typography
+                                key={name}
                                 variant="largeBold"
                                 sx={{ marginY: 0.5 }}
                             >

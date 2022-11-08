@@ -18,7 +18,7 @@ interface Props<T> {
     }[];
     loading: boolean;
     onUpdate: (data: T, onSuccess: () => void) => void;
-    children: (value?: string) => ReactNode;
+    children: (name?: string, value?: string) => ReactNode;
 }
 
 const EditableFields = <T extends FormikValues>({
@@ -81,7 +81,7 @@ const EditableFields = <T extends FormikValues>({
                     >
                         {fields.map(({ name, value, InputProps }) =>
                             !editMode ? (
-                                children(value)
+                                children(name, value)
                             ) : (
                                 <FormInputField
                                     key={name}
