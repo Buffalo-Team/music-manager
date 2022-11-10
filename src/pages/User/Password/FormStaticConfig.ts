@@ -1,19 +1,17 @@
-import { TFunction } from 'react-i18next';
 import FormValidationSchema from './FormValidationSchema';
 
-const FormStaticConfig = (t: TFunction) => ({
+const FormStaticConfig = {
     initialValues: {
-        name: t('files.newFolder'),
-        isPrivate: true,
+        password: '',
+        passwordConfirm: '',
     },
     initialErrors: {
-        name: '',
-        isPrivate: '',
+        password: '',
+        passwordConfirm: '',
     },
-    validateOnMount: true,
     validationSchema: FormValidationSchema,
     validateOnBlur: true,
     validateOnChange: false,
-});
+};
 
 export default FormStaticConfig;

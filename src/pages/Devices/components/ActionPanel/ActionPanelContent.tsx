@@ -150,8 +150,8 @@ const ActionPanelContent = ({
             </Styled.ActionPanelContentTopWrapper>
             <Styled.ActionPanelContentBottomActionsWrapper>
                 <Button
-                    color="secondary"
-                    variant="contained"
+                    color="primary"
+                    variant="outlined"
                     onClick={onEdit}
                     fullWidth
                     disabled={isLoading}

@@ -9,7 +9,6 @@ const NavbarMobile = ({
     activePage,
     onPageSelect,
     menuItems,
-    onLogout,
     onToggleMusicPlayer,
     playerOpened,
     hasFile,
@@ -46,7 +45,6 @@ const NavbarMobile = ({
                     activePage={activePage}
                     onPageSelect={handlePageSelect}
                     menuItems={menuItems}
-                    onLogout={onLogout}
                     onToggleMusicPlayer={onToggleMusicPlayer}
                     playerOpened={playerOpened}
                     hasFile={hasFile}

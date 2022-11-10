@@ -1,4 +1,4 @@
-import { Box, Slider } from '@mui/material';
+import { Box, Slider, Typography } from '@mui/material';
 
 interface Props {
     currentTime: number;
@@ -36,8 +36,8 @@ const Progress = ({ currentTime, length, onChange }: Props) => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Box>{currentTimeString}</Box>
-                <Box>{maxTimeString}</Box>
+                <Typography variant="regular">{currentTimeString}</Typography>
+                <Typography variant="regular">{maxTimeString}</Typography>
             </Box>
         </Box>
     );

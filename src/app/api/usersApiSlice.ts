@@ -29,6 +29,26 @@ export const usersApiSlice = emptySplitApi.injectEndpoints({
                 body,
             }),
         }),
+        getUserById: builder.query<
+            { user: User | null } & Response,
+            { id: string }
+        >({
+            query: ({ id }) => `/users/${id}`,
+            providesTags: (result, error, { id }) => [
+                { type: 'user' as const, id },
+            ],
+        }),
+        updateUser: builder.mutation<
+            Response,
+            { id?: string } & Partial<SignUpData>
+        >({
+            query: ({ id = '', ...body }) => ({
+                url: `/users/${id}`,
+                method: 'PATCH',
+                body,
+            }),
+            invalidatesTags: (result, error, { id }) => [{ type: 'user', id }],
+        }),
     }),
 });
 
@@ -37,4 +57,6 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useSignUpMutation,
+    useUpdateUserMutation,
+    useGetUserByIdQuery,
 } = usersApiSlice;

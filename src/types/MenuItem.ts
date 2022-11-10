@@ -4,4 +4,5 @@ export type MenuItem = {
     IconComponent: React.ReactNode;
     name: string;
     link: string;
+    disabled?: boolean;
 };

@@ -27,6 +27,7 @@ const FormInputField = ({
                     inputProps={{ ...field, ...inputProps }}
                     sx={{ display: 'flex', flex: 1 }}
                     error={touched && !!meta.error}
+                    value={meta.value}
                     {...rest}
                 />
             )}

@@ -14,6 +14,7 @@ const login = {
         signUpFailed: 'Sign up failed',
         surname: 'Surname',
         welcome: 'Welcome to Music Manager!',
+        logOut: 'Log out',
         validation: {
             emailMustBeValid: 'Email must be valid',
             nameMaxLength:

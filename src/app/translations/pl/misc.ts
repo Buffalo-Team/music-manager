@@ -5,6 +5,7 @@ const misc = {
     fieldRequired: 'Pole jest wymagane',
     GB: 'GB',
     loading: 'Ładowanie...',
+    save: 'Zapisz',
 };
 
 export default misc;

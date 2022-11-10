@@ -14,7 +14,10 @@ interface Props extends WithTranslation {
 }
 
 const CreateDirectoryForm = ({ onSubmit, isLoading, t }: Props) => (
-    <Formik<CreateFolderRequestData> {...FormStaticConfig} onSubmit={onSubmit}>
+    <Formik<CreateFolderRequestData>
+        {...FormStaticConfig(t)}
+        onSubmit={onSubmit}
+    >
         {({ touched, handleSubmit, isValid }) => (
             <Styled.Form onSubmit={handleSubmit}>
                 <FormInputField

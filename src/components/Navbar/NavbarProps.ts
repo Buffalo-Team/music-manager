@@ -4,7 +4,6 @@ interface NavbarProps {
     activePage: string;
     onPageSelect: (name: string) => void;
     menuItems: MenuItem[];
-    onLogout: () => void;
     className?: string;
     onToggleMusicPlayer: () => void;
     playerOpened: boolean;
