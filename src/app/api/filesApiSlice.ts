@@ -1,4 +1,9 @@
-import { CreateFolderRequestData, Response, File as ItemFile } from 'types';
+import {
+    CreateFolderRequestData,
+    File as ItemFile,
+    Response,
+    ResponseStatus,
+} from 'types';
 import { UpdateFileRequestData } from 'types/UpdateFileRequestData';
 import { emptySplitApi } from './emptySplitApi';
 
@@ -67,6 +72,28 @@ export const filesApiSlice = emptySplitApi.injectEndpoints({
                 'devices',
             ],
         }),
+        downloadMissingFiles: builder.mutation<any, { deviceId: string }>({
+            queryFn: async ({ deviceId }, api, extraOptions, baseQuery) => {
+                const result: any = await baseQuery({
+                    url: `/devices/${deviceId}/downloadMissingFiles`,
+                    responseHandler: (response) => response.blob(),
+                });
+                const hiddenElement = document.createElement('a');
+                const url = window.URL || window.webkitURL;
+                hiddenElement.href = url.createObjectURL(result.data);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = `missing_files_${new Date().getTime()}.zip`;
+                hiddenElement.click();
+                return {
+                    data: {
+                        status:
+                            result.meta.response.status === 200
+                                ? ResponseStatus.SUCCESS
+                                : ResponseStatus.ERROR,
+                    },
+                } as any;
+            },
+        }),
     }),
 });
 
@@ -76,4 +103,5 @@ export const {
     useDeleteFileMutation,
     useCreateFolderMutation,
     useUpdateFileMutation,
+    useDownloadMissingFilesMutation,
 } = filesApiSlice;

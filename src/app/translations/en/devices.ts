@@ -9,6 +9,7 @@ const devices = {
         deviceDeleteFailed: 'Deleting new device failed',
         deviceMarkedUpToDate: 'Device has been marked as up to date',
         deviceMarkingUpToDateFailed: 'Marking the device as up to date failed',
+        downloadingMissingFilesFailed: 'Downloading missing files failed',
         deviceUpdated: 'The device has been updated',
         downloadMissingFiles: 'Download missing files',
         edit: 'Edit',

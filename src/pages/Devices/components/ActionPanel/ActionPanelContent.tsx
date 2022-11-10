@@ -5,6 +5,7 @@ import {
     useDeleteDeviceMutation,
     useMarkAsUpToDateMutation,
 } from 'app/api/devicesApiSlice';
+import { useDownloadMissingFilesMutation } from 'app/api/filesApiSlice';
 import Loader from 'components/Loader';
 import useConfirmationModal from 'hooks/useConfirmationModal';
 import DeviceCapacity from 'pages/Devices/components/DeviceCapacity';
@@ -19,9 +20,6 @@ interface Props {
     onClose: () => void;
     onEdit: () => void;
 }
-
-const getDownloadLink = (deviceId: string) =>
-    `${process.env.REACT_APP_BASE_API_URL}/devices/${deviceId}/downloadMissingFiles`;
 
 const ActionPanelContent = ({
     device: {
@@ -42,11 +40,14 @@ const ActionPanelContent = ({
         markDeviceAsUpToDate,
         { isLoading: isMarkingUpToDate, isSuccess: isMarkingSuccess },
     ] = useMarkAsUpToDateMutation();
+    const [downloadMissingFiles, { isLoading: isDownloading }] =
+        useDownloadMissingFilesMutation();
     const {
         showDeviceRemovalSuccessMessage,
         showDeviceRemovalErrorMessage,
         showDeviceMarkingUpToDateSuccessMessage,
         showDeviceMarkingUpToDateErrorMessage,
+        showDownloadErrorMessage,
     } = useSnackbarMessages();
     const { openModal, closeModal } = useConfirmationModal();
     const hasMissingFiles = !!missingFilesCount || isSynchronizationNeeded;
@@ -84,6 +85,21 @@ const ActionPanelContent = ({
         }
     };
 
+    const handleDownloadMissingFiles = async () => {
+        try {
+            const response = await downloadMissingFiles({
+                deviceId: id,
+            }).unwrap();
+            if (response?.status === ResponseStatus.SUCCESS) {
+                handleUpToDateConfirmation();
+            } else {
+                showDownloadErrorMessage();
+            }
+        } catch (error) {
+            showDownloadErrorMessage();
+        }
+    };
+
     const handleUpToDateConfirmation = () => {
         openModal({
             message: t('devices.isYourDeviceUpToDate'),
@@ -108,13 +124,15 @@ const ActionPanelContent = ({
                 <Button
                     color="primary"
                     variant="contained"
-                    disabled={!hasMissingFiles}
+                    disabled={!hasMissingFiles || isDownloading}
                     fullWidth
-                    href={getDownloadLink(id)}
-                    download
-                    onClick={handleUpToDateConfirmation}
+                    onClick={handleDownloadMissingFiles}
                 >
-                    {t('devices.downloadMissingFiles')}
+                    {isDownloading ? (
+                        <Loader />
+                    ) : (
+                        t('devices.downloadMissingFiles')
+                    )}
                 </Button>
                 <Button
                     color="primary"
